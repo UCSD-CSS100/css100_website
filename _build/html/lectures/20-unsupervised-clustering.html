@@ -1,0 +1,1476 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Unsupervised clustering &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/20-unsupervised-clustering';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Model evaluation" href="19-evaluation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/20-unsupervised-clustering.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/20-unsupervised-clustering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Unsupervised clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-approaches-an-introduction">Unsupervised approaches: an introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-unsupervised-learning">Why unsupervised learning?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-challenge-of-unsupervised-learning">The challenge of unsupervised learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning-in-action">Unsupervised learning in action</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-k-means-clustering">Introducing <span class="math notranslate nohighlight">\(K\)</span>-means clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-within-cluster-variation">Defining within-cluster variation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-k-means-algorithm">The <span class="math notranslate nohighlight">\(K\)</span>-means algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-in-practice"><span class="math notranslate nohighlight">\(K\)</span>-means in practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-determine-k">Step 1: determine <span class="math notranslate nohighlight">\(K\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-randomly-assign-points-to-clusters">Step 2: Randomly assign points to clusters</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3a-calculate-cluster-centroids">Step 3a: Calculate cluster centroids</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaying-cluster-centroids">Overlaying cluster centroids…</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3b-reassign-points">Step 3b: reassign points</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3a-re-compute-centroids">Step 3a: Re-compute centroids</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaying-cluster-centroids-again">Overlaying cluster centroids (again)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-with-sklearn"><span class="math notranslate nohighlight">\(K\)</span>-means with <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#replicating-analysis-with-kmeans">Replicating analysis with <code class="docutils literal notranslate"><span class="pre">KMeans</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-to-the-iris-dataset">Applying to the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-with-k-2">Clustering with <span class="math notranslate nohighlight">\(K = 2\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-with-k-3">Clustering with <span class="math notranslate nohighlight">\(K = 3\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#how-did-we-do">How did we do?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-the-optimal-k">Determining the optimal <span class="math notranslate nohighlight">\(K\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptual-issue-lumpers-vs-splitters">Conceptual issue: lumpers vs. splitters</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approach-1-elbow-method">Approach 1: Elbow method</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#elbow-method-in-practice-pt-1">Elbow method in practice (pt. 1)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#elbow-method-in-practice-pt-2">Elbow method in practice (pt. 2)</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approach-2-silhouette-analysis">Approach 2: Silhouette analysis</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-analysis-in-sklearn-pt-1">Silhouette analysis in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-analysis-in-sklearn-pt-2">Silhouette analysis in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (pt. 2)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-k-means">Limitations of <span class="math notranslate nohighlight">\(K\)</span>-means</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clusters-aren-t-always-spheroidal">Clusters aren’t always spheroidal!</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kmeans-falters-with-non-spheroidal-data"><code class="docutils literal notranslate"><span class="pre">KMeans</span></code> falters with non-spheroidal data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-beyond-k-means">Clustering beyond <span class="math notranslate nohighlight">\(K\)</span>-means</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="unsupervised-clustering">
+<h1>Unsupervised clustering<a class="headerlink" href="#unsupervised-clustering" title="Permalink to this heading">#</a></h1>
+<section id="libraries">
+<h2>Libraries<a class="headerlink" href="#libraries" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # makes figs nicer!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Introducing <strong>unsupervised approaches</strong>: dealing with <em>unlabeled data</em>.</p></li>
+<li><p>Finding structure with <strong>K-means clustering</strong>.</p></li>
+</ul>
+</section>
+<section id="unsupervised-approaches-an-introduction">
+<h2>Unsupervised approaches: an introduction<a class="headerlink" href="#unsupervised-approaches-an-introduction" title="Permalink to this heading">#</a></h2>
+<p>Broadly, statistical modeling approaches can be either:</p>
+<ul class="simple">
+<li><p><strong>Supervised</strong>: learn from some function <span class="math notranslate nohighlight">\(f\)</span> mapping <strong>features</strong> to <strong>labels</strong> (<span class="math notranslate nohighlight">\(Y\)</span>) <span class="math notranslate nohighlight">\(X\)</span> t<span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><strong>Unsupervised</strong>: learning some function <span class="math notranslate nohighlight">\(f\)</span> finding structure in <strong>features</strong>, <em>without</em> labels.</p></li>
+</ul>
+<p>So far, all the models we’ve discussed (e.g., linear regression, logistic regression), have been <em>supervised</em>.</p>
+<section id="why-unsupervised-learning">
+<h3>Why unsupervised learning?<a class="headerlink" href="#why-unsupervised-learning" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>In <a class="reference external" href="https://en.wikipedia.org/wiki/Unsupervised_learning"><strong>unsupervised learning</strong></a>, a model learns patterns from unlabeled data.</p>
+</div></blockquote>
+<p>This is useful for a few reasons:</p>
+<ul class="simple">
+<li><p>It’s <strong>practical</strong>: doesn’t require defining or acquiring <em>labels</em> for data.</p></li>
+<li><p>It’s <strong>conceptually interesting</strong>: humans (arguably) don’t have direct, supervised feedback.</p>
+<ul>
+<li><p>Labels or categories often <strong>emerge</strong> from exposure to data––they don’t exist <em>a priori</em>.</p></li>
+</ul>
+</li>
+<li><p>It’s <strong>helpful</strong>: unsupervised approaches help identify <em>structure</em> in a dataset.</p>
+<ul>
+<li><p>Useful for <strong>exploratory data analysis</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="the-challenge-of-unsupervised-learning">
+<h3>The challenge of unsupervised learning<a class="headerlink" href="#the-challenge-of-unsupervised-learning" title="Permalink to this heading">#</a></h3>
+<p>Supervised learning is straightforward:</p>
+<ul class="simple">
+<li><p>Clear <em>goal</em>: predict <span class="math notranslate nohighlight">\(Y\)</span> from <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+<li><p>Clear <em>evaluation metric</em>: how well did we predict <span class="math notranslate nohighlight">\(Y\)</span>?</p></li>
+</ul>
+<p>Unsupervised learning is harder to define:</p>
+<ul class="simple">
+<li><p>What is our <strong>goal</strong>?</p></li>
+<li><p>How do we <strong>check our work</strong>?</p></li>
+</ul>
+</section>
+<section id="unsupervised-learning-in-action">
+<h3>Unsupervised learning in action<a class="headerlink" href="#unsupervised-learning-in-action" title="Permalink to this heading">#</a></h3>
+<p>Despite these challenges, unsupervised learning is of <em>growing importance</em> to computational researchers.</p>
+<p>Many examples of its use:</p>
+<ul class="simple">
+<li><p>Clustering <em>cells</em> on their <em>gene expressions</em> to identify different <strong>cancer subtypes</strong>.</p></li>
+<li><p>Identify <em>groups</em> of shoppers based on <em>shopping habits</em> to develop different <strong>advertising schemes</strong>.</p></li>
+<li><p>Clustering <em>word uses</em> (e.g., “river bank” vs. “financial bank”) to identify <strong>distinct meanings</strong>.</p></li>
+</ul>
+</section>
+</section>
+<section id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Clustering</strong> refers to any approach towards finding <em>sub-groups</em> (i.e., “clusters”) in a dataset.</p>
+</div></blockquote>
+<p>Basic goal:</p>
+<ul class="simple">
+<li><p>Put observations <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span> in the same cluster if similar.</p></li>
+<li><p>Put observations <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span> in different clusters if they are different.</p></li>
+</ul>
+<p>Of course, this requires <strong>defining</strong> what makes two observations similar or different.</p>
+<section id="introducing-k-means-clustering">
+<h3>Introducing <span class="math notranslate nohighlight">\(K\)</span>-means clustering<a class="headerlink" href="#introducing-k-means-clustering" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://en.wikipedia.org/wiki/K-means_clustering"><strong>K-means clustering</strong></a> is a clustering approach that aims to partition <span class="math notranslate nohighlight">\(n\)</span> observations into <span class="math notranslate nohighlight">\(k\)</span> <em>non-overlapping</em> clusters.</p>
+</div></blockquote>
+<p>Ideally, we would like to do this in a way that <strong>minimizes</strong> within-cluster variation.</p>
+<p><strong>Check-in</strong>: What’s one intuitive way we could <strong>define</strong> within-cluster variation?</p>
+<section id="defining-within-cluster-variation">
+<h4>Defining within-cluster variation<a class="headerlink" href="#defining-within-cluster-variation" title="Permalink to this heading">#</a></h4>
+<p>A simple way to define within-cluster variation is as follows:</p>
+<p><span class="math notranslate nohighlight">\(\Large \frac{1}{n}*\sum_i(x_i - \bar{x_i})^2\)</span></p>
+<p>This is the <strong>average squared distance</strong> of each point from the mean of that cluster.</p>
+<p>Basic intuition:</p>
+<ul class="simple">
+<li><p>A “good” cluster is one with low variance.</p></li>
+<li><p>A “bad” cluster is one which has high variance.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-k-means-algorithm">
+<h3>The <span class="math notranslate nohighlight">\(K\)</span>-means algorithm<a class="headerlink" href="#the-k-means-algorithm" title="Permalink to this heading">#</a></h3>
+<p>There are many ways to partition <span class="math notranslate nohighlight">\(n\)</span> points into <span class="math notranslate nohighlight">\(k\)</span> groups.</p>
+<p>The <span class="math notranslate nohighlight">\(K\)</span>-means algorithm gives us a <strong>“local optimum”</strong>––not perfect, but pretty good.</p>
+<ul class="simple">
+<li><p>Start by determining desired number of clusters (<span class="math notranslate nohighlight">\(k\)</span>).</p></li>
+<li><p>Then, randomly assign each observation to a random cluster <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p>Now, iterate until the cluster assignment stops changing…</p>
+<ul>
+<li><p>For each cluster <span class="math notranslate nohighlight">\(k\)</span>, compute the <strong>centroid</strong> (the mean)</p></li>
+<li><p>Assign each observation to the cluster whose centroid is <em>closest</em> (using Euclidean distance).</p></li>
+</ul>
+</li>
+</ul>
+<p>After many <strong>iterations</strong>, this algorithm converges onto a locally optimal solution.</p>
+</section>
+<section id="k-means-in-practice">
+<h3><span class="math notranslate nohighlight">\(K\)</span>-means in practice<a class="headerlink" href="#k-means-in-practice" title="Permalink to this heading">#</a></h3>
+<p>To illustrate <span class="math notranslate nohighlight">\(K\)</span>-means, we’ll <em>code it from scratch</em>. First, we’ll generate a small dataset for demonstration purposes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span> <span class="c1">### easy way to make clusters</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x1607753d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/1943a1efcea43a45e354cfd10413bf23ac8b38bf6751ffae35060c118e111803.png" src="../_images/1943a1efcea43a45e354cfd10413bf23ac8b38bf6751ffae35060c118e111803.png" />
+</div>
+</div>
+<section id="step-1-determine-k">
+<h4>Step 1: determine <span class="math notranslate nohighlight">\(K\)</span><a class="headerlink" href="#step-1-determine-k" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The first step is determining the <strong>number of clusters</strong>.</p></li>
+<li><p>This is not a trivial step––but one approach is to <em>start small</em>, e.g., <span class="math notranslate nohighlight">\(K = 2\)</span>.</p>
+<ul>
+<li><p>Ideally, we could test multiple values of <span class="math notranslate nohighlight">\(K\)</span>, and test which is <strong>optimal</strong>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Let’s set <span class="math notranslate nohighlight">\(K = 2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-randomly-assign-points-to-clusters">
+<h4>Step 2: Randomly assign points to clusters<a class="headerlink" href="#step-2-randomly-assign-points-to-clusters" title="Permalink to this heading">#</a></h4>
+<p>Now, we randomly assign either a <code class="docutils literal notranslate"><span class="pre">0</span></code> or a <code class="docutils literal notranslate"><span class="pre">1</span></code> to each point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">labels</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/d8c7de477de443ec9c345834f5b9f0e1ea0b327e1a3fdd0b135b51516538d8aa.png" src="../_images/d8c7de477de443ec9c345834f5b9f0e1ea0b327e1a3fdd0b135b51516538d8aa.png" />
+</div>
+</div>
+</section>
+<section id="step-3a-calculate-cluster-centroids">
+<h4>Step 3a: Calculate cluster centroids<a class="headerlink" href="#step-3a-calculate-cluster-centroids" title="Permalink to this heading">#</a></h4>
+<p>Now, we compute the <strong>average</strong> of points randomly assigning to <span class="math notranslate nohighlight">\(K = 0\)</span> vs. <span class="math notranslate nohighlight">\(K = 1\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c1_mean</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">labels</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">c2_mean</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">labels</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cluster 1 mean: </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">c1_mean</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cluster 2 mean: </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">c2_mean</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 1 mean: [1.18530246 4.99421035]
+Cluster 2 mean: [0.61807869 6.30113252]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="overlaying-cluster-centroids">
+<h4>Overlaying cluster centroids…<a class="headerlink" href="#overlaying-cluster-centroids" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">labels</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1_mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c2_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c2_mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="c1"># sns.scatterplot(x = c2_mean[0], y = c2_mean[1], hue = &quot;orange&quot;, s = 100)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/c8f2b024c96b0675df70df4e47f5554bffe3e854a9c42459ef435cc06a69971c.png" src="../_images/c8f2b024c96b0675df70df4e47f5554bffe3e854a9c42459ef435cc06a69971c.png" />
+</div>
+</div>
+</section>
+<section id="step-3b-reassign-points">
+<h4>Step 3b: reassign points<a class="headerlink" href="#step-3b-reassign-points" title="Permalink to this heading">#</a></h4>
+<p>Now, we <strong>reassign</strong> points to the nearest cluster centroid.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">euclidean</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d_c1</span> <span class="o">=</span> <span class="p">[</span><span class="n">euclidean</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c1_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
+<span class="n">d_c2</span> <span class="o">=</span> <span class="p">[</span><span class="n">euclidean</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">c2_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="c1">### compare distance to c1 vs. c2</span>
+    <span class="k">if</span> <span class="n">d_c1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">d_c2</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
+        <span class="n">new_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">new_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3a-re-compute-centroids">
+<h4>Step 3a: Re-compute centroids<a class="headerlink" href="#step-3a-re-compute-centroids" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c1_mean</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">new_labels</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">c2_mean</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">new_labels</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cluster 1 mean: </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">c1_mean</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cluster 2 mean: </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">c2_mean</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cluster 1 mean: [4.60840443 2.16998192]
+Cluster 2 mean: [-2.70292301  8.89011496]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="overlaying-cluster-centroids-again">
+<h4>Overlaying cluster centroids (again)<a class="headerlink" href="#overlaying-cluster-centroids-again" title="Permalink to this heading">#</a></h4>
+<p>Within one iteration, we’ve sorted our points into very distinct clusters!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">new_labels</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1_mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">c2_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">c2_mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="c1"># sns.scatterplot(x = c2_mean[0], y = c2_mean[1], hue = &quot;orange&quot;, s = 100)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/71d890af3bff811fdd3ebfa6c1b9f1795640c6cd22b2805ffcee635c6cdb02a2.png" src="../_images/71d890af3bff811fdd3ebfa6c1b9f1795640c6cd22b2805ffcee635c6cdb02a2.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="k-means-with-sklearn">
+<h3><span class="math notranslate nohighlight">\(K\)</span>-means with <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#k-means-with-sklearn" title="Permalink to this heading">#</a></h3>
+<p>Fortunately, you won’t need to code the <span class="math notranslate nohighlight">\(K\)</span>-means algorithm by hand. The <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> package has a <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> algorithm built-in.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="c1">### decide k</span>
+       <span class="n">n_iter</span> <span class="o">=</span> <span class="c1">### number of iterations</span>
+       <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Steps to using <code class="docutils literal notranslate"><span class="pre">KMeans</span></code>:</p>
+<ol class="arabic simple">
+<li><p>Import and instantiate the <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> class.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> on <code class="docutils literal notranslate"><span class="pre">X</span></code> to <strong>fit</strong> the algorithm and <strong>generate</strong> labels.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="replicating-analysis-with-kmeans">
+<h4>Replicating analysis with <code class="docutils literal notranslate"><span class="pre">KMeans</span></code><a class="headerlink" href="#replicating-analysis-with-kmeans" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">K</span><span class="p">)</span>
+<span class="n">kmeans_labels</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">kmeans_labels</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/7c9d2da01749374bc2d6da5a6f675890845246572925d97ff89c391520a43d1c.png" src="../_images/7c9d2da01749374bc2d6da5a6f675890845246572925d97ff89c391520a43d1c.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="applying-to-the-iris-dataset">
+<h3>Applying to the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset<a class="headerlink" href="#applying-to-the-iris-dataset" title="Permalink to this heading">#</a></h3>
+<p>Now, we will apply <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> to the famous <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset.</p>
+<ul class="simple">
+<li><p>Our goal will be to <em>cluster</em> the dataset…</p></li>
+<li><p>… then see whether the clusters correspond to the true <code class="docutils literal notranslate"><span class="pre">species</span></code> labels.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_iris</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;petal_width&quot;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;petal_length&#39;, ylabel=&#39;petal_width&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/1ca0187e024e7cefa25059139153f7684326f1b7c52f82415d0225192521b2ce.png" src="../_images/1ca0187e024e7cefa25059139153f7684326f1b7c52f82415d0225192521b2ce.png" />
+</div>
+</div>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p>Apply <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> with <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">2</span></code> to the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset (focusing on the features below), then visualize your clusters. What does it look like?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[[</span><span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="clustering-with-k-2">
+<h4>Clustering with <span class="math notranslate nohighlight">\(K = 2\)</span><a class="headerlink" href="#clustering-with-k-2" title="Permalink to this heading">#</a></h4>
+<p>Not bad––although we <em>know</em> that <code class="docutils literal notranslate"><span class="pre">species</span> <span class="pre">=</span> <span class="pre">3</span></code>, so it’s obviously not perfect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_labels</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">new_labels</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/c641999715d54ab29f074af6de9412222a978df736861d265ed1736722f073c6.png" src="../_images/c641999715d54ab29f074af6de9412222a978df736861d265ed1736722f073c6.png" />
+</div>
+</div>
+</section>
+<section id="clustering-with-k-3">
+<h4>Clustering with <span class="math notranslate nohighlight">\(K = 3\)</span><a class="headerlink" href="#clustering-with-k-3" title="Permalink to this heading">#</a></h4>
+<p>Much better.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">features</span><span class="p">)]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">features</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">new_labels</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/8bcc7b2f5ebba6236cc70443033d67c176b75a7f03afe7b5fed89b16b4bdbde5.png" src="../_images/8bcc7b2f5ebba6236cc70443033d67c176b75a7f03afe7b5fed89b16b4bdbde5.png" />
+</div>
+</div>
+</section>
+<section id="how-did-we-do">
+<h4>How did we do?<a class="headerlink" href="#how-did-we-do" title="Permalink to this heading">#</a></h4>
+<p>We can ask whether our <strong>cluster labels</strong> correspond to the true category structure of <code class="docutils literal notranslate"><span class="pre">species</span></code> using a technique called the <strong>adjusted rand score</strong>.</p>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Rand_index"><strong>Rand Index</strong></a> computes a similarity measure between two clusterings of the same data, ranging from <span class="math notranslate nohighlight">\([0, 1]\)</span>.</p></li>
+<li><p>The <strong>adjusted rand score</strong> adjusts for the performance you’d expect by chance.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">new_labels</span><span class="p">,</span> <span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8856970310281228
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="determining-the-optimal-k">
+<h3>Determining the optimal <span class="math notranslate nohighlight">\(K\)</span><a class="headerlink" href="#determining-the-optimal-k" title="Permalink to this heading">#</a></h3>
+<p>A major challenge with <strong>K-means clustering</strong> is determining the “right” value of <span class="math notranslate nohighlight">\(K\)</span>.</p>
+<ul class="simple">
+<li><p>If we know the <em>true</em> number of categories, we can set <span class="math notranslate nohighlight">\(K\)</span> to that.</p>
+<ul>
+<li><p>However, we rarely know this in practice.</p></li>
+</ul>
+</li>
+<li><p>Additionally, we’d like our method to be able to find the optimal <span class="math notranslate nohighlight">\(K\)</span> in an <strong>unsupervised</strong> fashion as well.</p></li>
+</ul>
+<p>There are many different approaches to determining the optimal <span class="math notranslate nohighlight">\(K\)</span>––still an active area of machine learning research.</p>
+<section id="conceptual-issue-lumpers-vs-splitters">
+<h4>Conceptual issue: lumpers vs. splitters<a class="headerlink" href="#conceptual-issue-lumpers-vs-splitters" title="Permalink to this heading">#</a></h4>
+<p>Without “ground truth” labels, a set of observations could be described with <em>very few</em> or <em>very many</em> clusters.</p>
+<ul class="simple">
+<li><p>Minimum number of clusters: <span class="math notranslate nohighlight">\(K = 2\)</span>.</p></li>
+<li><p>Maximum number of clusters: <span class="math notranslate nohighlight">\(K = n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is number of observations.</p></li>
+</ul>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Lumpers_and_splitters">Lumpers vs. splitters</a>: Some people (“lumpers”) favor a smaller number of clusters; others (“splitters”) favor fine classification distinctions.</p>
+<blockquote>
+<div><p>splitters make very small units – their critics say that if they can tell two animals apart, they place them in different genera … and if they cannot tell them apart, they place them in different species. … Lumpers make large units – their critics say that if a carnivore is neither a dog nor a bear, they call it a cat. (Simpson, 1945)</p>
+</div></blockquote>
+</section>
+<section id="approach-1-elbow-method">
+<h4>Approach 1: Elbow method<a class="headerlink" href="#approach-1-elbow-method" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>The <a class="reference external" href="https://www.geeksforgeeks.org/elbow-method-for-optimal-value-of-k-in-kmeans/">“elbow method”</a> is an approach for determining the optimal clusters <span class="math notranslate nohighlight">\(K\)</span>, which involves identifying the <em>smallest</em> value of <span class="math notranslate nohighlight">\(K\)</span> that significantly reduces within-cluster variation.</p>
+</div></blockquote>
+<p>Basic intuition:</p>
+<ul class="simple">
+<li><p><strong>Accuracy</strong>: We want a set of clusters that reduce within-cluster variation as much as possible.</p></li>
+<li><p><strong>Parsimony</strong>: We don’t want <em>too many clusters</em>.</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(K = n\)</span> would have <code class="docutils literal notranslate"><span class="pre">0</span></code> within-cluster variance, but wouldn’t be very useful!</p></li>
+</ul>
+</li>
+</ul>
+<section id="elbow-method-in-practice-pt-1">
+<h5>Elbow method in practice (pt. 1)<a class="headerlink" href="#elbow-method-in-practice-pt-1" title="Permalink to this heading">#</a></h5>
+<p>The average <strong>within-cluster variation</strong> can be accessed for a given <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> model using the <code class="docutils literal notranslate"><span class="pre">inertia_</span></code> attribute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sse</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">21</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">sse</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;sse&#39;</span><span class="p">:</span> <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sse</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>k</th>
+      <th>sse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>86.39022</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="elbow-method-in-practice-pt-2">
+<h5>Elbow method in practice (pt. 2)<a class="headerlink" href="#elbow-method-in-practice-pt-2" title="Permalink to this heading">#</a></h5>
+<blockquote>
+<div><p>The <strong>elbow</strong> (or <a class="reference external" href="https://en.wikipedia.org/wiki/Knee_of_a_curve">“knee”</a>) is the point at which a curve visibly bends.</p>
+</div></blockquote>
+<p>Based on these results, the optimal <span class="math notranslate nohighlight">\(K\)</span> is between 3-5.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;sse&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;k&#39;, ylabel=&#39;sse&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/f5d880d4b477d5ed1689d53359be43e3f87518b33f203d3595b048ee09d85a6a.png" src="../_images/f5d880d4b477d5ed1689d53359be43e3f87518b33f203d3595b048ee09d85a6a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="approach-2-silhouette-analysis">
+<h4>Approach 2: Silhouette analysis<a class="headerlink" href="#approach-2-silhouette-analysis" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p><a class="reference external" href="https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_silhouette_analysis.html"><strong>Silhouette analysis</strong></a> measures the difference between each point’s distance from all points in <em>other clusters</em> and each point’s distance from all points in the <em>same</em> clusters.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The silhouette score ranges from <code class="docutils literal notranslate"><span class="pre">-1</span></code> (very bad) to <code class="docutils literal notranslate"><span class="pre">1</span></code> (very good).</p></li>
+<li><p>Like <span class="math notranslate nohighlight">\(SSE\)</span>, this will capture the amount of <strong>within-cluster variance</strong>.</p></li>
+<li><p>Unlike <span class="math notranslate nohighlight">\(SSE\)</span>, it also rewards <strong>distant clusters</strong>.</p></li>
+</ul>
+<p>That is: <strong>Minimize within-cluster distance, maximize across-cluster distance</strong>.</p>
+</section>
+<section id="silhouette-analysis-in-sklearn-pt-1">
+<h4>Silhouette analysis in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (pt. 1)<a class="headerlink" href="#silhouette-analysis-in-sklearn-pt-1" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">21</span><span class="p">):</span>
+    <span class="n">new_labels</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">ss</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;ss&#39;</span><span class="p">:</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">)})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>k</th>
+      <th>ss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>0.76539</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="silhouette-analysis-in-sklearn-pt-2">
+<h4>Silhouette analysis in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (pt. 2)<a class="headerlink" href="#silhouette-analysis-in-sklearn-pt-2" title="Permalink to this heading">#</a></h4>
+<p>Unlike with <span class="math notranslate nohighlight">\(SSE\)</span>, the silhouette score does <em>not</em> monotonically improve as <span class="math notranslate nohighlight">\(K\)</span> increases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;ss&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;k&#39;, ylabel=&#39;ss&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/f23143434d1192f4a864dd227a38df25b3a34d1be9b97d00fb7d387dabbc7736.png" src="../_images/f23143434d1192f4a864dd227a38df25b3a34d1be9b97d00fb7d387dabbc7736.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="limitations-of-k-means">
+<h3>Limitations of <span class="math notranslate nohighlight">\(K\)</span>-means<a class="headerlink" href="#limitations-of-k-means" title="Permalink to this heading">#</a></h3>
+<p>As with any model, <span class="math notranslate nohighlight">\(K\)</span>-means has a number of <strong>limitations</strong>, including:</p>
+<ul class="simple">
+<li><p>You must choose <span class="math notranslate nohighlight">\(K\)</span> manually, and there’s no “perfect” method for choosing the right <span class="math notranslate nohighlight">\(K\)</span>.</p></li>
+<li><p>It’s dependent on your <code class="docutils literal notranslate"><span class="pre">random_state</span></code> (global optimum is not guaranteed).</p></li>
+<li><p>It’s sensitive to <strong>outliers</strong>, which will affect the <em>centroid</em> of a cluster.</p></li>
+<li><p>In “vanilla” formulation, does not handle clusters of different <strong>sizes</strong> or <strong>shapes</strong>.</p></li>
+</ul>
+<section id="clusters-aren-t-always-spheroidal">
+<h4>Clusters aren’t always spheroidal!<a class="headerlink" href="#clusters-aren-t-always-spheroidal" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">noise</span> <span class="o">=</span> <span class="mf">.05</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/8eb384c6f141e4a0ad9feb0ffad70bb209ef5804531eef6d9dbd1b242700165b.png" src="../_images/8eb384c6f141e4a0ad9feb0ffad70bb209ef5804531eef6d9dbd1b242700165b.png" />
+</div>
+</div>
+</section>
+<section id="kmeans-falters-with-non-spheroidal-data">
+<h4><code class="docutils literal notranslate"><span class="pre">KMeans</span></code> falters with non-spheroidal data<a class="headerlink" href="#kmeans-falters-with-non-spheroidal-data" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">new_labels</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">new_labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/sklearn/cluster/_kmeans.py:1412: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/81944f4082d49c896c67b78802c147911f768e6ba914b09c63bb1b9d2ce4814a.png" src="../_images/81944f4082d49c896c67b78802c147911f768e6ba914b09c63bb1b9d2ce4814a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="clustering-beyond-k-means">
+<h3>Clustering beyond <span class="math notranslate nohighlight">\(K\)</span>-means<a class="headerlink" href="#clustering-beyond-k-means" title="Permalink to this heading">#</a></h3>
+<p>There are <em>many</em> algorithms for unsupervised clustering:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.w3schools.com/python/python_ml_hierarchial_clustering.asp">Hierarchical clustering</a>: iteratively join pairs of points into clusters, then group clusters together, and so on.</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/mixture.html">Gaussian mixture model</a>: tries to estimate <span class="math notranslate nohighlight">\(K\)</span> latent <strong>Gaussian</strong> functions responsible for generating data.</p>
+<ul>
+<li><p>Can be used as a more flexible, general form of K-means.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/DBSCAN">DBSCAN</a>: density-based spatial clustering of applications with noise.</p>
+<ul>
+<li><p>Unlike K-means, does not require specification of <span class="math notranslate nohighlight">\(K\)</span>, and can fit more flexible cluster shapes.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Unsupervised learning</strong> is an integral part of computational social science.</p></li>
+<li><p>One approach is <strong>clustering</strong>, which involves sorting <span class="math notranslate nohighlight">\(n\)</span> data points into <span class="math notranslate nohighlight">\(k\)</span> groups.</p></li>
+<li><p><strong>K-means clustering</strong> is an <em>iterative algorithm</em> that:</p>
+<ul>
+<li><p>Given some value of <span class="math notranslate nohighlight">\(K\)</span>…</p></li>
+<li><p>… tends to find the clusters that reduce <strong>within-cluster variation</strong>.</p></li>
+</ul>
+</li>
+<li><p>The <strong>elbow method</strong> and <strong>silhouette analysis</strong> are two approaches to evaluating your clusters.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="19-evaluation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Model evaluation</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-approaches-an-introduction">Unsupervised approaches: an introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-unsupervised-learning">Why unsupervised learning?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-challenge-of-unsupervised-learning">The challenge of unsupervised learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning-in-action">Unsupervised learning in action</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-k-means-clustering">Introducing <span class="math notranslate nohighlight">\(K\)</span>-means clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-within-cluster-variation">Defining within-cluster variation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-k-means-algorithm">The <span class="math notranslate nohighlight">\(K\)</span>-means algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-in-practice"><span class="math notranslate nohighlight">\(K\)</span>-means in practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-determine-k">Step 1: determine <span class="math notranslate nohighlight">\(K\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-randomly-assign-points-to-clusters">Step 2: Randomly assign points to clusters</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3a-calculate-cluster-centroids">Step 3a: Calculate cluster centroids</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaying-cluster-centroids">Overlaying cluster centroids…</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3b-reassign-points">Step 3b: reassign points</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3a-re-compute-centroids">Step 3a: Re-compute centroids</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaying-cluster-centroids-again">Overlaying cluster centroids (again)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-with-sklearn"><span class="math notranslate nohighlight">\(K\)</span>-means with <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#replicating-analysis-with-kmeans">Replicating analysis with <code class="docutils literal notranslate"><span class="pre">KMeans</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-to-the-iris-dataset">Applying to the <code class="docutils literal notranslate"><span class="pre">iris</span></code> dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-with-k-2">Clustering with <span class="math notranslate nohighlight">\(K = 2\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-with-k-3">Clustering with <span class="math notranslate nohighlight">\(K = 3\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#how-did-we-do">How did we do?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-the-optimal-k">Determining the optimal <span class="math notranslate nohighlight">\(K\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptual-issue-lumpers-vs-splitters">Conceptual issue: lumpers vs. splitters</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approach-1-elbow-method">Approach 1: Elbow method</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#elbow-method-in-practice-pt-1">Elbow method in practice (pt. 1)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#elbow-method-in-practice-pt-2">Elbow method in practice (pt. 2)</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approach-2-silhouette-analysis">Approach 2: Silhouette analysis</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-analysis-in-sklearn-pt-1">Silhouette analysis in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette-analysis-in-sklearn-pt-2">Silhouette analysis in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (pt. 2)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-k-means">Limitations of <span class="math notranslate nohighlight">\(K\)</span>-means</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clusters-aren-t-always-spheroidal">Clusters aren’t always spheroidal!</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kmeans-falters-with-non-spheroidal-data"><code class="docutils literal notranslate"><span class="pre">KMeans</span></code> falters with non-spheroidal data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-beyond-k-means">Clustering beyond <span class="math notranslate nohighlight">\(K\)</span>-means</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

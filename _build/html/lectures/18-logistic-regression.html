@@ -1,0 +1,1573 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Logistic Regression &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/18-logistic-regression';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Model evaluation" href="19-evaluation.html" />
+    <link rel="prev" title="Overfitting and the bias-variance trade-off" href="17-overfitting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/18-logistic-regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/18-logistic-regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Logistic Regression</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-classification">What is classification?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-classify-is-human">“To classify is human”</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categories-and-the-problem-of-measurement">Categories and the problem of <em>measurement</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-categories">How many categories?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundations-of-logistic-regression">Foundations of logistic regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset-spam">Example dataset: <code class="docutils literal notranslate"><span class="pre">spam</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-linear-regression">Why not linear regression?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#going-beyond-0-1">Going beyond <span class="math notranslate nohighlight">\([0, 1]\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#framing-the-problem-probabilistically">Framing the problem probabilistically</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizing-the-linear-model-glms">Generalizing the linear model (GLMs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-tour-of-glms">Quick tour of GLMs</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Logistic regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-odds">Introducing the <em>odds</em></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-log-odds">Introducing the <em>log-odds</em></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-sign-of-log-odds">Interpreting the <em>sign</em> of log-odds</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-non-linear-relationship">A <em>non-linear relationship</em></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-logistic-function">Introducing the <em>logistic function</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mapping-from-log-odds-to-p">Mapping from log-odds to <span class="math notranslate nohighlight">\(p\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-more-general-mapping">A more general mapping</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-does-regression-come-into-play">Where does <em>regression</em> come into play?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#log-odds-x-is-linear">Log-odds ~ <span class="math notranslate nohighlight">\(X\)</span> is linear</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-x-is-not-linear"><span class="math notranslate nohighlight">\(p\)</span> ~<span class="math notranslate nohighlight">\(X\)</span> is <em>not</em> linear</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-in-python">Logistic regression in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-model">Fitting the model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-model">Interpreting the model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-p-using-logistic-function">Deriving <span class="math notranslate nohighlight">\(p\)</span> using logistic function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-p-pt-2">Deriving <span class="math notranslate nohighlight">\(p\)</span> (pt. 2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#log-odds-probability">Log-odds != probability</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-with-categorical-predictors">Logistic regression with categorical predictors</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-beta-for-categorical-predictors">Interpreting <span class="math notranslate nohighlight">\(\beta\)</span> for categorical predictors</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-predictions">Generating predictions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="logistic-regression">
+<h1>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading">#</a></h1>
+<section id="libraries">
+<h2>Libraries<a class="headerlink" href="#libraries" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # makes figs nicer!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Introduction to <strong>classification</strong>.</p></li>
+<li><p>Foundations of <strong>logistic regression</strong>.</p>
+<ul>
+<li><p>“Generalizing” the linear model.</p></li>
+<li><p>Log-odds and the logistic function.</p></li>
+</ul>
+</li>
+<li><p>Implementing logistic regression in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>.</p></li>
+</ul>
+</section>
+<section id="what-is-classification">
+<h2>What is classification?<a class="headerlink" href="#what-is-classification" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>In statistical modeling, <strong>classification</strong> refers the problem of predicting a <em>categorical</em> response variable <span class="math notranslate nohighlight">\(Y\)</span> using some set of features <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</div></blockquote>
+<p>There are many examples of <em>categorical</em> responses:</p>
+<ul class="simple">
+<li><p>Is an email <code class="docutils literal notranslate"><span class="pre">spam</span></code> or <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code>?</p></li>
+<li><p>Is a cell mass <code class="docutils literal notranslate"><span class="pre">cancer</span></code> or <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">cancer</span></code>?</p></li>
+<li><p>Will this customer <code class="docutils literal notranslate"><span class="pre">buy</span></code> or <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">buy</span></code> the product?</p></li>
+<li><p>Is a credit card <code class="docutils literal notranslate"><span class="pre">fraudulent</span></code> or <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">fraudulent</span></code>?</p></li>
+<li><p>Is this a picture of a <code class="docutils literal notranslate"><span class="pre">cat</span></code>, a <code class="docutils literal notranslate"><span class="pre">dog</span></code>, a <code class="docutils literal notranslate"><span class="pre">person</span></code>, or <code class="docutils literal notranslate"><span class="pre">other</span></code>?</p></li>
+</ul>
+<p>Before we discuss <em>how</em> to do this, it’s important to reflect on what exactly a “category” is.</p>
+<section id="to-classify-is-human">
+<h3>“To classify is human”<a class="headerlink" href="#to-classify-is-human" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>“<strong>To classify is human</strong>…We sort dirty dishes from clean, white laundry from colorfast, important email
+to be answered from e-junk…. Any part of the home, school, or workplace reveals some such system of classification: medications classed as not for children occupy a higher shelf than safer ones; books for reference are shelved close to where we do the Sunday crossword puzzle; door keys are color-coded and stored according to frequency of use.”<br />
+-<a class="reference external" href="https://direct.mit.edu/books/book/4738/chapter/216477/Introduction-To-Classify-Is-Human">Bowker &amp; Star, 2000</a></p>
+</div></blockquote>
+<p>We often <strong>impose</strong> a category structure onto the world––as needed––and these categories in turn can have <strong>real impact</strong> on our lives.</p>
+<ul class="simple">
+<li><p>E.g., whether a behavior is diagnosed as a <code class="docutils literal notranslate"><span class="pre">mental</span> <span class="pre">illness</span></code>.</p></li>
+<li><p>E.g., whether the census includes <em>multiple options</em> for <code class="docutils literal notranslate"><span class="pre">ethnicity</span></code>.</p></li>
+</ul>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p>What aspects of your life involve <strong>category structure</strong>? Which ones do you think have the “right” category structure, and why do you think that?</p>
+</section>
+</section>
+<section id="categories-and-the-problem-of-measurement">
+<h3>Categories and the problem of <em>measurement</em><a class="headerlink" href="#categories-and-the-problem-of-measurement" title="Permalink to this heading">#</a></h3>
+<p>The issue of <em>which</em> categories are “correct” is an instance of more general questions around <strong>measurement</strong> and <a class="reference external" href="https://en.wikipedia.org/wiki/Construct_validity"><strong>construct validity</strong></a>.</p>
+<p>As we discuss the practical task of <em>classifying</em> data, there are important questions to keep in mind:</p>
+<ul class="simple">
+<li><p>Where is the <strong>boundary</strong> drawn between categories?</p></li>
+<li><p>Who <strong>decides</strong> the category structure?</p></li>
+<li><p>What <strong>function</strong> do these categories serve?</p></li>
+<li><p>What variance is <strong>obscured</strong> by these categories? What is <strong>illuminated</strong>?</p></li>
+</ul>
+<p>And remember that <a class="reference external" href="https://en.wikipedia.org/wiki/Map%E2%80%93territory_relation">the map is not the territory</a>.</p>
+</section>
+<section id="how-many-categories">
+<h3>How many categories?<a class="headerlink" href="#how-many-categories" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>One question is <em>how many categories</em> there are.</p></li>
+<li><p><strong>Binary classification</strong> involves sorting inputs <span class="math notranslate nohighlight">\(X\)</span> into one of two labels.</p>
+<ul>
+<li><p>E.g., <code class="docutils literal notranslate"><span class="pre">spam</span></code> vs. <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code>.</p></li>
+</ul>
+</li>
+<li><p>But many classification tasks involve more than two labels.</p>
+<ul>
+<li><p>E.g., <em>face recognition</em> involves <span class="math notranslate nohighlight">\(N\)</span> categories, where <span class="math notranslate nohighlight">\(N =\)</span> number of possible identities.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="foundations-of-logistic-regression">
+<h2>Foundations of logistic regression<a class="headerlink" href="#foundations-of-logistic-regression" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_regression">Logistic regression</a> is a widely used approach for modeling <strong>binary, categorical data</strong>.</p>
+<p>To understand logistic regression, we’ll have to dive into the theoretical foundations of the <strong>logistic function</strong>.</p>
+<section id="example-dataset-spam">
+<h3>Example dataset: <code class="docutils literal notranslate"><span class="pre">spam</span></code><a class="headerlink" href="#example-dataset-spam" title="Permalink to this heading">#</a></h3>
+<p>As we learn logistic regression, we’ll start with a dataset about different emails, with information about which ones were considered <code class="docutils literal notranslate"><span class="pre">spam</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_spam</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/models/classification/email.csv&quot;</span><span class="p">)</span>
+<span class="n">df_spam</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>spam</th>
+      <th>to_multiple</th>
+      <th>from</th>
+      <th>cc</th>
+      <th>sent_email</th>
+      <th>time</th>
+      <th>image</th>
+      <th>attach</th>
+      <th>dollar</th>
+      <th>winner</th>
+      <th>...</th>
+      <th>viagra</th>
+      <th>password</th>
+      <th>num_char</th>
+      <th>line_breaks</th>
+      <th>format</th>
+      <th>re_subj</th>
+      <th>exclaim_subj</th>
+      <th>urgent_subj</th>
+      <th>exclaim_mess</th>
+      <th>number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2012-01-01T06:16:41Z</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>no</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>11.370</td>
+      <td>202</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>big</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2012-01-01T07:03:59Z</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>no</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>10.504</td>
+      <td>202</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>small</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2012-01-01T16:00:32Z</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>no</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.773</td>
+      <td>192</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>small</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 21 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="why-not-linear-regression">
+<h3>Why not linear regression?<a class="headerlink" href="#why-not-linear-regression" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">spam</span></code> variable is coded as <code class="docutils literal notranslate"><span class="pre">0</span></code> (no) or <code class="docutils literal notranslate"><span class="pre">1</span></code> (yes).</p>
+<ul class="simple">
+<li><p>In principle, we <em>could</em> treat this a continuous variable, and model <code class="docutils literal notranslate"><span class="pre">spam</span></code> using linear regression.</p></li>
+<li><p>We could interpret our prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span> as the <em>probability</em> of the outcome.</p></li>
+</ul>
+<p><strong>Does anyone see any issues with this?</strong></p>
+<section id="going-beyond-0-1">
+<h4>Going beyond <span class="math notranslate nohighlight">\([0, 1]\)</span><a class="headerlink" href="#going-beyond-0-1" title="Permalink to this heading">#</a></h4>
+<p>A <em>linear</em> model will generate predictions beyond <span class="math notranslate nohighlight">\([0, 1]\)</span>, even though <strong>probability</strong> should be bounded at <span class="math notranslate nohighlight">\([0, 1]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_spam</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;num_char&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;spam&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x135c857d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/1bb1818a911031da2e8db92b618f72b3a823ca138bc02d71eedf49362b0e4a1c.png" src="../_images/1bb1818a911031da2e8db92b618f72b3a823ca138bc02d71eedf49362b0e4a1c.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="framing-the-problem-probabilistically">
+<h3>Framing the problem probabilistically<a class="headerlink" href="#framing-the-problem-probabilistically" title="Permalink to this heading">#</a></h3>
+<p>We want to <strong>sort</strong> input into different labels, so it’s helpful to think of this <strong>probabilistically</strong>.</p>
+<ul class="simple">
+<li><p>Treat each outcome as <strong>Bernoulli trials</strong>, i.e., “success” (<code class="docutils literal notranslate"><span class="pre">spam</span></code>) and “failure” (<code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code>).</p></li>
+<li><p>Each observation has an independent probability of success, <span class="math notranslate nohighlight">\(p_i\)</span>.</p></li>
+<li><p>On its own, this is just be the <strong>proportion of spam emails</strong>, i.e., <span class="math notranslate nohighlight">\(p(spam)\)</span>.</p></li>
+<li><p>Our goal is to <strong>model</strong> <span class="math notranslate nohighlight">\(p_i\)</span> <em>conditioned</em> on other variables that might relate to <span class="math notranslate nohighlight">\(p_i\)</span>.</p></li>
+</ul>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>On its own, <span class="math notranslate nohighlight">\(p_i\)</span> is just the probability of <code class="docutils literal notranslate"><span class="pre">success</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">spam</span></code>). What does this remind you of from <em>linear regression</em>?</p>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h4>
+<p>On its own, the probability of <code class="docutils literal notranslate"><span class="pre">success</span></code> is most analogous to an <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>-only model in linear regression––i.e., the <em>mean</em> of <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</section>
+<section id="generalizing-the-linear-model-glms">
+<h3>Generalizing the linear model (GLMs)<a class="headerlink" href="#generalizing-the-linear-model-glms" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://en.wikipedia.org/wiki/Generalized_linear_model"><strong>Generalized linear models</strong> (GLMs)</a> are generalizations of linear regression.</p>
+</div></blockquote>
+<p>Each GLM has:</p>
+<ul class="simple">
+<li><p>A <strong>probability distribution</strong> representing the <em>generative</em> model for the outcome variable.</p></li>
+<li><p>A <strong>linear model</strong>: <span class="math notranslate nohighlight">\(\eta = \beta_0 + \beta_1X_1 + ... + \beta_nX_n\)</span></p></li>
+<li><p>A <strong>link function</strong> relating the linear model to the outcome we’re interested in.</p></li>
+</ul>
+<p>We can design a function that <em>links</em> the linear model to a probability score, i.e., <span class="math notranslate nohighlight">\([0, 1]\)</span>.</p>
+<section id="quick-tour-of-glms">
+<h4>Quick tour of GLMs<a class="headerlink" href="#quick-tour-of-glms" title="Permalink to this heading">#</a></h4>
+<p>There are many different kinds of <strong>generalized linear models</strong>. Some of the most common are:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model name</p></th>
+<th class="head"><p>Distribution</p></th>
+<th class="head"><p>Link name</p></th>
+<th class="head"><p>Use cases</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ordinary linear regression</p></td>
+<td><p>Normal distribution</p></td>
+<td><p>Identity</p></td>
+<td><p>Linear response data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Height</span></code>, <code class="docutils literal notranslate"><span class="pre">Price</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Logistic regression</p></td>
+<td><p>Bernoulli/Binomial</p></td>
+<td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Logit">Logit</a></p></td>
+<td><p>Binary response data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">spam</span></code>, <code class="docutils literal notranslate"><span class="pre">fraud</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Poisson regression</p></td>
+<td><p>Poisson</p></td>
+<td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Natural_logarithm">Log</a></p></td>
+<td><p>Count data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">#words</span></code>, <code class="docutils literal notranslate"><span class="pre">#visitors</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>We’ll be focusing on <strong>logistic regression</strong>.</p>
+</section>
+</section>
+<section id="id2">
+<h3>Logistic regression<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Logistic regression uses a <strong>logit link function</strong>.</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\Large logit(p) = log(\frac{p}{1 - p})\)</span></p>
+<ul class="simple">
+<li><p>Where <span class="math notranslate nohighlight">\(p\)</span> is the probability of some outcome.</p></li>
+<li><p>Takes a value between <span class="math notranslate nohighlight">\([0, 1]\)</span> and maps it to a value between <span class="math notranslate nohighlight">\([-\infty, \infty]\)</span>.</p></li>
+<li><p>Also called the <strong>log odds</strong>.</p></li>
+</ul>
+<section id="introducing-the-odds">
+<h4>Introducing the <em>odds</em><a class="headerlink" href="#introducing-the-odds" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>The <strong>odds</strong> of an event are the ratio of the probability of the event occurring, <span class="math notranslate nohighlight">\(p(y)\)</span>, to the probability of the event not occuring, <span class="math notranslate nohighlight">\(1 - p(y)\)</span>.</p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(Odds(p) = \Large \frac{p}{1 - p}\)</span></p>
+<p>Unlike <span class="math notranslate nohighlight">\(p\)</span>, the <strong>odds</strong> are bounded at <span class="math notranslate nohighlight">\([0, \infty]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">.01</span><span class="p">,</span> <span class="mf">.99</span><span class="p">,</span> <span class="mf">.01</span><span class="p">)</span>
+<span class="n">odds</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">odds</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;P(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Odds(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Odds(y) vs. P(y)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Odds(y) vs. P(y)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/ebe8e91b53c6d9a266b20604ddc461b3e0a7abd0277b51118fda1d0c7a00cf84.png" src="../_images/ebe8e91b53c6d9a266b20604ddc461b3e0a7abd0277b51118fda1d0c7a00cf84.png" />
+</div>
+</div>
+</section>
+<section id="introducing-the-log-odds">
+<h4>Introducing the <em>log-odds</em><a class="headerlink" href="#introducing-the-log-odds" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>The <strong>log-odds</strong> of an event is the <strong>log</strong> of the odds of that event. This is also called the <strong>logit</strong> function.</p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(Logit(p) = log(\frac{p}{1 - p})\)</span></p>
+<p>Unlike <span class="math notranslate nohighlight">\(p\)</span>, the <strong>log-odds</strong> are bounded at <span class="math notranslate nohighlight">\([-\infty, \infty]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">lo</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;P(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Log-odds(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Log-odds(y) vs. P(y)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log-odds(y) vs. P(y)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/c0e4c76388da75838a09fe7a0c14f331acc8cf7ce1e267e2fe4371492781db2c.png" src="../_images/c0e4c76388da75838a09fe7a0c14f331acc8cf7ce1e267e2fe4371492781db2c.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>Would the log-odds of <span class="math notranslate nohighlight">\(p(y) = .6\)</span> be <em>positive</em> or <em>negative</em>?</p>
+</section>
+<section id="interpreting-the-sign-of-log-odds">
+<h4>Interpreting the <em>sign</em> of log-odds<a class="headerlink" href="#interpreting-the-sign-of-log-odds" title="Permalink to this heading">#</a></h4>
+<p>The <strong>sign</strong> of log-odds can be interpreted as reflecting whether <span class="math notranslate nohighlight">\(p(y) &gt; .5\)</span> (positive) or <span class="math notranslate nohighlight">\(p(y) &lt; .5\)</span> (negative).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">lo</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;P(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Log-odds(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Log-odds(y) vs. P(y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x1363e1c10&gt;
+</pre></div>
+</div>
+<img alt="../_images/f8ddd482f9edea37ca12b4e6e6ae40fec9e8f1cbdf3327f8ccf2862c4459777a.png" src="../_images/f8ddd482f9edea37ca12b4e6e6ae40fec9e8f1cbdf3327f8ccf2862c4459777a.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>Is <code class="docutils literal notranslate"><span class="pre">log-odds(y)</span></code> <em>linearly related</em> to <code class="docutils literal notranslate"><span class="pre">p(y)</span></code>? Why does this matter?</p>
+</section>
+<section id="a-non-linear-relationship">
+<h4>A <em>non-linear relationship</em><a class="headerlink" href="#a-non-linear-relationship" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The <strong>log-odds</strong> of <span class="math notranslate nohighlight">\(y\)</span> is non-linearly related to the <strong>probability</strong> of <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
+<li><p>This means that we <em>can’t</em> interpret linear changes in <em>log-odds</em> as linear changes in <em>probability</em>.</p>
+<ul>
+<li><p>That will be very important when we build logistic regression models.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="introducing-the-logistic-function">
+<h3>Introducing the <em>logistic function</em><a class="headerlink" href="#introducing-the-logistic-function" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_function"><strong>logistic function</strong></a> is the <em>inverse</em> of the logit function. It converts the <em>log-odds</em> back to <em>probability</em>.</p>
+</div></blockquote>
+<p>The logistic function is defined as:</p>
+<p><span class="math notranslate nohighlight">\(\Large \frac{e^x}{1 + e^x}\)</span></p>
+<p>Where <span class="math notranslate nohighlight">\(x\)</span> is the <strong>log-odds</strong> of an event.</p>
+<section id="id5">
+<h4>Check-in<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>Would applying the logistic function to a log-odds of <code class="docutils literal notranslate"><span class="pre">1</span></code> yield a <span class="math notranslate nohighlight">\(p &gt;.5\)</span> or <span class="math notranslate nohighlight">\(p &lt; .5\)</span>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mapping-from-log-odds-to-p">
+<h4>Mapping from log-odds to <span class="math notranslate nohighlight">\(p\)</span><a class="headerlink" href="#mapping-from-log-odds-to-p" title="Permalink to this heading">#</a></h4>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">np.exp(x)</span></code> to compute <span class="math notranslate nohighlight">\(e^x\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lo</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p</span> <span class="c1">### p is &gt; .5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7310585786300049
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-more-general-mapping">
+<h4>A more general mapping<a class="headerlink" href="#a-more-general-mapping" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_odds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">log_odds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Log-odds (Y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P(Y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Log-odds(Y) vs. P(Y)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log-odds(Y) vs. P(Y)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/75e49d3adcd98aad3418bc87dd77eb18182289ebde9d0fe1937da19cb4c15da4.png" src="../_images/75e49d3adcd98aad3418bc87dd77eb18182289ebde9d0fe1937da19cb4c15da4.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="where-does-regression-come-into-play">
+<h3>Where does <em>regression</em> come into play?<a class="headerlink" href="#where-does-regression-come-into-play" title="Permalink to this heading">#</a></h3>
+<p>With logistic regression, we learn <strong>parameters</strong> <span class="math notranslate nohighlight">\(\beta_0, ..., \beta_n\)</span> for the following equation:</p>
+<p><span class="math notranslate nohighlight">\(\Large log(\frac{p}{1 - p}) = \beta_0 + \beta_1X_1 + \epsilon\)</span></p>
+<ul class="simple">
+<li><p>Our “dependent variable” is technically the <strong>log-odds</strong> (logit) of <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p>Thus, we are learning a <strong>linear relationship</strong> between <span class="math notranslate nohighlight">\(X\)</span> and the <strong>log-odds</strong> of our outcome.</p></li>
+</ul>
+<section id="id6">
+<h4>Check-in<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>Based on this formulation:</p>
+<p><span class="math notranslate nohighlight">\(log(\frac{p}{1 - p}) = \beta_0 + \beta_1X_1 + \epsilon\)</span></p>
+<p>How would we interpret <span class="math notranslate nohighlight">\(\beta_1 = 1\)</span> with respect to <strong>log odds</strong>?</p>
+</section>
+<section id="log-odds-x-is-linear">
+<h4>Log-odds ~ <span class="math notranslate nohighlight">\(X\)</span> is linear<a class="headerlink" href="#log-odds-x-is-linear" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>There is a straightforward linear interpretation between our parameters <span class="math notranslate nohighlight">\(\beta_0, ..., \beta_n\)</span> and the <strong>log-odds</strong> of our outcome.</p></li>
+<li><p>That is, if <span class="math notranslate nohighlight">\(\beta_1=1\)</span>:</p>
+<ul>
+<li><p>For each 1-unit increase in <span class="math notranslate nohighlight">\(X\)</span>, the <strong>log-odds</strong> of our outcome increases by <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+</ul>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(\beta_1 = 2\)</span>:</p>
+<ul>
+<li><p>For each 1-unit increase in <span class="math notranslate nohighlight">\(X\)</span>, the <strong>log-odds</strong> of our outcome increases by <span class="math notranslate nohighlight">\(2\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id7">
+<h4>Check-in<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>Based on this formulation:</p>
+<p><span class="math notranslate nohighlight">\(log(\frac{p}{1 - p}) = \beta_0 + \beta_1X_1 + \epsilon\)</span></p>
+<p>How would we interpret <span class="math notranslate nohighlight">\(\beta_1 = 1\)</span> with respect to <strong>probability</strong>?</p>
+</section>
+<section id="p-x-is-not-linear">
+<h4><span class="math notranslate nohighlight">\(p\)</span> ~<span class="math notranslate nohighlight">\(X\)</span> is <em>not</em> linear<a class="headerlink" href="#p-x-is-not-linear" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>The mapping between <strong>log-odds</strong> and <span class="math notranslate nohighlight">\(p(y)\)</span> is <strong>not linear</strong>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>This means that we can’t interpret our coefficients <em>linearly</em> with respect to <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_odds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">log_odds</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Log-odds (Y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P(Y)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Log-odds(Y) vs. P(Y)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log-odds(Y) vs. P(Y)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/75e49d3adcd98aad3418bc87dd77eb18182289ebde9d0fe1937da19cb4c15da4.png" src="../_images/75e49d3adcd98aad3418bc87dd77eb18182289ebde9d0fe1937da19cb4c15da4.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="logistic-regression-in-python">
+<h2>Logistic regression in Python<a class="headerlink" href="#logistic-regression-in-python" title="Permalink to this heading">#</a></h2>
+<p>To perform logistic regression in Python, we can use the <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> package, which has the <code class="docutils literal notranslate"><span class="pre">logit</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_name</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;y ~ x&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Fitting the models is relatively straightforward––the hard(er) part is interpreting them.</p>
+<section id="fitting-the-model">
+<h3>Fitting the model<a class="headerlink" href="#fitting-the-model" title="Permalink to this heading">#</a></h3>
+<p>To start, let’s fit a model predicting <code class="docutils literal notranslate"><span class="pre">spam</span></code> from <code class="docutils literal notranslate"><span class="pre">num_char</span></code> (i.e., how long the message is).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_len</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_spam</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;spam ~ num_char&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mod_len</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+         Current function value: 0.299210
+         Iterations 8
+</pre></div>
+</div>
+<div class="output text_html"><table class="simpletable">
+<caption>Logit Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>         <td>spam</td>       <th>  No. Observations:  </th>  <td>  3921</td>  
+</tr>
+<tr>
+  <th>Model:</th>                 <td>Logit</td>      <th>  Df Residuals:      </th>  <td>  3919</td>  
+</tr>
+<tr>
+  <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>  <td>     1</td>  
+</tr>
+<tr>
+  <th>Date:</th>            <td>Fri, 12 Jan 2024</td> <th>  Pseudo R-squ.:     </th>  <td>0.03725</td> 
+</tr>
+<tr>
+  <th>Time:</th>                <td>10:40:32</td>     <th>  Log-Likelihood:    </th> <td> -1173.2</td> 
+</tr>
+<tr>
+  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td> -1218.6</td> 
+</tr>
+<tr>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th> <td>1.607e-21</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th> <td>   -1.7987</td> <td>    0.072</td> <td>  -25.135</td> <td> 0.000</td> <td>   -1.939</td> <td>   -1.658</td>
+</tr>
+<tr>
+  <th>num_char</th>  <td>   -0.0621</td> <td>    0.008</td> <td>   -7.746</td> <td> 0.000</td> <td>   -0.078</td> <td>   -0.046</td>
+</tr>
+</table></div></div>
+</div>
+</section>
+<section id="interpreting-the-model">
+<h3>Interpreting the model<a class="headerlink" href="#interpreting-the-model" title="Permalink to this heading">#</a></h3>
+<p>In this simple model, we can interpret the coefficients as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Intercept</span></code>: the <em>log-odds</em> of an email being <code class="docutils literal notranslate"><span class="pre">spam</span></code> when <code class="docutils literal notranslate"><span class="pre">num_char</span> <span class="pre">==</span> <span class="pre">0</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_char</span></code>: for every 1-unit increase in <code class="docutils literal notranslate"><span class="pre">num_char</span></code>, how does the <em>log-odds</em> of an email being <code class="docutils literal notranslate"><span class="pre">spam</span></code> change?</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(Y = -1.8 - 0.06*X_{length} + \epsilon\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_len</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept   -1.798738
+num_char    -0.062071
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id8">
+<h4>Check-in<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>Based on these coefficients, what is the predicted <strong>probability</strong> of an utterance being spam when <code class="docutils literal notranslate"><span class="pre">num_char</span> <span class="pre">==</span> <span class="pre">0</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="deriving-p-using-logistic-function">
+<h4>Deriving <span class="math notranslate nohighlight">\(p\)</span> using logistic function<a class="headerlink" href="#deriving-p-using-logistic-function" title="Permalink to this heading">#</a></h4>
+<p>To calculate <span class="math notranslate nohighlight">\(p(y)\)</span>, we need to convert log-odds back to probability.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_odds</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.8</span> <span class="c1"># Just the intercept</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">))</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1418510649004878
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h4>Check-in<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>Based on these coefficients, what is the predicted <strong>probability</strong> of an utterance being spam when <code class="docutils literal notranslate"><span class="pre">num_char</span> <span class="pre">==</span> <span class="pre">100</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="deriving-p-pt-2">
+<h4>Deriving <span class="math notranslate nohighlight">\(p\)</span> (pt. 2)<a class="headerlink" href="#deriving-p-pt-2" title="Permalink to this heading">#</a></h4>
+<p>Here, we need to:</p>
+<ul class="simple">
+<li><p>Calculate log-odds by inputting <span class="math notranslate nohighlight">\(X\)</span> into the equation.</p></li>
+<li><p>Convert log-odds back to probability using the <strong>logistic</strong> function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_odds</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.8</span> <span class="o">-</span> <span class="mf">0.06</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_odds</span><span class="p">))</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00040956716498605043
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="log-odds-probability">
+<h4>Log-odds != probability<a class="headerlink" href="#log-odds-probability" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df_spam</span><span class="p">[</span><span class="s1">&#39;num_char&#39;</span><span class="p">]</span>
+<span class="n">lo</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.8</span> <span class="o">-</span> <span class="mf">.06</span> <span class="o">*</span> <span class="n">X</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">lo</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;#Characters&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;#Characters&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Log-odds (spam)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;P(spam)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;P(spam)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/98c3d33368c12aceeb98a2224a212ee8a10037a4d33a75b07d58e394dd8b4561.png" src="../_images/98c3d33368c12aceeb98a2224a212ee8a10037a4d33a75b07d58e394dd8b4561.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="logistic-regression-with-categorical-predictors">
+<h3>Logistic regression with categorical predictors<a class="headerlink" href="#logistic-regression-with-categorical-predictors" title="Permalink to this heading">#</a></h3>
+<p>Instead of using <code class="docutils literal notranslate"><span class="pre">num_char</span></code> (a continuous predictor), we can use a categorical predictor (like <code class="docutils literal notranslate"><span class="pre">winner</span></code>: whether or not an email has the word “winner”).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_winner</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_spam</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;spam ~ winner&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mod_winner</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+         Current function value: 0.307661
+         Iterations 6
+</pre></div>
+</div>
+<div class="output text_html"><table class="simpletable">
+<caption>Logit Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>         <td>spam</td>       <th>  No. Observations:  </th>  <td>  3921</td>  
+</tr>
+<tr>
+  <th>Model:</th>                 <td>Logit</td>      <th>  Df Residuals:      </th>  <td>  3919</td>  
+</tr>
+<tr>
+  <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>  <td>     1</td>  
+</tr>
+<tr>
+  <th>Date:</th>            <td>Fri, 12 Jan 2024</td> <th>  Pseudo R-squ.:     </th>  <td>0.01005</td> 
+</tr>
+<tr>
+  <th>Time:</th>                <td>10:40:32</td>     <th>  Log-Likelihood:    </th> <td> -1206.3</td> 
+</tr>
+<tr>
+  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td> -1218.6</td> 
+</tr>
+<tr>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th> <td>7.410e-07</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+        <td></td>           <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>     <td>   -2.3140</td> <td>    0.056</td> <td>  -41.121</td> <td> 0.000</td> <td>   -2.424</td> <td>   -2.204</td>
+</tr>
+<tr>
+  <th>winner[T.yes]</th> <td>    1.5256</td> <td>    0.275</td> <td>    5.538</td> <td> 0.000</td> <td>    0.986</td> <td>    2.066</td>
+</tr>
+</table></div></div>
+</div>
+<section id="id10">
+<h4>Check-in<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<p>How should we interpret the <strong>parameters</strong> of this model?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpreting-beta-for-categorical-predictors">
+<h4>Interpreting <span class="math notranslate nohighlight">\(\beta\)</span> for categorical predictors<a class="headerlink" href="#interpreting-beta-for-categorical-predictors" title="Permalink to this heading">#</a></h4>
+<p>As with <em>linear regression</em>, the <span class="math notranslate nohighlight">\(\beta\)</span> for a categorical predictor means <strong>predicted change in log-odds relative to the <code class="docutils literal notranslate"><span class="pre">Intercept</span></code></strong></p>
+<ul class="simple">
+<li><p>Here, <span class="math notranslate nohighlight">\(\beta_0\)</span> is the <strong>predicted log-odds</strong> when <code class="docutils literal notranslate"><span class="pre">winner</span> <span class="pre">==</span> <span class="pre">no</span></code>.</p></li>
+<li><p>$\beta_1 is the <strong>predicted change in log-odds</strong> (relative to the <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>) when <code class="docutils literal notranslate"><span class="pre">winner</span> <span class="pre">==</span> <span class="pre">yes</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_winner</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept       -2.314047
+winner[T.yes]    1.525589
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h4>Check-in<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>According to the model, what is <span class="math notranslate nohighlight">\(p(spam)\)</span> for emails that don’t have the word <code class="docutils literal notranslate"><span class="pre">winner</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h4>Solution<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lo</span> <span class="o">=</span> <span class="n">mod_winner</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0899662950479635
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h4>Check-in<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h4>
+<p>According to the model, what is <span class="math notranslate nohighlight">\(p(spam)\)</span> for emails that <strong>do</strong> have the word <code class="docutils literal notranslate"><span class="pre">winner</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h4>Solution<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lo</span> <span class="o">=</span> <span class="n">mod_winner</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">mod_winner</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;winner[T.yes]&#39;</span><span class="p">]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lo</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.31249999999999994
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="generating-predictions">
+<h3>Generating predictions<a class="headerlink" href="#generating-predictions" title="Permalink to this heading">#</a></h3>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> will generate predicted <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_spam</span><span class="p">[</span><span class="s1">&#39;num_char&#39;</span><span class="p">],</span> <span class="n">mod_len</span><span class="o">.</span><span class="n">predict</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x13664b390&gt;
+</pre></div>
+</div>
+<img alt="../_images/cf27048ad882a27998bfa75b630fc1d8fc305a36054cfcb1190800d867dbf23c.png" src="../_images/cf27048ad882a27998bfa75b630fc1d8fc305a36054cfcb1190800d867dbf23c.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Many use-cases of statistical modeling involve a <strong>categorical</strong> response variable.</p></li>
+<li><p><strong>Logistic regression</strong> can be used for binary classication tasks.</p>
+<ul>
+<li><p>Logistic regression is a <strong>generalized linear model</strong> (GLM).</p></li>
+<li><p>Predicts the <em>log-odds</em> of <span class="math notranslate nohighlight">\(Y\)</span> as a linear function of <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+<li><p>Log-odds can be converted to <span class="math notranslate nohighlight">\(p\)</span> using the <strong>logistic function</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="17-overfitting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Overfitting and the bias-variance trade-off</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="19-evaluation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Model evaluation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-classification">What is classification?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-classify-is-human">“To classify is human”</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categories-and-the-problem-of-measurement">Categories and the problem of <em>measurement</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-categories">How many categories?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundations-of-logistic-regression">Foundations of logistic regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset-spam">Example dataset: <code class="docutils literal notranslate"><span class="pre">spam</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-linear-regression">Why not linear regression?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#going-beyond-0-1">Going beyond <span class="math notranslate nohighlight">\([0, 1]\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#framing-the-problem-probabilistically">Framing the problem probabilistically</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalizing-the-linear-model-glms">Generalizing the linear model (GLMs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-tour-of-glms">Quick tour of GLMs</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Logistic regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-odds">Introducing the <em>odds</em></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-log-odds">Introducing the <em>log-odds</em></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-sign-of-log-odds">Interpreting the <em>sign</em> of log-odds</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-non-linear-relationship">A <em>non-linear relationship</em></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-logistic-function">Introducing the <em>logistic function</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mapping-from-log-odds-to-p">Mapping from log-odds to <span class="math notranslate nohighlight">\(p\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-more-general-mapping">A more general mapping</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-does-regression-come-into-play">Where does <em>regression</em> come into play?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#log-odds-x-is-linear">Log-odds ~ <span class="math notranslate nohighlight">\(X\)</span> is linear</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-x-is-not-linear"><span class="math notranslate nohighlight">\(p\)</span> ~<span class="math notranslate nohighlight">\(X\)</span> is <em>not</em> linear</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-in-python">Logistic regression in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-model">Fitting the model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-model">Interpreting the model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-p-using-logistic-function">Deriving <span class="math notranslate nohighlight">\(p\)</span> using logistic function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-p-pt-2">Deriving <span class="math notranslate nohighlight">\(p\)</span> (pt. 2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#log-odds-probability">Log-odds != probability</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-with-categorical-predictors">Logistic regression with categorical predictors</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-beta-for-categorical-predictors">Interpreting <span class="math notranslate nohighlight">\(\beta\)</span> for categorical predictors</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-predictions">Generating predictions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

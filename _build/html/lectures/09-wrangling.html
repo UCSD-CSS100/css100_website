@@ -1,0 +1,2828 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Data wrangling &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/09-wrangling';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Describing Data" href="10-stats-basics.html" />
+    <link rel="prev" title="Data visualization, pt. 3 (principles)" href="08-dataviz-principles.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/09-wrangling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/09-wrangling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data wrangling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-relevant-libraries">Importing relevant libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-data-wrangling">What is data wrangling?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-values">Dealing with <em>missing values</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-a-dataset-with-missing-values">Loading a dataset with missing values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-missing-data-a-problem">Why is missing data a problem?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-deal-with-missing-data">How to deal with missing data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-identifying-missing-values">Step 1: Identifying missing values</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isna"><code class="docutils literal notranslate"><span class="pre">isna()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-columns-with-nan">Inspecting columns with <code class="docutils literal notranslate"><span class="pre">nan</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-nan">How many <code class="docutils literal notranslate"><span class="pre">nan</span></code>?</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#info"><code class="docutils literal notranslate"><span class="pre">info</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-missing-values">Visualizing missing values</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-analyze-how-the-data-are-distributed">Step 2: Analyze how the data are distributed</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#is-variable-y-different-depending-on-whether-x-is-nan">Is variable <span class="math notranslate nohighlight">\(Y\)</span> <em>different</em> depending on whether <span class="math notranslate nohighlight">\(X\)</span> is <code class="docutils literal notranslate"><span class="pre">nan</span></code>?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-methods">Additional methods</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-determine-what-to-do">Step 3: Determine what to do!</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-all-rows-with-any-missing-data">Removing all rows with any missing data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-all-rows-with-missing-data-in-specific-columns">Removing all rows with missing data in specific columns</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#imputing-missing-data">Imputing missing data</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#imputing-a-constant-value">Imputing a constant value</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#guessing-based-on-other-characteristics">Guessing based on other characteristics</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-datasets">Merging datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-merge">Why merge?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-merge">How to merge?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-in-practice"><code class="docutils literal notranslate"><span class="pre">merge</span></code> in practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-datasets">Loading datasets</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#different-kinds-of-merging">Different <em>kinds</em> of merging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join"><code class="docutils literal notranslate"><span class="pre">inner</span></code> join</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-merge-is-so-useful">Why <code class="docutils literal notranslate"><span class="pre">merge</span></code> is so useful</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping-data">Reshaping data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-tidy-data">What is tidy data?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-vs-untidy-data">Tidy vs. “untidy” data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-data">Tidy data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#untidy-data-1">Untidy data 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#untidy-data-2">Untidy data 2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-data-tidy">Making data tidy</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pd-melt">Using <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-a-real-dataset">Hands-on: a real dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-tidy-data-is-useful">Why tidy data is useful</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#original-graph">Original graph</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#using-datetime">Using <code class="docutils literal notranslate"><span class="pre">datetime</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-again">Plotting again</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-wrangling">
+<h1>Data wrangling<a class="headerlink" href="#data-wrangling" title="Permalink to this heading">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<p>A <em>huge</em> <span class="math notranslate nohighlight">\(\%\)</span> of science involves <strong>data wrangling</strong>.</p>
+<p>This could be an entire course on its own, but today we’ll focus on:</p>
+<ul class="simple">
+<li><p>What is <strong>data wrangling</strong>?</p></li>
+<li><p>What to do about <strong>missing values</strong>?</p></li>
+<li><p>How to <strong>combine</strong> datasets?</p></li>
+<li><p><strong>Tidy data</strong>!</p>
+<ul>
+<li><p>What is it?</p></li>
+<li><p>How do we make <em>our</em> data tidy?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="importing-relevant-libraries">
+<h2>Importing relevant libraries<a class="headerlink" href="#importing-relevant-libraries" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> <span class="c1">### importing seaborn</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-data-wrangling">
+<h2>What is data wrangling?<a class="headerlink" href="#what-is-data-wrangling" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Data wrangling</strong> refers to <em>manipulating</em>, <em>reshaping</em>, or <em>transforming</em> a dataset as needed for your goals (e.g., visualization and/or analysis).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>A huge <span class="math notranslate nohighlight">\(\%\)</span> of working with data involves “wrangling”.</p></li>
+<li><p>Includes:</p>
+<ul>
+<li><p>“Cleaning” data (missing values, recasting variables, etc.).</p></li>
+<li><p>Merging/combining different datasets.</p></li>
+<li><p>Reshaping data as needed.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="dealing-with-missing-values">
+<h2>Dealing with <em>missing values</em><a class="headerlink" href="#dealing-with-missing-values" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In practice, <strong>real-world</strong> data is often messy.</p></li>
+<li><p>This includes <strong>missing values</strong>, which take on the value/label <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> = “Not a Number”.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html">Dealing with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values is one of the main challenges in CSS!</a></p></li>
+</ul>
+<section id="loading-a-dataset-with-missing-values">
+<h3>Loading a dataset with missing values<a class="headerlink" href="#loading-a-dataset-with-missing-values" title="Permalink to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://www.kaggle.com/c/titanic/data?select=train.csv"><code class="docutils literal notranslate"><span class="pre">titanic</span></code> dataset</a> contains information about different Titanic passengers and whether they <code class="docutils literal notranslate"><span class="pre">Survived</span> <span class="pre">(1</span> <span class="pre">vs.</span> <span class="pre">0)</span></code>.</p>
+<ul class="simple">
+<li><p>Commonly used as a tutorial for machine learning, regression, and data wrangling.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_titanic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wrangling/titanic.csv&quot;</span><span class="p">)</span>
+<span class="n">df_titanic</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="why-is-missing-data-a-problem">
+<h3>Why is missing data a problem?<a class="headerlink" href="#why-is-missing-data-a-problem" title="Permalink to this heading">#</a></h3>
+<p>If you’re unaware of missing data:</p>
+<ul class="simple">
+<li><p>You might be <strong>overestimating</strong> the size of your dataset.</p></li>
+<li><p>You might be <strong>biasing</strong> the results of a visualization or analysis (if missing data are non-randomly distributed).</p></li>
+<li><p>You might be <strong>complicating</strong> an analysis.</p>
+<ul>
+<li><p>By default, many analysis packages will “drop” missing data––so you need to be aware of whether this is happening.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="how-to-deal-with-missing-data">
+<h3>How to deal with missing data<a class="headerlink" href="#how-to-deal-with-missing-data" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Identify</strong> whether and where your data has missing values.</p></li>
+<li><p><strong>Analyze</strong> how these missing values are distributed.</p></li>
+<li><p><strong>Decide</strong> how to handle them.</p></li>
+</ol>
+<p>Not an easy problem––especially step 3!</p>
+</section>
+<section id="step-1-identifying-missing-values">
+<h3>Step 1: Identifying missing values<a class="headerlink" href="#step-1-identifying-missing-values" title="Permalink to this heading">#</a></h3>
+<p>The first step is <strong>identifying</strong> whether and where your data has missing values.</p>
+<p>There are several approaches to this:</p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">.isna</span></code></p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">.info</span></code></p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">.isnull</span></code></p></li>
+</ul>
+<section id="isna">
+<h4><code class="docutils literal notranslate"><span class="pre">isna()</span></code><a class="headerlink" href="#isna" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">isna()</span></code> function tells us whether a given <em>cell</em> of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has a missing value or not (<code class="docutils literal notranslate"><span class="pre">True</span></code> vs. <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+<li><p>If we call <code class="docutils literal notranslate"><span class="pre">isna().any()</span></code>, it tells us which <em>columns</em> have missing values.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_titanic</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_titanic</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PassengerId    False
+Survived       False
+Pclass         False
+Name           False
+Sex            False
+Age             True
+SibSp          False
+Parch          False
+Ticket         False
+Fare           False
+Cabin           True
+Embarked        True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inspecting-columns-with-nan">
+<h5>Inspecting columns with <code class="docutils literal notranslate"><span class="pre">nan</span></code><a class="headerlink" href="#inspecting-columns-with-nan" title="Permalink to this heading">#</a></h5>
+<p>Now we can inspect specific <em>columns</em> that have <code class="docutils literal notranslate"><span class="pre">nan</span></code> values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_titanic</span><span class="p">[</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Moran, Mr. James</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330877</td>
+      <td>8.4583</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>18</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Williams, Mr. Charles Eugene</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>244373</td>
+      <td>13.0000</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Masselmani, Mrs. Fatima</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2649</td>
+      <td>7.2250</td>
+      <td>NaN</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>27</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Emir, Mr. Farred Chehab</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2631</td>
+      <td>7.2250</td>
+      <td>NaN</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>29</td>
+      <td>1</td>
+      <td>3</td>
+      <td>O'Dwyer, Miss. Ellen "Nellie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330959</td>
+      <td>7.8792</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="how-many-nan">
+<h5>How many <code class="docutils literal notranslate"><span class="pre">nan</span></code>?<a class="headerlink" href="#how-many-nan" title="Permalink to this heading">#</a></h5>
+<p>If we call <code class="docutils literal notranslate"><span class="pre">sum</span></code> on the <code class="docutils literal notranslate"><span class="pre">nan</span></code> values, we can calculate exactly how many <code class="docutils literal notranslate"><span class="pre">nan</span></code> values are in each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_titanic</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="info">
+<h4><code class="docutils literal notranslate"><span class="pre">info</span></code><a class="headerlink" href="#info" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">info()</span></code> function gives us various information about the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, including the number of <em>not-null</em> (i.e., non-missing) values in each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_titanic</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p>How many rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> have missing values for <code class="docutils literal notranslate"><span class="pre">Cabin</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### How many? (Quite a few!)</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(687, 12)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-missing-values">
+<h4>Visualizing missing values<a class="headerlink" href="#visualizing-missing-values" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Finally, we can <em>visualize</em> the rate of missing values across columns using <code class="docutils literal notranslate"><span class="pre">seaborn.heatmap</span></code>.</p>
+<ul>
+<li><p>The dark cells are those with not-null values.</p></li>
+<li><p>The light cells have <code class="docutils literal notranslate"><span class="pre">nan</span></code> values.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_titanic</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/d61836a0611973d22fe99861597d17101b11441d7bd477f39687b15ff8106c75.png" src="../_images/d61836a0611973d22fe99861597d17101b11441d7bd477f39687b15ff8106c75.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="step-2-analyze-how-the-data-are-distributed">
+<h3>Step 2: Analyze how the data are distributed<a class="headerlink" href="#step-2-analyze-how-the-data-are-distributed" title="Permalink to this heading">#</a></h3>
+<p>Having <em>identified</em> missing data, the next step is determining how those missing data are <em>distributed</em>.</p>
+<section id="is-variable-y-different-depending-on-whether-x-is-nan">
+<h4>Is variable <span class="math notranslate nohighlight">\(Y\)</span> <em>different</em> depending on whether <span class="math notranslate nohighlight">\(X\)</span> is <code class="docutils literal notranslate"><span class="pre">nan</span></code>?<a class="headerlink" href="#is-variable-y-different-depending-on-whether-x-is-nan" title="Permalink to this heading">#</a></h4>
+<p>One approach is to ask whether some variable of interest (e.g., <code class="docutils literal notranslate"><span class="pre">Survived</span></code>) is <em>different</em> depending on whether some <em>other</em> variable is <code class="docutils literal notranslate"><span class="pre">nan</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Mean survival for people without data about Cabin info</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()][</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.29985443959243085
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Mean survival for people *with* data about Cabin info</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="o">~</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Cabin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()][</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6666666666666666
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>What is the mean <code class="docutils literal notranslate"><span class="pre">Survived</span></code> rate for values with a <code class="docutils literal notranslate"><span class="pre">nan</span></code> value for <code class="docutils literal notranslate"><span class="pre">Age</span></code> vs. those with not-null values? How does this compare to the overall <code class="docutils literal notranslate"><span class="pre">Survived</span></code> rate?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Solution<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Mean survival for people without data about Age</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()][</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2937853107344633
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Mean survival for people *with* data about Age</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="o">~</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()][</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4061624649859944
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Mean survival for people overall</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3838383838383838
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="additional-methods">
+<h4>Additional methods<a class="headerlink" href="#additional-methods" title="Permalink to this heading">#</a></h4>
+<p>If you’re interested in diving deeper, you can look into the <code class="docutils literal notranslate"><span class="pre">missingno</span></code> library in Python (which must be separately installed).</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://towardsdatascience.com/using-the-missingno-python-library-to-identify-and-visualise-missing-data-prior-to-machine-learning-34c8c5b5f009">Tutorial using <code class="docutils literal notranslate"><span class="pre">missingno</span></code> on a dataset</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/ResidentMario/missingno">Source code for <code class="docutils literal notranslate"><span class="pre">missingno</span></code> library</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="step-3-determine-what-to-do">
+<h3>Step 3: Determine what to do!<a class="headerlink" href="#step-3-determine-what-to-do" title="Permalink to this heading">#</a></h3>
+<p>Having <em>identified</em> missing data, you need to determine how to <em>handle it</em>.</p>
+<p>There are several approaches you can take.</p>
+<ul class="simple">
+<li><p><strong>Removing</strong> all rows with <em>any</em> missing data.</p></li>
+<li><p><strong>Removing</strong> rows with missing data only when that variable is relevant to the analysis or visualization.</p></li>
+<li><p><strong>Imputing</strong> (i.e., guessing) what values missing data should have.</p></li>
+</ul>
+<section id="removing-all-rows-with-any-missing-data">
+<h4>Removing all rows with any missing data<a class="headerlink" href="#removing-all-rows-with-any-missing-data" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>We can <em>filter</em> our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> using <code class="docutils literal notranslate"><span class="pre">dropna</span></code>, which will automatically “drop” any rows containing null values.</p></li>
+<li><p>Caution: if you have lots of missing data, this can substantially impact the size of your dataset.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df_titanic</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">df_filtered</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(183, 12)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="removing-all-rows-with-missing-data-in-specific-columns">
+<h4>Removing all rows with missing data in specific columns<a class="headerlink" href="#removing-all-rows-with-missing-data-in-specific-columns" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Here, we specify that we only want to <code class="docutils literal notranslate"><span class="pre">dropna</span></code> for rows that have <code class="docutils literal notranslate"><span class="pre">nan</span></code> in the <code class="docutils literal notranslate"><span class="pre">Age</span></code> column specifically.</p></li>
+<li><p>We still have missing <code class="docutils literal notranslate"><span class="pre">nan</span></code> for <code class="docutils literal notranslate"><span class="pre">Cabin</span></code>, but perhaps that’s fine in our case.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df_titanic</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+<span class="n">df_filtered</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(714, 12)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="imputing-missing-data">
+<h4>Imputing missing data<a class="headerlink" href="#imputing-missing-data" title="Permalink to this heading">#</a></h4>
+<p>One of the most complex (and controversial) approaches is to <em>impute</em> the values of missing data.</p>
+<p>There are (again) multiple ways to do this:</p>
+<ol class="arabic simple">
+<li><p>Decide on a <strong>constant</strong> value and assign it to all <code class="docutils literal notranslate"><span class="pre">nan</span></code> values.</p>
+<ul class="simple">
+<li><p>E.g., assign the <code class="docutils literal notranslate"><span class="pre">mean</span></code> <code class="docutils literal notranslate"><span class="pre">Age</span></code> to all people with <code class="docutils literal notranslate"><span class="pre">nan</span></code> in that column.</p></li>
+</ul>
+</li>
+<li><p>Try to <strong>guess</strong> the value based on specific characteristics of the data.</p>
+<ul class="simple">
+<li><p>E.g., based on other characteristics of this person, what is their likely <code class="docutils literal notranslate"><span class="pre">Age</span></code>?</p></li>
+</ul>
+</li>
+</ol>
+<section id="imputing-a-constant-value">
+<h5>Imputing a constant value<a class="headerlink" href="#imputing-a-constant-value" title="Permalink to this heading">#</a></h5>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">fillna</span></code> to assign all values with <code class="docutils literal notranslate"><span class="pre">nan</span></code> for <code class="docutils literal notranslate"><span class="pre">Age</span></code> some other value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Assign the mean Age to all people with nan for Age</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age_imputed1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="c1">## Now let&#39;s look at those rows</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>Age_imputed1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Moran, Mr. James</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330877</td>
+      <td>8.4583</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>29.699118</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>18</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Williams, Mr. Charles Eugene</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>244373</td>
+      <td>13.0000</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>29.699118</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Masselmani, Mrs. Fatima</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2649</td>
+      <td>7.2250</td>
+      <td>NaN</td>
+      <td>C</td>
+      <td>29.699118</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>27</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Emir, Mr. Farred Chehab</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2631</td>
+      <td>7.2250</td>
+      <td>NaN</td>
+      <td>C</td>
+      <td>29.699118</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>29</td>
+      <td>1</td>
+      <td>3</td>
+      <td>O'Dwyer, Miss. Ellen "Nellie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330959</td>
+      <td>7.8792</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>29.699118</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="guessing-based-on-other-characteristics">
+<h5>Guessing based on other characteristics<a class="headerlink" href="#guessing-based-on-other-characteristics" title="Permalink to this heading">#</a></h5>
+<ul class="simple">
+<li><p>You can try to <em>guess</em> what their <code class="docutils literal notranslate"><span class="pre">Age</span></code> would be, based on other features.</p></li>
+<li><p>The more sophisticated version of this is to use <strong>statistical modeling</strong> or using <code class="docutils literal notranslate"><span class="pre">SimpleImputer</span></code> from the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> library.</p></li>
+<li><p>For now, simply note that <code class="docutils literal notranslate"><span class="pre">Age</span></code> correlates with other features (like <code class="docutils literal notranslate"><span class="pre">Pclass</span></code>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Passenger Class is correlated with Age</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_titanic</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Age&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Pclass&#39;, ylabel=&#39;Age&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/0a5554e9141ed8577dfc511fe792b02c1da84cb125b591d2c0130a0fb5cc5062.png" src="../_images/0a5554e9141ed8577dfc511fe792b02c1da84cb125b591d2c0130a0fb5cc5062.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>What would happen if you used <code class="docutils literal notranslate"><span class="pre">fillna</span></code> with the <code class="docutils literal notranslate"><span class="pre">median</span></code> <code class="docutils literal notranslate"><span class="pre">Age</span></code> instead of the <code class="docutils literal notranslate"><span class="pre">mean</span></code>? Why would this matter?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Solution<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">median</span></code> <code class="docutils literal notranslate"><span class="pre">Age</span></code> is slightly lower.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Assign the median Age to all people with nan for Age</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age_imputed2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="c1">## Now let&#39;s look at those rows</span>
+<span class="n">df_titanic</span><span class="p">[</span><span class="n">df_titanic</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>Age_imputed1</th>
+      <th>Age_imputed2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Moran, Mr. James</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330877</td>
+      <td>8.4583</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>29.699118</td>
+      <td>28.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>18</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Williams, Mr. Charles Eugene</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>244373</td>
+      <td>13.0000</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>29.699118</td>
+      <td>28.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Masselmani, Mrs. Fatima</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2649</td>
+      <td>7.2250</td>
+      <td>NaN</td>
+      <td>C</td>
+      <td>29.699118</td>
+      <td>28.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>27</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Emir, Mr. Farred Chehab</td>
+      <td>male</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2631</td>
+      <td>7.2250</td>
+      <td>NaN</td>
+      <td>C</td>
+      <td>29.699118</td>
+      <td>28.0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>29</td>
+      <td>1</td>
+      <td>3</td>
+      <td>O'Dwyer, Miss. Ellen "Nellie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>330959</td>
+      <td>7.8792</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>29.699118</td>
+      <td>28.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="merging-datasets">
+<h2>Merging datasets<a class="headerlink" href="#merging-datasets" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Merging</strong> refers to <em>combining</em> different datasets to leverage the power of additional information.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>In Week 1, we discussed this in the context of <strong>data linkage</strong>.</p></li>
+<li><p>Can link datasets as a function of:</p>
+<ul>
+<li><p>Shared <em>time window</em>.</p></li>
+<li><p>Shared <em>identity</em>.</p></li>
+</ul>
+</li>
+</ul>
+<section id="why-merge">
+<h3>Why merge?<a class="headerlink" href="#why-merge" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Each dataset contains <em>limited</em> information.</p>
+<ul>
+<li><p>E.g., <code class="docutils literal notranslate"><span class="pre">GDP</span></code> by <code class="docutils literal notranslate"><span class="pre">Year</span></code>.</p></li>
+</ul>
+</li>
+<li><p>But <strong>merging</strong> datasets allows us to see how more variables relate and interact.</p></li>
+<li><p>Much of social science research involves <strong>locating</strong> datasets and figuring out how to <strong>combine</strong> them.</p></li>
+</ul>
+</section>
+<section id="how-to-merge">
+<h3>How to merge?<a class="headerlink" href="#how-to-merge" title="Permalink to this heading">#</a></h3>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">pandas.merge</span></code> allows us to merge two <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s on a common column(s).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;shared_column&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="merge-in-practice">
+<h3><code class="docutils literal notranslate"><span class="pre">merge</span></code> in practice<a class="headerlink" href="#merge-in-practice" title="Permalink to this heading">#</a></h3>
+<p>For demonstration, we’ll merge two Linguistics datasets:</p>
+<ul class="simple">
+<li><p>One dataset contains information about the <strong>Age of Acquisition</strong> of different English words (Kuperman et al., 2014).</p></li>
+<li><p>The other dataset contains information about the <strong>Frequency</strong> and <strong>Concreteness</strong> of English words (Brysbaert et al., 2014).</p></li>
+</ul>
+<section id="loading-datasets">
+<h4>Loading datasets<a class="headerlink" href="#loading-datasets" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_aoa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wrangling/AoA.csv&quot;</span><span class="p">)</span>
+<span class="n">df_aoa</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Word</th>
+      <th>AoA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>2.89</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_conc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wrangling/concreteness.csv&quot;</span><span class="p">)</span>
+<span class="n">df_conc</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Word</th>
+      <th>Concreteness</th>
+      <th>Frequency</th>
+      <th>Dom_Pos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>sled</td>
+      <td>5.0</td>
+      <td>149</td>
+      <td>Adjective</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="different-kinds-of-merging">
+<h4>Different <em>kinds</em> of merging<a class="headerlink" href="#different-kinds-of-merging" title="Permalink to this heading">#</a></h4>
+<p>As we see, the datasets are not the same <strong>size</strong>. This leaves us with a decision to make when merging.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inner</span></code> join: Do we preserve only the words in <em>both</em> datasets?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">left</span></code> join: Do we preserve all the words in one dataset (the “left” one), regardless of whether they occur in the other?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">right</span></code> join: Do we preserve all the words in one dataset (the “right” one), regardless of whether they occur in the other?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outer</span></code> join: Do we preserve all words in both, leaving empty (<code class="docutils literal notranslate"><span class="pre">nan</span></code>) values where a word only appears in one dataset?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_aoa</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(31124, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_conc</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(28612, 4)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-join">
+<h4><code class="docutils literal notranslate"><span class="pre">inner</span></code> join<a class="headerlink" href="#inner-join" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>For our purposes, it makes the most sense to use an <code class="docutils literal notranslate"><span class="pre">inner</span></code> join.</p></li>
+<li><p>This leaves us with fewer words than occur in <em>either</em> dataset.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_aoa</span><span class="p">,</span> <span class="n">df_conc</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;Word&quot;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="n">df_merged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Word</th>
+      <th>AoA</th>
+      <th>Concreteness</th>
+      <th>Frequency</th>
+      <th>Dom_Pos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>aardvark</td>
+      <td>9.89</td>
+      <td>4.68</td>
+      <td>21</td>
+      <td>Noun</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>abacus</td>
+      <td>8.69</td>
+      <td>4.52</td>
+      <td>12</td>
+      <td>Noun</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_merged</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(23569, 5)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h4>Check-in<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>What happens if you use a different kind of join, e.g., <code class="docutils literal notranslate"><span class="pre">outer</span></code> or <code class="docutils literal notranslate"><span class="pre">left</span></code>? What do you notice about the <code class="docutils literal notranslate"><span class="pre">shape</span></code> of the resulting <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>? Do some rows have <code class="docutils literal notranslate"><span class="pre">nan</span></code> values?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h4>Solution<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_outer_join</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_aoa</span><span class="p">,</span> <span class="n">df_conc</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s2">&quot;Word&quot;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+<span class="n">df_outer_join</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(36167, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_outer_join</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Word</th>
+      <th>AoA</th>
+      <th>Concreteness</th>
+      <th>Frequency</th>
+      <th>Dom_Pos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>2.89</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>aardvark</td>
+      <td>9.89</td>
+      <td>4.68</td>
+      <td>21.0</td>
+      <td>Noun</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>abacus</td>
+      <td>8.69</td>
+      <td>4.52</td>
+      <td>12.0</td>
+      <td>Noun</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>abalone</td>
+      <td>12.23</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="why-merge-is-so-useful">
+<h3>Why <code class="docutils literal notranslate"><span class="pre">merge</span></code> is so useful<a class="headerlink" href="#why-merge-is-so-useful" title="Permalink to this heading">#</a></h3>
+<p>Now that we’ve merged our datasets, we can look at how variables <em>across</em> them relate to each other.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Concreteness&#39;</span><span class="p">,</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;AoA&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.2</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Concreteness&#39;, ylabel=&#39;AoA&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/3f013165a4f305bf9eae0d4959d08455d28cf026f24215f9679753d0fd3f0921.png" src="../_images/3f013165a4f305bf9eae0d4959d08455d28cf026f24215f9679753d0fd3f0921.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="reshaping-data">
+<h2>Reshaping data<a class="headerlink" href="#reshaping-data" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Reshaping data</strong> involves transforming it from one format (e.g., “wide”) to another format (e.g., “long”), to make it more amenable to visualization and analysis.</p>
+</div></blockquote>
+<p>Often, we need to make our data <strong>tidy</strong>.</p>
+<section id="what-is-tidy-data">
+<h3>What is tidy data?<a class="headerlink" href="#what-is-tidy-data" title="Permalink to this heading">#</a></h3>
+<p><strong>Tidy data</strong> is a particular way of formatting data, in which:</p>
+<ol class="arabic simple">
+<li><p>Each variable forms a column (e.g., <code class="docutils literal notranslate"><span class="pre">GDP</span></code>).</p></li>
+<li><p>Each observation forms a row (e.g., a <code class="docutils literal notranslate"><span class="pre">country</span></code>).</p></li>
+<li><p>Each type of observational unit forms a table (<strong>tabular data</strong>!).</p></li>
+</ol>
+<p>Originally developed by Hadley Wickham, creator of the <code class="docutils literal notranslate"><span class="pre">tidyverse</span></code> in R.</p>
+</section>
+<section id="tidy-vs-untidy-data">
+<h3>Tidy vs. “untidy” data<a class="headerlink" href="#tidy-vs-untidy-data" title="Permalink to this heading">#</a></h3>
+<p>Now let’s see some examples of <strong>tidy</strong> vs. <strong>untidy</strong> data.</p>
+<p>Keep in mind:</p>
+<ul class="simple">
+<li><p>These datasets all contain the <strong>same information</strong>, just in different <strong>formats</strong>.</p></li>
+<li><p>“Untidy” data can be useful for other things, e.g., presenting in a paper.</p></li>
+<li><p>The key goal of tidy data is that <strong>each row represents an observation</strong>.</p></li>
+</ul>
+<section id="tidy-data">
+<h4>Tidy data<a class="headerlink" href="#tidy-data" title="Permalink to this heading">#</a></h4>
+<p><strong>Check-in</strong>: Why is this data considered tidy?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tidy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wrangling/tidy.csv&quot;</span><span class="p">)</span>
+<span class="n">df_tidy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ppt</th>
+      <th>condition</th>
+      <th>rt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>john</td>
+      <td>Congruent</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>john</td>
+      <td>Incongruent</td>
+      <td>250</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>mary</td>
+      <td>Congruent</td>
+      <td>178</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>mary</td>
+      <td>Incongruent</td>
+      <td>195</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="untidy-data-1">
+<h4>Untidy data 1<a class="headerlink" href="#untidy-data-1" title="Permalink to this heading">#</a></h4>
+<p><strong>Check-in</strong>: Why is this data <em>not</em> considered tidy?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_messy1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wrangling/messy1.csv&quot;</span><span class="p">)</span>
+<span class="n">df_messy1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>john</th>
+      <th>mary</th>
+      <th>condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>200</td>
+      <td>178</td>
+      <td>Congruent</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>250</td>
+      <td>195</td>
+      <td>Incongruent</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="untidy-data-2">
+<h4>Untidy data 2<a class="headerlink" href="#untidy-data-2" title="Permalink to this heading">#</a></h4>
+<p><strong>Check-in</strong>: Why is this data <em>not</em> considered tidy?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_messy2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wrangling/messy2.csv&quot;</span><span class="p">)</span>
+<span class="n">df_messy2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>congruent</th>
+      <th>incongruent</th>
+      <th>ppt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>200</td>
+      <td>250</td>
+      <td>john</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>178</td>
+      <td>195</td>
+      <td>mary</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="making-data-tidy">
+<h3>Making data tidy<a class="headerlink" href="#making-data-tidy" title="Permalink to this heading">#</a></h3>
+<p>Fortunately, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> makes it possible to turn an “untidy” <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> into a <strong>tidy</strong> one.</p>
+<p>The key function here is <code class="docutils literal notranslate"><span class="pre">pandas.melt</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="c1">### Dataframe</span>
+        <span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="c1">### what are the identifying columns?</span>
+        <span class="n">var_name</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="c1">### name for variable grouping over columns</span>
+        <span class="n">value_name</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="c1">### name for the value this variable takes on</span>
+</pre></div>
+</div>
+<p>If this seems <strong>abstract</strong>, don’t worry––it’ll become clearer with examples!</p>
+<section id="using-pd-melt">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code><a class="headerlink" href="#using-pd-melt" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Let’s start with our first messy <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
+<li><p>Has columns for each <code class="docutils literal notranslate"><span class="pre">ppt</span></code>, which contain info about <code class="docutils literal notranslate"><span class="pre">rt</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_messy1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>john</th>
+      <th>mary</th>
+      <th>condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>200</td>
+      <td>178</td>
+      <td>Congruent</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>250</td>
+      <td>195</td>
+      <td>Incongruent</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df_messy1</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="c1">### condition is our ID variable</span>
+       <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;ppt&#39;</span><span class="p">,</span> <span class="c1">### new row for each ppt observation</span>
+       <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="c1">### label for the info we have about each ppt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>condition</th>
+      <th>ppt</th>
+      <th>rt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Congruent</td>
+      <td>john</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Incongruent</td>
+      <td>john</td>
+      <td>250</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Congruent</td>
+      <td>mary</td>
+      <td>178</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Incongruent</td>
+      <td>mary</td>
+      <td>195</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id7">
+<h4>Check-in<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>Try to use <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> to turn <code class="docutils literal notranslate"><span class="pre">df_messy2</span></code> into a <strong>tidy</strong> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<p><strong>Hint</strong>: Think about the existing structure of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>––how is data grouped––and what the <code class="docutils literal notranslate"><span class="pre">id_vars</span></code> would be.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_messy2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>congruent</th>
+      <th>incongruent</th>
+      <th>ppt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>200</td>
+      <td>250</td>
+      <td>john</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>178</td>
+      <td>195</td>
+      <td>mary</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h4>Solution<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df_messy2</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="s1">&#39;ppt&#39;</span><span class="p">,</span> <span class="c1">### here, ppt is our ID variable</span>
+       <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="c1">### new row for each ppt observation</span>
+       <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="c1">### label for the info we have about each ppt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ppt</th>
+      <th>condition</th>
+      <th>rt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>john</td>
+      <td>congruent</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>mary</td>
+      <td>congruent</td>
+      <td>178</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>john</td>
+      <td>incongruent</td>
+      <td>250</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>mary</td>
+      <td>incongruent</td>
+      <td>195</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="hands-on-a-real-dataset">
+<h3>Hands-on: a real dataset<a class="headerlink" href="#hands-on-a-real-dataset" title="Permalink to this heading">#</a></h3>
+<p>Now, we’ll turn to a real dataset, which Timothy Lee, creator of <a class="reference external" href="https://www.fullstackeconomics.com/">Full Stack Economics</a>, compiled and shared with me.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_work</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/viz/missing_work.csv&quot;</span><span class="p">)</span>
+<span class="n">df_work</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Child care problems</th>
+      <th>Maternity or paternity leave</th>
+      <th>Other family or personal obligations</th>
+      <th>Illness or injury</th>
+      <th>Vacation</th>
+      <th>Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2012</td>
+      <td>18</td>
+      <td>313</td>
+      <td>246</td>
+      <td>899</td>
+      <td>1701</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2012</td>
+      <td>35</td>
+      <td>278</td>
+      <td>230</td>
+      <td>880</td>
+      <td>1299</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2012</td>
+      <td>13</td>
+      <td>245</td>
+      <td>246</td>
+      <td>944</td>
+      <td>1005</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2013</td>
+      <td>14</td>
+      <td>257</td>
+      <td>250</td>
+      <td>1202</td>
+      <td>1552</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2013</td>
+      <td>27</td>
+      <td>258</td>
+      <td>276</td>
+      <td>1079</td>
+      <td>1305</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="id9">
+<h4>Check-in<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>Is this dataset tidy? How could we make it tidy, if not––i.e., if we wanted each <em>row</em> to be a single observation corresponding to one of the <em>reasons</em> for missing work?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h4>Solution<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_melted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df_work</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Month&#39;</span><span class="p">],</span>
+                    <span class="n">var_name</span> <span class="o">=</span> <span class="s2">&quot;Reason&quot;</span><span class="p">,</span>
+                    <span class="n">value_name</span> <span class="o">=</span> <span class="s2">&quot;Days Missed&quot;</span><span class="p">)</span>
+<span class="n">df_melted</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Reason</th>
+      <th>Days Missed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2012</td>
+      <td>10</td>
+      <td>Child care problems</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2012</td>
+      <td>11</td>
+      <td>Child care problems</td>
+      <td>35</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="why-tidy-data-is-useful">
+<h3>Why tidy data is useful<a class="headerlink" href="#why-tidy-data-is-useful" title="Permalink to this heading">#</a></h3>
+<p>Finally, let’s use this dataset to recreate a graph from <a class="reference external" href="https://www.fullstackeconomics.com/">FullStackEconomics</a>.</p>
+<section id="original-graph">
+<h4>Original graph<a class="headerlink" href="#original-graph" title="Permalink to this heading">#</a></h4>
+<p><img alt="title" src="../_images/work_pandemic.png" /></p>
+</section>
+<section id="id11">
+<h4>Check-in<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>As a first-pass approach, what tools from <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> could you use to recreate this plot?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h4>Solution<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
+<p>This is okay, but not really what we want. This is grouping it by <code class="docutils literal notranslate"><span class="pre">Year</span></code>. But we want to group by <em>both</em> <code class="docutils literal notranslate"><span class="pre">Year</span></code> and <code class="docutils literal notranslate"><span class="pre">Month</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_melted</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Days Missed&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;Reason&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Year&#39;, ylabel=&#39;Days Missed&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/e9a7b7852743c621303c8dfe09ba2bc8b2948b4e15b93a8eaf6f797bb8ad5a22.png" src="../_images/e9a7b7852743c621303c8dfe09ba2bc8b2948b4e15b93a8eaf6f797bb8ad5a22.png" />
+</div>
+</div>
+</section>
+<section id="using-datetime">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">datetime</span></code><a class="headerlink" href="#using-datetime" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Let’s make a new column called <code class="docutils literal notranslate"><span class="pre">date</span></code>, which combines the <code class="docutils literal notranslate"><span class="pre">Month</span></code> and <code class="docutils literal notranslate"><span class="pre">Year</span></code>.</p></li>
+<li><p>Then we can use <code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> to turn that into a custom <code class="docutils literal notranslate"><span class="pre">pandas</span></code> representation.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## First, let&#39;s concatenate each month and year into a single string</span>
+<span class="n">df_melted</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_melted</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">df_melted</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Reason</th>
+      <th>Days Missed</th>
+      <th>date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2012</td>
+      <td>10</td>
+      <td>Child care problems</td>
+      <td>18</td>
+      <td>10-2012</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2012</td>
+      <td>11</td>
+      <td>Child care problems</td>
+      <td>35</td>
+      <td>11-2012</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Now, let&#39;s create a new &quot;datetime&quot; column using the `pd.to_datetime` function</span>
+<span class="n">df_melted</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_melted</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">df_melted</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/pn/5zbmv0cj31v6hmyh53njhmdw0000gn/T/ipykernel_1691/714386078.py:2: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+  df_melted[&#39;datetime&#39;] = pd.to_datetime(df_melted[&#39;date&#39;])
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Reason</th>
+      <th>Days Missed</th>
+      <th>date</th>
+      <th>datetime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2012</td>
+      <td>10</td>
+      <td>Child care problems</td>
+      <td>18</td>
+      <td>10-2012</td>
+      <td>2012-10-01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2012</td>
+      <td>11</td>
+      <td>Child care problems</td>
+      <td>35</td>
+      <td>11-2012</td>
+      <td>2012-11-01</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="plotting-again">
+<h4>Plotting again<a class="headerlink" href="#plotting-again" title="Permalink to this heading">#</a></h4>
+<p>Much better!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_melted</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Days Missed&quot;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;Reason&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;datetime&#39;, ylabel=&#39;Days Missed&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/801ada6aa35bc49f29e1e3045a25fa1bb1d8e608f5b52ece19cf4cb0b9729900.png" src="../_images/801ada6aa35bc49f29e1e3045a25fa1bb1d8e608f5b52ece19cf4cb0b9729900.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>This was an introduction to <strong>data wrangling</strong>.</p>
+<ul class="simple">
+<li><p>As noted, data wrangling is a hugely important topic––and could constitute an entire class.</p></li>
+<li><p>But today, we’ve focused on:</p>
+<ul>
+<li><p>Identifying and addressing missing data.</p></li>
+<li><p>Merging datasets.</p></li>
+<li><p>Making data tidy.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08-dataviz-principles.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data visualization, pt. 3 (principles)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10-stats-basics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Describing Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-relevant-libraries">Importing relevant libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-data-wrangling">What is data wrangling?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-values">Dealing with <em>missing values</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-a-dataset-with-missing-values">Loading a dataset with missing values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-missing-data-a-problem">Why is missing data a problem?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-deal-with-missing-data">How to deal with missing data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-identifying-missing-values">Step 1: Identifying missing values</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isna"><code class="docutils literal notranslate"><span class="pre">isna()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-columns-with-nan">Inspecting columns with <code class="docutils literal notranslate"><span class="pre">nan</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-nan">How many <code class="docutils literal notranslate"><span class="pre">nan</span></code>?</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#info"><code class="docutils literal notranslate"><span class="pre">info</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-missing-values">Visualizing missing values</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-analyze-how-the-data-are-distributed">Step 2: Analyze how the data are distributed</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#is-variable-y-different-depending-on-whether-x-is-nan">Is variable <span class="math notranslate nohighlight">\(Y\)</span> <em>different</em> depending on whether <span class="math notranslate nohighlight">\(X\)</span> is <code class="docutils literal notranslate"><span class="pre">nan</span></code>?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-methods">Additional methods</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-determine-what-to-do">Step 3: Determine what to do!</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-all-rows-with-any-missing-data">Removing all rows with any missing data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-all-rows-with-missing-data-in-specific-columns">Removing all rows with missing data in specific columns</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#imputing-missing-data">Imputing missing data</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#imputing-a-constant-value">Imputing a constant value</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#guessing-based-on-other-characteristics">Guessing based on other characteristics</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-datasets">Merging datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-merge">Why merge?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-merge">How to merge?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-in-practice"><code class="docutils literal notranslate"><span class="pre">merge</span></code> in practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-datasets">Loading datasets</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#different-kinds-of-merging">Different <em>kinds</em> of merging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join"><code class="docutils literal notranslate"><span class="pre">inner</span></code> join</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-merge-is-so-useful">Why <code class="docutils literal notranslate"><span class="pre">merge</span></code> is so useful</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping-data">Reshaping data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-tidy-data">What is tidy data?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-vs-untidy-data">Tidy vs. “untidy” data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-data">Tidy data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#untidy-data-1">Untidy data 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#untidy-data-2">Untidy data 2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-data-tidy">Making data tidy</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pd-melt">Using <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-a-real-dataset">Hands-on: a real dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-tidy-data-is-useful">Why tidy data is useful</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#original-graph">Original graph</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#using-datetime">Using <code class="docutils literal notranslate"><span class="pre">datetime</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-again">Plotting again</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

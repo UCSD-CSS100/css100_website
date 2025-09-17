@@ -1,0 +1,1756 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Vector operations with numpy &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced operations with numpy" href="21-numpy-advanced.html" />
+    <link rel="prev" title="Working with JSON Files" href="19-reading-json.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/20-numpy.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/20-numpy.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/20-numpy.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computational-social-science-in-python">
+   Computational social science in Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#is-this-different-from-what-we-ve-been-doing">
+     Is this different from what we’ve been doing?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#illustrative-example">
+     Illustrative example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-numpy">
+   What is
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     numpy
+    </span>
+   </code>
+   ?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-can-i-use-numpy-for">
+     What can I use
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       numpy
+      </span>
+     </code>
+     for?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-numpy-ndarray">
+     Creating a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       numpy.ndarray
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#np-arange-in-detail">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         np.arange
+        </span>
+       </code>
+       in detail
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#turning-a-list-into-a-ndarray">
+     Turning a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     into a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ndarray
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Solution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indexing-into-a-one-dimensional-array">
+     Indexing into a one-dimensional array
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-dimensional-arrays">
+     Multi-dimensional arrays
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-attributes-of-an-array">
+     Checking
+     <em>
+      attributes
+     </em>
+     of an array
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Solution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-attributes-of-an-array-pt-2">
+     Checking
+     <em>
+      attributes
+     </em>
+     of an array (pt. 2)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#homogenous-data">
+     Homogenous data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interim-summary">
+     Interim summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-vectors-intro">
+   Working with vectors (intro)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-old-way-arithmetic-with-for-loops-and-lists">
+     The old way: arithmetic with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     loops and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     s
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-new-way-arithmetic-with-numpy">
+     The new way: arithmetic with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       numpy
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#other-arithmetic-operations">
+       Other arithmetic operations
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#vectors-vs-scalars">
+       Vectors vs. scalars
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       Solution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id11">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id12">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#thinking-with-vectors">
+     Thinking with vectors
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Vector operations with numpy</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computational-social-science-in-python">
+   Computational social science in Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#is-this-different-from-what-we-ve-been-doing">
+     Is this different from what we’ve been doing?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#illustrative-example">
+     Illustrative example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-numpy">
+   What is
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     numpy
+    </span>
+   </code>
+   ?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-can-i-use-numpy-for">
+     What can I use
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       numpy
+      </span>
+     </code>
+     for?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-numpy-ndarray">
+     Creating a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       numpy.ndarray
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#np-arange-in-detail">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         np.arange
+        </span>
+       </code>
+       in detail
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#turning-a-list-into-a-ndarray">
+     Turning a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     into a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ndarray
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Solution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indexing-into-a-one-dimensional-array">
+     Indexing into a one-dimensional array
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-dimensional-arrays">
+     Multi-dimensional arrays
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-attributes-of-an-array">
+     Checking
+     <em>
+      attributes
+     </em>
+     of an array
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Solution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-attributes-of-an-array-pt-2">
+     Checking
+     <em>
+      attributes
+     </em>
+     of an array (pt. 2)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#homogenous-data">
+     Homogenous data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interim-summary">
+     Interim summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-vectors-intro">
+   Working with vectors (intro)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-old-way-arithmetic-with-for-loops-and-lists">
+     The old way: arithmetic with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       for
+      </span>
+     </code>
+     loops and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     s
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-new-way-arithmetic-with-numpy">
+     The new way: arithmetic with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       numpy
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#other-arithmetic-operations">
+       Other arithmetic operations
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#vectors-vs-scalars">
+       Vectors vs. scalars
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       Solution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id11">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id12">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#thinking-with-vectors">
+     Thinking with vectors
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="vector-operations-with-numpy">
+<h1>Vector operations with <code class="docutils literal notranslate"><span class="pre">numpy</span></code><a class="headerlink" href="#vector-operations-with-numpy" title="Permalink to this headline">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this headline">#</a></h2>
+<p>Today we’re going to discuss using the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package in Python. <code class="docutils literal notranslate"><span class="pre">numpy</span></code> can be used for efficient <strong>vector operations</strong>, which is very useful for statistics and data analysis––and more broadly, <strong>computational social science</strong>.</p>
+<p>Broadly, this will involve:</p>
+<ul class="simple">
+<li><p>What kinds of tools are involved in <strong>computational social science</strong>? How is this similar and different to what we’ve discussed already?</p></li>
+<li><p>An introduction to <code class="docutils literal notranslate"><span class="pre">numpy</span></code> specifically.</p></li>
+<li><p>Working with <strong>vectors</strong>.</p></li>
+</ul>
+</section>
+<section id="computational-social-science-in-python">
+<h2>Computational social science in Python<a class="headerlink" href="#computational-social-science-in-python" title="Permalink to this headline">#</a></h2>
+<p>Python hosts a number of tools (packages) to enable <strong>scientific computing</strong>, including computational social science:</p>
+<ul class="simple">
+<li><p>Packages to perform <em>vector operations</em> (e.g., <code class="docutils literal notranslate"><span class="pre">numpy</span></code>).</p></li>
+<li><p>Packages to represent <em>data tables</em> (e.g., <code class="docutils literal notranslate"><span class="pre">pandas</span></code>).</p></li>
+<li><p>Packages to make <em>visualizations</em> (e.g., <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>).</p></li>
+<li><p>Packages to perform <em>statistical analyses</em> (e.g., <code class="docutils literal notranslate"><span class="pre">scipy</span></code>).</p></li>
+</ul>
+<p>These packages form part of an <strong>ecosystem</strong>.</p>
+<section id="is-this-different-from-what-we-ve-been-doing">
+<h3>Is this different from what we’ve been doing?<a class="headerlink" href="#is-this-different-from-what-we-ve-been-doing" title="Permalink to this headline">#</a></h3>
+<p>Yes and no.</p>
+<p>So far, we’ve focused on <strong>Python fundamentals</strong>:</p>
+<ul class="simple">
+<li><p>E.g., variables, loops, functions, and more.</p></li>
+<li><p>These fundamentals are critical––think of them as the <strong>foundation</strong> for everything that comes next.</p></li>
+</ul>
+<p>But <strong>scientific computing</strong> will involve a heavier focus on:</p>
+<ul class="simple">
+<li><p>Thinking about <em>data structures</em>.</p></li>
+<li><p>Thinking about <em>relationships between data</em>.</p></li>
+</ul>
+</section>
+<section id="illustrative-example">
+<h3>Illustrative example<a class="headerlink" href="#illustrative-example" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Previously, we’ve relied on <em>loops</em> while working with <code class="docutils literal notranslate"><span class="pre">list</span></code> objects.</p></li>
+<li><p>E.g., if we wanted to add every <em>i</em>th item in one <code class="docutils literal notranslate"><span class="pre">list</span></code> to every <em>i</em>th item in another <code class="docutils literal notranslate"><span class="pre">list</span></code>, we have to iterate through each loop item-by-item.</p></li>
+<li><p>However, <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a tool for <strong>vector-wise arithmetic</strong>:</p>
+<ul>
+<li><p>Can add/multiply/divide/etc. entire <em>vectors</em> together, rather than having to loop through each item.</p></li>
+</ul>
+</li>
+</ul>
+<p>Onto <code class="docutils literal notranslate"><span class="pre">numpy</span></code>!</p>
+</section>
+</section>
+<section id="what-is-numpy">
+<h2>What is <code class="docutils literal notranslate"><span class="pre">numpy</span></code>?<a class="headerlink" href="#what-is-numpy" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://numpy.org/doc/"><strong><code class="docutils literal notranslate"><span class="pre">numpy</span></code></strong></a> is a <em>package</em> for scientific computing; specifically, it enables fast computation with <em>vectors</em> and <em>matrices</em>, along with a number of important mathematical operations.</p>
+</div></blockquote>
+<p>Because <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a package, it must be <em>imported</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import statement</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="what-can-i-use-numpy-for">
+<h3>What can I use <code class="docutils literal notranslate"><span class="pre">numpy</span></code> for?<a class="headerlink" href="#what-can-i-use-numpy-for" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> allows you to work with <strong>homogenous</strong> arrays.</p>
+<ul>
+<li><p>A <a class="reference external" href="https://numpy.org/doc/stable/user/quickstart.html"><strong>homogenous array</strong></a> is an array with objects all of the same <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p></li>
+<li><p>E.g., all <code class="docutils literal notranslate"><span class="pre">int</span></code>, or all <code class="docutils literal notranslate"><span class="pre">bool</span></code>, etc.</p></li>
+</ul>
+</li>
+<li><p>The benefit of this is that you can do <strong>computations</strong> very <strong>efficiently</strong>.</p>
+<ul>
+<li><p>No more need to <em>loop</em>!</p></li>
+</ul>
+</li>
+<li><p>Enables more advanced mathematical operations.</p></li>
+</ul>
+<p><strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a key part of many <em>advanced machine learning</em> packages!</p>
+</section>
+<section id="creating-a-numpy-ndarray">
+<h3>Creating a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code><a class="headerlink" href="#creating-a-numpy-ndarray" title="Permalink to this headline">#</a></h3>
+<p>The basic data type of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is an <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> = <strong>N-dimensional array</strong>.</p></li>
+</ul>
+<p>A simple way to create an <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> is <code class="docutils literal notranslate"><span class="pre">np.arange</span></code> (“a range”).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Works similar to range(N)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<section id="np-arange-in-detail">
+<h4><code class="docutils literal notranslate"><span class="pre">np.arange</span></code> in detail<a class="headerlink" href="#np-arange-in-detail" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>By default, <code class="docutils literal notranslate"><span class="pre">np.arange(start,</span> <span class="pre">stop)</span></code> returns an array of integers from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">stop</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">step</span></code> parameter allows you to determine the <strong>granularity</strong> of how you “step” between <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## step size = 2</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## step size = .5</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1. , 1.5, 2. , 2.5, 3. , 3.5])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h4>
+<p>How would you create an array ranging from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">20</span></code>, incrementing with a step size of <code class="docutils literal notranslate"><span class="pre">.5</span></code>? How long would this array be?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">np_range</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="turning-a-list-into-a-ndarray">
+<h3>Turning a <code class="docutils literal notranslate"><span class="pre">list</span></code> into a <code class="docutils literal notranslate"><span class="pre">ndarray</span></code><a class="headerlink" href="#turning-a-list-into-a-ndarray" title="Permalink to this headline">#</a></h3>
+<p>Another way to create an <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> is to pass a <code class="docutils literal notranslate"><span class="pre">list</span></code> into the <code class="docutils literal notranslate"><span class="pre">np.array(...)</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">og_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">og_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">og_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">np_array</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;numpy.ndarray&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_array</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<p>How would you create a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array with the elements <code class="docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">6,</span> <span class="pre">7]</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Solution<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">np_array</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5, 6, 7])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p>Why is this code throwing an error?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [12],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">test_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: array() takes from 1 to 2 positional arguments but 3 were given
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Solution<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<p>Make sure you <strong>wrap</strong> the input array in <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">test_array</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 2, 3])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="indexing-into-a-one-dimensional-array">
+<h3>Indexing into a one-dimensional array<a class="headerlink" href="#indexing-into-a-one-dimensional-array" title="Permalink to this headline">#</a></h3>
+<p>Indexing works just like it does for <code class="docutils literal notranslate"><span class="pre">list</span></code>s.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np_array</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multi-dimensional-arrays">
+<h3>Multi-dimensional arrays<a class="headerlink" href="#multi-dimensional-arrays" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>So far, we’ve just been looking at 1-dimensional arrays.</p></li>
+<li><p>But <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is excellent at storing <strong>multi-dimensional arrays</strong>.</p></li>
+</ul>
+</section>
+<section id="checking-attributes-of-an-array">
+<h3>Checking <em>attributes</em> of an array<a class="headerlink" href="#checking-attributes-of-an-array" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">shape</span></code> attribute tells you the dimensions of an array.</p>
+<section id="id5">
+<h4>Check-in<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p>What is the <strong>dimensionality</strong> of <code class="docutils literal notranslate"><span class="pre">md_array</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### What is dimensionality</span>
+<span class="n">md_array</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 2],
+       [3, 4]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h4>Solution<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
+<p>You can check this using <code class="docutils literal notranslate"><span class="pre">md_array.shape</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_array</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 2)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h4>Check-in<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h4>
+<p>What about <code class="docutils literal notranslate"><span class="pre">md_array2</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## 2x3 array</span>
+<span class="n">md_array2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">md_array2</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h4>Solution<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h4>
+<p>You can check this using <code class="docutils literal notranslate"><span class="pre">md_array.shape</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_array2</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="checking-attributes-of-an-array-pt-2">
+<h3>Checking <em>attributes</em> of an array (pt. 2)<a class="headerlink" href="#checking-attributes-of-an-array-pt-2" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">dtype</span></code> attribute tells you the <em>type</em> of data in the array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_array2</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="homogenous-data">
+<h3>Homogenous data<a class="headerlink" href="#homogenous-data" title="Permalink to this headline">#</a></h3>
+<p>As noted earlier, an array is meant to store <strong>homogenous elements</strong>.</p>
+<ul class="simple">
+<li><p>This means that <code class="docutils literal notranslate"><span class="pre">np.array</span></code> will try to <strong>convert</strong> any heterogenous elements to a common <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Note what happens to 5 and 7!</span>
+<span class="n">arr3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">arr3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;a&#39;, &#39;5&#39;, &#39;7&#39;], dtype=&#39;&lt;U21&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr3</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;&lt;U21&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interim-summary">
+<h3>Interim summary<a class="headerlink" href="#interim-summary" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a package that forms the foundation of scientific computing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays are the cornerstone of <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array is like a <code class="docutils literal notranslate"><span class="pre">list</span></code>, with a couple differences:</p>
+<ul>
+<li><p>Requires <strong>homogenous elements</strong>.</p></li>
+<li><p>Better at representing <strong>multi-dimensional arrays</strong>.</p></li>
+<li><p>Can be used for <strong>vector operations</strong> (coming up!).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="working-with-vectors-intro">
+<h2>Working with vectors (intro)<a class="headerlink" href="#working-with-vectors-intro" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> vectors make it easier to do all sorts of operations, such as <strong>arithmetic</strong> operations.</p></li>
+<li><p>No more need to use <code class="docutils literal notranslate"><span class="pre">for</span></code> loops––can do vector arithmetic the same way we multiply individual numbers.</p></li>
+</ul>
+<section id="the-old-way-arithmetic-with-for-loops-and-lists">
+<h3>The old way: arithmetic with <code class="docutils literal notranslate"><span class="pre">for</span></code> loops and <code class="docutils literal notranslate"><span class="pre">list</span></code>s<a class="headerlink" href="#the-old-way-arithmetic-with-for-loops-and-lists" title="Permalink to this headline">#</a></h3>
+<p>Adding one <code class="docutils literal notranslate"><span class="pre">list</span></code> to another requires using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## The &quot;+&quot; operator just combines them</span>
+<span class="n">list1</span> <span class="o">+</span> <span class="n">list2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 2, 3, 4]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## To add them, we must use a for loop</span>
+<span class="n">sum_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list1</span><span class="p">):</span>
+    <span class="n">sum_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span> <span class="o">+</span> <span class="n">list2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+<span class="n">sum_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3, 5, 7]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-new-way-arithmetic-with-numpy">
+<h3>The new way: arithmetic with <code class="docutils literal notranslate"><span class="pre">numpy</span></code><a class="headerlink" href="#the-new-way-arithmetic-with-numpy" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> makes it <em>much</em> easier to do arithmetic operations with vectors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## First, define some vectors</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">list1</span><span class="p">])</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">list2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Can just use &quot;+&quot;!</span>
+<span class="n">arr1</span> <span class="o">+</span> <span class="n">arr2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[3, 5, 7]])
+</pre></div>
+</div>
+</div>
+</div>
+<section id="other-arithmetic-operations">
+<h4>Other arithmetic operations<a class="headerlink" href="#other-arithmetic-operations" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr1</span> <span class="o">-</span>  <span class="n">arr2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1, -1, -1]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr1</span> <span class="o">*</span>  <span class="n">arr2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 2,  6, 12]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr1</span> <span class="o">/</span> <span class="n">arr2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.5       , 0.66666667, 0.75      ]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="vectors-vs-scalars">
+<h4>Vectors vs. scalars<a class="headerlink" href="#vectors-vs-scalars" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>A <strong>vector</strong> is a list of numbers; a <strong>scalar</strong> is a single number.</p></li>
+<li><p>We can multiply (or add, subtract, etc.) an entire <em>vector</em> by a single number.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arr1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1, 2, 3]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Multiply all elements by 100</span>
+<span class="n">arr1</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[100, 200, 300]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h4>Check-in<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h4>
+<p>What would multiplying the two arrays below return?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h4>Solution<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 4,  8, 15])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h4>Check-in<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h4>
+<p>What would happen if we ran the code below?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h4>Solution<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h4>
+<p>Vectors/matrices must have <em>compatible shapes</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [130],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+
+<span class="ne">ValueError</span>: operands could not be broadcast together with shapes (3,) (2,) 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="thinking-with-vectors">
+<h3>Thinking with vectors<a class="headerlink" href="#thinking-with-vectors" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">numpy</span></code> for vector arithmetic can sometimes involve a “cognitive shift”.</p></li>
+<li><p>We’re used to multiplying <em>individual elements</em>; now we have to transition to thinking about multiplying <em>entire vectors</em>.</p></li>
+<li><p>But it’s much more efficient!</p></li>
+</ul>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>This was a brief introduction to <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> is a powerful package used in scientific computing.</p></li>
+<li><p>The cornerstone of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays can be used for efficient <strong>vector computations</strong>.</p></li>
+</ul>
+<p>Next time, we’ll dive deeper into more advanced <code class="docutils literal notranslate"><span class="pre">numpy</span></code> operations.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="19-reading-json.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Working with JSON Files</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="21-numpy-advanced.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Advanced operations with <code class="docutils literal notranslate"><span class="pre">numpy</span></code></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

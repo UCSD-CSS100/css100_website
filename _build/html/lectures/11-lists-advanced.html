@@ -1,0 +1,1462 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Lists in Python (advanced) &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Dictionaries" href="12-dictionaries.html" />
+    <link rel="prev" title="Lists in Python" href="10-lists.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/11-lists-advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/11-lists-advanced.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/11-lists-advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#review-lists">
+   Review:
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     list
+    </span>
+   </code>
+   s
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-today-s-lecture">
+   Goals of today’s lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-lists">
+   Combining lists
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-items-to-a-list">
+   Adding items to a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     list
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filling-up-an-empty-list">
+     Filling up an empty
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-insert">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       insert
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-items-from-a-list">
+   Removing items from a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     list
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#popping-in-action">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pop
+      </span>
+     </code>
+     ping in action
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#removing-in-action">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       remov
+      </span>
+     </code>
+     ing in action
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-the-index-of-a-particular-value">
+   Finding the index of a particular value
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-a-list">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     sort
+    </span>
+   </code>
+   ing a list
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ascending-vs-descending">
+     Ascending vs. descending?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nested-lists">
+   Nested lists
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lists-vs-tuples">
+   Lists vs. tuples
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tuples-continued">
+     Tuples (continued)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lists in Python (advanced)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#review-lists">
+   Review:
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     list
+    </span>
+   </code>
+   s
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-today-s-lecture">
+   Goals of today’s lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-lists">
+   Combining lists
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-items-to-a-list">
+   Adding items to a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     list
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filling-up-an-empty-list">
+     Filling up an empty
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-insert">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       insert
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-items-from-a-list">
+   Removing items from a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     list
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#popping-in-action">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pop
+      </span>
+     </code>
+     ping in action
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#removing-in-action">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       remov
+      </span>
+     </code>
+     ing in action
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-the-index-of-a-particular-value">
+   Finding the index of a particular value
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-a-list">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     sort
+    </span>
+   </code>
+   ing a list
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ascending-vs-descending">
+     Ascending vs. descending?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nested-lists">
+   Nested lists
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lists-vs-tuples">
+   Lists vs. tuples
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tuples-continued">
+     Tuples (continued)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="lists-in-python-advanced">
+<h1>Lists in Python (advanced)<a class="headerlink" href="#lists-in-python-advanced" title="Permalink to this headline">#</a></h1>
+<section id="review-lists">
+<h2>Review: <code class="docutils literal notranslate"><span class="pre">list</span></code>s<a class="headerlink" href="#review-lists" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p>A <strong>list</strong> is a collection of ordered items, which can have various <code class="docutils literal notranslate"><span class="pre">type</span></code>s.</p>
+</div></blockquote>
+<p>Basics:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">list</span></code> is created using square brackets, i.e., <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</p></li>
+<li><p>You can <strong>index</strong> into a list using the syntax: <code class="docutils literal notranslate"><span class="pre">list_name[0]</span></code>.</p></li>
+<li><p>Like with a <code class="docutils literal notranslate"><span class="pre">str</span></code>, you can <strong>loop</strong> through a <code class="docutils literal notranslate"><span class="pre">list</span></code> using <code class="docutils literal notranslate"><span class="pre">for</span></code> and <code class="docutils literal notranslate"><span class="pre">while</span></code> loops.</p></li>
+<li><p>List <strong>comprehensions</strong> are an efficient way to apply some operation throughout a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p></li>
+</ul>
+</section>
+<section id="goals-of-today-s-lecture">
+<h2>Goals of today’s lecture<a class="headerlink" href="#goals-of-today-s-lecture" title="Permalink to this headline">#</a></h2>
+<p>Today, we’ll cover several more <strong>advanced</strong> operations we can perform with a <code class="docutils literal notranslate"><span class="pre">list</span></code>, including:</p>
+<ul class="simple">
+<li><p>Combining lists using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator.</p></li>
+<li><p>Adding items to a <code class="docutils literal notranslate"><span class="pre">list</span></code> using <code class="docutils literal notranslate"><span class="pre">append</span></code>.</p></li>
+<li><p>Removing items from a list using <code class="docutils literal notranslate"><span class="pre">remove</span></code> and <code class="docutils literal notranslate"><span class="pre">pop</span></code>.</p></li>
+<li><p>Locating the <strong>index</strong> of a particular value or item in a <code class="docutils literal notranslate"><span class="pre">list</span></code> using <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sort</span></code>ing the elements in a list.</p></li>
+</ul>
+<p>We’ll also cover some related topics in the domain of <code class="docutils literal notranslate"><span class="pre">lists</span></code>:</p>
+<ul class="simple">
+<li><p>Nested lists.</p></li>
+<li><p>Tuples vs. lists.</p></li>
+</ul>
+<p>Note that some of these operations will mirror similar operations we discussed with strings. That makes sense, because both are <strong>sequences</strong>!</p>
+</section>
+<section id="combining-lists">
+<h2>Combining lists<a class="headerlink" href="#combining-lists" title="Permalink to this headline">#</a></h2>
+<p>Two or more lists can be combined using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">list1</span> <span class="o">+</span> <span class="n">list2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 4, 5, 6]
+</pre></div>
+</div>
+</div>
+</div>
+<p>These lists do <em>not</em> have to have the same <code class="docutils literal notranslate"><span class="pre">type</span></code> or number of objects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span>
+<span class="n">list1</span> <span class="o">+</span> <span class="n">list3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, &#39;a&#39;, &#39;b&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="check-in">
+<h3>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to combine the lists below, then use <code class="docutils literal notranslate"><span class="pre">join</span></code> to join the words into a complete sentence (with each word separated by a <code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CSS&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">]</span>
+<span class="n">l2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">]</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="adding-items-to-a-list">
+<h2>Adding items to a <code class="docutils literal notranslate"><span class="pre">list</span></code><a class="headerlink" href="#adding-items-to-a-list" title="Permalink to this headline">#</a></h2>
+<p>In addition to using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator, you can add individual <em>items</em> to a list using the <code class="docutils literal notranslate"><span class="pre">append</span></code> function.</p>
+<ul class="simple">
+<li><p>Note that this modifies the list “in place”, i.e., it doesn’t <em>return</em> a value, but rather it mutates the existing <code class="docutils literal notranslate"><span class="pre">list</span></code> object.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">]</span>
+<span class="n">fruits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;apple&#39;, &#39;banana&#39;, &#39;orange&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="filling-up-an-empty-list">
+<h3>Filling up an empty <code class="docutils literal notranslate"><span class="pre">list</span></code><a class="headerlink" href="#filling-up-an-empty-list" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">append</span></code> function is often used to <strong>fill up</strong> a <code class="docutils literal notranslate"><span class="pre">list</span></code> with items, such as during a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<p>For example, you might:</p>
+<ul class="simple">
+<li><p>Initialize an <em>empty</em> list.</p></li>
+<li><p>Loop through numbers between <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code>.</p></li>
+<li><p>Add those numbers to the empty list if they’re odd.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_list</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">### Initialize empty list</span>
+<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span> <span class="c1">### Loop through range</span>
+    <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1">### If number is odd...</span>
+        <span class="n">new_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="c1">### Append it to list</span>
+<span class="n">new_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="c1">### Get the first three elements of new list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 3, 5]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Check-in<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>Add the number <code class="docutils literal notranslate"><span class="pre">4</span></code> to the list below using <code class="docutils literal notranslate"><span class="pre">append</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Check-in<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>The code cell below contains two lists: one contains a list of foods, the other contains a list of words with the letter “a”.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">append</span></code> and a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, add the items from <code class="docutils literal notranslate"><span class="pre">foods</span></code> to <code class="docutils literal notranslate"><span class="pre">a_words</span></code> if:</p>
+<ul class="simple">
+<li><p>they contain the letter “a”.</p></li>
+<li><p>they don’t already appear in <code class="docutils literal notranslate"><span class="pre">a_words</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;kiwi&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">,</span> <span class="s1">&#39;mango&#39;</span><span class="p">,</span> <span class="s1">&#39;pineapple&#39;</span><span class="p">,</span> <span class="s1">&#39;berry&#39;</span><span class="p">]</span>
+<span class="n">a_words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;board&#39;</span><span class="p">,</span> <span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;human&#39;</span><span class="p">]</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-insert">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">insert</span></code><a class="headerlink" href="#using-insert" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">append</span></code> function always adds items to the <strong>end</strong> of a list.</p></li>
+<li><p>Instead, you can use <code class="docutils literal notranslate"><span class="pre">insert</span></code> to insert items at a specific location, such as the start.</p></li>
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">list_name.insert(position,</span> <span class="pre">item)</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">sample_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">### insert a 1 at the zero-th position</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 4]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="removing-items-from-a-list">
+<h2>Removing items from a <code class="docutils literal notranslate"><span class="pre">list</span></code><a class="headerlink" href="#removing-items-from-a-list" title="Permalink to this headline">#</a></h2>
+<p>There are two primary ways to <strong>remove</strong> an item from a list.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pop</span></code>: this removes the item at a given index (by default, this is the <em>last</em> item), and also <strong>returns</strong> that item.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remove</span></code>: this removes the first occurrence of a particular <em>value</em> from a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p></li>
+</ul>
+<p>So, roughly:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pop</span></code> removes by <em>position</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remove</span></code> removes by <em>value</em>.</p></li>
+</ul>
+<section id="popping-in-action">
+<h3><code class="docutils literal notranslate"><span class="pre">pop</span></code>ping in action<a class="headerlink" href="#popping-in-action" title="Permalink to this headline">#</a></h3>
+<p>The syntax for <code class="docutils literal notranslate"><span class="pre">pop</span></code> is straightforward: <code class="docutils literal notranslate"><span class="pre">list_name.pop()</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">sample_list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c1">### by default, returns final element</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, if we look back at <code class="docutils literal notranslate"><span class="pre">sample_list</span></code>, we see that the final element has indeed been removed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 5]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Check-in<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<p>What do you think would happen if we <code class="docutils literal notranslate"><span class="pre">pop</span></code> from an empty list?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">empty_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1">### what would happen if we call empty_list.pop()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="removing-in-action">
+<h3><code class="docutils literal notranslate"><span class="pre">remov</span></code>ing in action<a class="headerlink" href="#removing-in-action" title="Permalink to this headline">#</a></h3>
+<p>The syntax for <code class="docutils literal notranslate"><span class="pre">remove</span></code> is also straightforward: <code class="docutils literal notranslate"><span class="pre">list_name.remove(value)</span></code></p>
+<ul class="simple">
+<li><p>Where <code class="docutils literal notranslate"><span class="pre">value</span></code> is the value that you want to remove.</p></li>
+<li><p>Note that unlike <code class="docutils literal notranslate"><span class="pre">pop</span></code>, <code class="docutils literal notranslate"><span class="pre">remove</span></code> does <em>not</em> return a particular value, but it does modify the list in place.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">sample_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 7]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Check-in<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<p>What would happen to <code class="docutils literal notranslate"><span class="pre">test_list</span></code> if we call <code class="docutils literal notranslate"><span class="pre">test_list.remove(&quot;apple&quot;)</span></code>?</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">['bread',</span> <span class="pre">'apple',</span> <span class="pre">'cheese',</span> <span class="pre">'apple']</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">['bread',</span> <span class="pre">'cheese',</span> <span class="pre">'apple']</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">['bread',</span> <span class="pre">'cheese']</span></code></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bread&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;cheese&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">]</span>
+<span class="c1">### Your code/response here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="finding-the-index-of-a-particular-value">
+<h2>Finding the index of a particular value<a class="headerlink" href="#finding-the-index-of-a-particular-value" title="Permalink to this headline">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">index</span></code> function allows you to return the index corresponding to the <em>first occurrence</em> of a particular value.</p>
+<p><strong>Basic syntax</strong>: <code class="docutils literal notranslate"><span class="pre">list_name.index(value)</span></code></p>
+<ul class="simple">
+<li><p>Note that you can also (optionally) parameterize the <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code> of this search:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">list_name.index(value,</span> <span class="pre">start,</span> <span class="pre">end)</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bread&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;cheese&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">]</span>
+<span class="n">test_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;bread&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Returns *first* occurrence of &quot;apple&quot;</span>
+<span class="n">test_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Returns first occurrence of &quot;apple&quot;, *after* index = 2</span>
+<span class="n">test_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id5">
+<h3>Check-in<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">index</span></code> function to retrieve the index of the first occurrence of the number <code class="docutils literal notranslate"><span class="pre">10</span></code> in the list below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Check-in<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">index</span></code> function to retrieve the index of the first occurrence of the number <code class="docutils literal notranslate"><span class="pre">10</span></code> between the indices <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">5</span></code> in the list below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sorting-a-list">
+<h2><code class="docutils literal notranslate"><span class="pre">sort</span></code>ing a list<a class="headerlink" href="#sorting-a-list" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><strong>Sorting</strong> a <code class="docutils literal notranslate"><span class="pre">list</span></code> means rearranging its elements according to some measure of “least” and “greatest”.</p>
+</div></blockquote>
+<p>There are many different <a class="reference external" href="https://en.wikipedia.org/wiki/Sorting_algorithm"><strong>algorithms</strong> for sorting a list</a>, which we won’t cover in detail here.</p>
+<p>However, in Python, there are two main <em>functions</em>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sorted(list)</span></code>: returns a sorted version of a <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list.sort()</span></code>: sorts a particular <code class="docutils literal notranslate"><span class="pre">list</span></code> <strong>in place</strong>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">number_list</span><span class="p">)</span>
+<span class="n">sorted_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 4, 5, 9]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">number_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">number_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3, 4, 5, 9]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="ascending-vs-descending">
+<h3>Ascending vs. descending?<a class="headerlink" href="#ascending-vs-descending" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>By default, <code class="docutils literal notranslate"><span class="pre">sorted</span></code> will sort a list in <strong>ascending</strong> order.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">reverse</span></code> key allows you to instead sort that list in <strong>descending</strong> order (i.e., largest elements first).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">number_list</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sorted_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[9, 5, 4, 3, 2, 1]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>Check-in<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
+<p>The list <code class="docutils literal notranslate"><span class="pre">names</span></code> below is unsorted. Use the <code class="docutils literal notranslate"><span class="pre">sorted</span></code> function to return a new list with the names sorted, in <strong>descending</strong> order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sean&#39;</span><span class="p">,</span> <span class="s1">&#39;Nikolay&#39;</span><span class="p">,</span> <span class="s1">&#39;Pulkit&#39;</span><span class="p">,</span> <span class="s1">&#39;Simran&#39;</span><span class="p">,</span> <span class="s1">&#39;Purva&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nested-lists">
+<h2>Nested lists<a class="headerlink" href="#nested-lists" title="Permalink to this headline">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">list</span></code> can contain many different <code class="docutils literal notranslate"><span class="pre">type</span></code>s of objects: <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, and even other <code class="docutils literal notranslate"><span class="pre">list</span></code>s!</p>
+<ul class="simple">
+<li><p>Each <strong>nested list</strong> can contain further nested lists, or other types of objects.</p></li>
+<li><p>Nested lists do not have to be the same length.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nested_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;css&#39;</span><span class="p">,</span> <span class="s1">&#39;cogs&#39;</span><span class="p">,</span> <span class="s1">&#39;econ&#39;</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;tea&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id8">
+<h3>Check-in<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+<p>What would <code class="docutils literal notranslate"><span class="pre">len(nested_list)</span></code> return?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nested_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;css&#39;</span><span class="p">,</span> <span class="s1">&#39;cogs&#39;</span><span class="p">,</span> <span class="s1">&#39;econ&#39;</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;tea&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]]</span>
+<span class="c1">### len(nested_list)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>Check-in<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
+<p>Write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that iterates through each item in <code class="docutils literal notranslate"><span class="pre">nested_list</span></code>, and prints its length.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nested_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;css&#39;</span><span class="p">,</span> <span class="s1">&#39;cogs&#39;</span><span class="p">,</span> <span class="s1">&#39;econ&#39;</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;tea&#39;</span><span class="p">,</span> <span class="s1">&#39;coffee&#39;</span><span class="p">]]</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>Check-in<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
+<p>Write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that iterates through each item in <code class="docutils literal notranslate"><span class="pre">nested_list</span></code>, and prints its length.</p>
+</section>
+</section>
+<section id="lists-vs-tuples">
+<h2>Lists vs. tuples<a class="headerlink" href="#lists-vs-tuples" title="Permalink to this headline">#</a></h2>
+<p>So far, we’ve focused on <strong>lists</strong>.</p>
+<p>A <strong>tuple</strong> is another type of ordered sequence. They share several similarities with lists:</p>
+<ul class="simple">
+<li><p>You can index into both a <strong>tuple</strong> and a <strong>list</strong>.</p></li>
+<li><p>You can loop through both a <strong>tuple</strong> and a <strong>list</strong>.</p></li>
+</ul>
+<p>However, there are also a couple key differences:</p>
+<ul class="simple">
+<li><p>Tuples are declared using <code class="docutils literal notranslate"><span class="pre">()</span></code>, not <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</p></li>
+<li><p>Unlike <code class="docutils literal notranslate"><span class="pre">list</span></code>s, a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> is not mutable (i.e., it can’t be changed in place).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">example_tuple</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 2, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tuples-continued">
+<h3>Tuples (continued)<a class="headerlink" href="#tuples-continued" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>We won’t focus <em>too much</em> on tuples for now.</p></li>
+<li><p>However, I wanted to highlight some of those similarities and differences.</p></li>
+<li><p>It’s likely that at some point in your journey with Python, you’ll end up using or encountering tuples.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">example_tuple</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+2
+3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">list</span></code>s are very powerful objects. Regardless of what you use Python for, it’s important to understand the basics of how <code class="docutils literal notranslate"><span class="pre">list</span></code>s work, as well as some of the common operations we apply to <code class="docutils literal notranslate"><span class="pre">list</span></code>s.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="10-lists.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lists in Python</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="12-dictionaries.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dictionaries</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

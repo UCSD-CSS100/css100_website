@@ -1,0 +1,1803 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Functions (advanced) &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Classes" href="16-classes.html" />
+    <link rel="prev" title="Functions" href="14-functions.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/15-functions-advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/15-functions-advanced.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/15-functions-advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#review-what-is-a-function">
+   Review: what is a function?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-today-s-lecture">
+   Goals of today’s lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#returning-multiple-values">
+   Returning multiple values
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multiple-return-values-an-example">
+     Multiple
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       return
+      </span>
+     </code>
+     values: an example
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#return-and-tuples">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       return
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tuple
+      </span>
+     </code>
+     s
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#namespaces">
+   Namespaces
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#review-what-is-a-namespace">
+     Review: what is a namespace?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-global-namespace">
+     The global namespace
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions-have-their-own-namespace">
+     Functions have their own namespace
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#global-variables-can-be-referenced-inside-a-function">
+     Global variables
+     <em>
+      can
+     </em>
+     be referenced inside a function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution">
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-whos">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       whos
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lambda-functions">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     lambda
+    </span>
+   </code>
+   functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lambda-summary">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       lambda
+      </span>
+     </code>
+     : summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#varying-number-of-arguments">
+   Varying number of arguments
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#args-in-practice">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       *args
+      </span>
+     </code>
+     in practice
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kargs-in-practice">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       **kargs
+      </span>
+     </code>
+     in practice
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-use-this">
+       Why use this?
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practice-problems">
+   Practice problems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-find-the-maximum-number-of-a-list">
+     Problem 1: find the maximum number of a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-find-the-maximum-number-in-a-set-of-args">
+     Problem 2: find the maximum number in a set of
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       *args
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-find-the-even-numbers">
+     Problem 3: find the even numbers
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-4-find-the-tallest-in-a-dictionary">
+     Problem 4: find the tallest in a dictionary.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Functions (advanced)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#review-what-is-a-function">
+   Review: what is a function?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-today-s-lecture">
+   Goals of today’s lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#returning-multiple-values">
+   Returning multiple values
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multiple-return-values-an-example">
+     Multiple
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       return
+      </span>
+     </code>
+     values: an example
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#return-and-tuples">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       return
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       tuple
+      </span>
+     </code>
+     s
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#namespaces">
+   Namespaces
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#review-what-is-a-namespace">
+     Review: what is a namespace?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-global-namespace">
+     The global namespace
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions-have-their-own-namespace">
+     Functions have their own namespace
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#global-variables-can-be-referenced-inside-a-function">
+     Global variables
+     <em>
+      can
+     </em>
+     be referenced inside a function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution">
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-whos">
+     Using
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       whos
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lambda-functions">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     lambda
+    </span>
+   </code>
+   functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lambda-summary">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       lambda
+      </span>
+     </code>
+     : summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#varying-number-of-arguments">
+   Varying number of arguments
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#args-in-practice">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       *args
+      </span>
+     </code>
+     in practice
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kargs-in-practice">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       **kargs
+      </span>
+     </code>
+     in practice
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-use-this">
+       Why use this?
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practice-problems">
+   Practice problems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-find-the-maximum-number-of-a-list">
+     Problem 1: find the maximum number of a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-find-the-maximum-number-in-a-set-of-args">
+     Problem 2: find the maximum number in a set of
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       *args
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-find-the-even-numbers">
+     Problem 3: find the even numbers
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id8">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-4-find-the-tallest-in-a-dictionary">
+     Problem 4: find the tallest in a dictionary.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id9">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="functions-advanced">
+<h1>Functions (advanced)<a class="headerlink" href="#functions-advanced" title="Permalink to this headline">#</a></h1>
+<section id="review-what-is-a-function">
+<h2>Review: what is a function?<a class="headerlink" href="#review-what-is-a-function" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p>A <strong>function</strong> is a re-usable piece of code that performs some operation (typically on some <em>input</em>), and then typically returns a result (i.e., an <em>output</em>).</p>
+</div></blockquote>
+<p>Breaking this down:</p>
+<ul class="simple">
+<li><p><strong>Input</strong>: a variable defined by the user that is <em>passed into</em> a function using the <code class="docutils literal notranslate"><span class="pre">(input)</span></code> syntax.</p>
+<ul>
+<li><p>Also called an <strong>argument</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>: the variable <strong>returned</strong> by a function after this operation is performed.</p>
+<ul>
+<li><p>If a <code class="docutils literal notranslate"><span class="pre">return</span></code> value is not specified, a function will return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the square of X.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="goals-of-today-s-lecture">
+<h2>Goals of today’s lecture<a class="headerlink" href="#goals-of-today-s-lecture" title="Permalink to this headline">#</a></h2>
+<p>Today we’ll be covering some more advanced topics with <strong>functions</strong>:</p>
+<ul class="simple">
+<li><p>Returning multiple values.</p></li>
+<li><p>Namespaces.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions.</p></li>
+<li><p>Varying number of arguments.</p></li>
+</ul>
+<p>We’ll also be getting more hands-on practice with functions!</p>
+</section>
+<section id="returning-multiple-values">
+<h2>Returning multiple values<a class="headerlink" href="#returning-multiple-values" title="Permalink to this headline">#</a></h2>
+<p>Functions can <code class="docutils literal notranslate"><span class="pre">return</span></code> multiple values, or even another function.</p>
+<p>This can be useful when:</p>
+<ul class="simple">
+<li><p>The goal of a <code class="docutils literal notranslate"><span class="pre">function</span></code> can’t be distilled into a single value.</p></li>
+<li><p>You want to <code class="docutils literal notranslate"><span class="pre">return</span></code> multiple bits of information about something, e.g., its <code class="docutils literal notranslate"><span class="pre">len</span></code>, its value, and so on.</p></li>
+</ul>
+<p>Multiple values can be separated with a <code class="docutils literal notranslate"><span class="pre">,</span></code>.</p>
+<section id="multiple-return-values-an-example">
+<h3>Multiple <code class="docutils literal notranslate"><span class="pre">return</span></code> values: an example<a class="headerlink" href="#multiple-return-values-an-example" title="Permalink to this headline">#</a></h3>
+<p>Suppose we wanted a function that takes two numbers as input, and returns both:</p>
+<ul class="simple">
+<li><p>Their sum.</p></li>
+<li><p>Their product.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sum_product</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_product</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(210, 2000)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in">
+<h3>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h3>
+<p>What do you notice about the <code class="docutils literal notranslate"><span class="pre">type</span></code> of the object that gets returned when a function returns <em>multiple values</em>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_product</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7, 10)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="return-and-tuples">
+<h3><code class="docutils literal notranslate"><span class="pre">return</span></code> and <code class="docutils literal notranslate"><span class="pre">tuple</span></code>s<a class="headerlink" href="#return-and-tuples" title="Permalink to this headline">#</a></h3>
+<p>By default, a <code class="docutils literal notranslate"><span class="pre">function</span></code> will package these multiple values into a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
+<ul class="simple">
+<li><p>It’s possible to return them in another form, e.g., in a structured dictionary.</p></li>
+<li><p>But if you use the <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">a,</span> <span class="pre">b</span></code> syntax, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> will returned like: <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">#</a></h2>
+<section id="review-what-is-a-namespace">
+<h3>Review: what is a namespace?<a class="headerlink" href="#review-what-is-a-namespace" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p>A <a class="reference external" href="https://realpython.com/python-namespaces-scope/"><strong>namespace</strong></a> is the “space” where a given set of variable names have been <em>declared</em>.</p>
+</div></blockquote>
+<p>Python has several types of namespaces:</p>
+<ol class="simple">
+<li><p><strong>Built-in</strong>: Built-in objects within Python (e.g., <strong>Exceptions</strong>, <strong>lists</strong>, and more). These can be accessed from anywhere.</p></li>
+<li><p><strong>Global</strong>: Any objects defined in the main program. These can be accessed anywhere in the main program once you’ve defined them, but not in another Jupyter notebook, etc.</p></li>
+<li><p><strong>Local</strong>: If you define new variables within a <em>function</em>, those variables can only be accessed within the “scope” of that function.</p></li>
+</ol>
+</section>
+<section id="the-global-namespace">
+<h3>The global namespace<a class="headerlink" href="#the-global-namespace" title="Permalink to this headline">#</a></h3>
+<p>So far, we’ve mostly been working with variables defined in the <strong>global namespace</strong>.</p>
+<ul class="simple">
+<li><p>I.e., once we define a variable in a notebook (and run that cell), we can reference it in another cell.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## define global variable</span>
+<span class="n">my_var</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## reference global variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_var</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="functions-have-their-own-namespace">
+<h3>Functions have their own namespace<a class="headerlink" href="#functions-have-their-own-namespace" title="Permalink to this headline">#</a></h3>
+<p>If you declare a variable <strong>within</strong> a function definition, that variable does <em>not</em> persist outside the scope of that function.</p>
+<p>In the function below, we declare a new variable called <code class="docutils literal notranslate"><span class="pre">answer</span></code>, which is eventually <code class="docutils literal notranslate"><span class="pre">return</span></code>ed.</p>
+<ul class="simple">
+<li><p>However, the <strong>variable itself</strong> does not exist outside the function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exponentiate</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">exp</span><span class="p">):</span>
+    <span class="c1">### &quot;answer&quot; is a new variable </span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">num</span> <span class="o">**</span> <span class="n">exp</span>
+    <span class="k">return</span> <span class="n">answer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### This will throw an error</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1">### This will throw an error</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;answer&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="global-variables-can-be-referenced-inside-a-function">
+<h3>Global variables <em>can</em> be referenced inside a function<a class="headerlink" href="#global-variables-can-be-referenced-inside-a-function" title="Permalink to this headline">#</a></h3>
+<p>If you’ve defined a variable in the global namespace, you <em>can</em> reference it inside a function.</p>
+<ul class="simple">
+<li><p><strong>Word of caution ⚠️</strong>: this can sometimes make for confusing code.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## define global variable</span>
+<span class="n">my_var</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="c1">## define function</span>
+<span class="k">def</span> <span class="nf">add_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">## references my_var</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">my_var</span>
+
+<span class="n">add_two</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Check-in<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>What would value of <code class="docutils literal notranslate"><span class="pre">new_var</span></code> be after running the code below?</p>
+<p>What about <code class="docutils literal notranslate"><span class="pre">test_var</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_var</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">def</span> <span class="nf">test_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">test_var</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">test_var</span>
+<span class="n">new_var</span> <span class="o">=</span> <span class="n">test_func</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h3>
+<p>The global variable <code class="docutils literal notranslate"><span class="pre">test_var</span></code> is <em>unaltered</em> by <code class="docutils literal notranslate"><span class="pre">test_func</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_var</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1">## global variable</span>
+<span class="k">def</span> <span class="nf">test_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">test_var</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">test_var</span>
+<span class="n">new_var</span> <span class="o">=</span> <span class="n">test_func</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_var</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_var</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25
+2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-whos">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">whos</span></code><a class="headerlink" href="#using-whos" title="Permalink to this headline">#</a></h3>
+<p>Remember that you can check which variables are defined using <code class="docutils literal notranslate"><span class="pre">whos</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">whos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable       Type        Data/Info
+------------------------------------
+add_two        function    &lt;function add_two at 0x7fd2f2e8bb80&gt;
+exponentiate   function    &lt;function exponentiate at 0x7fd2d0133d30&gt;
+my_var         int         2
+new_var        int         25
+square         function    &lt;function square at 0x7fd2d0133820&gt;
+test_func      function    &lt;function test_func at 0x7fd2f2e5f1f0&gt;
+test_var       int         2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="lambda-functions">
+<h2><code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions<a class="headerlink" href="#lambda-functions" title="Permalink to this headline">#</a></h2>
+<p>So far, we’ve focused on creating functions using the <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">func_name(...)</span></code> syntax.</p>
+<p>However, Python also has something called <a class="reference external" href="https://www.w3schools.com/python/python_lambda.asp"><strong>lambda functions</strong></a>.</p>
+<ul class="simple">
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">...</span></code>.</p></li>
+<li><p>Main advantage: can be written in a single line, best if you want a <strong>simple function</strong>.</p>
+<ul>
+<li><p>Excellent for passing as <em>arguments</em> into other functions, such as <code class="docutils literal notranslate"><span class="pre">sorted</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+16
+</pre></div>
+</div>
+</div>
+</div>
+<p>In theory, <code class="docutils literal notranslate"><span class="pre">lambda</span></code> functions can have multiple arguments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3>Check-in<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>Convert the function below into a <code class="docutils literal notranslate"><span class="pre">lambda</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">## Adds 1 to x</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Solution<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lambda solution</span>
+<span class="n">add_one</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">add_one</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lambda-summary">
+<h3><code class="docutils literal notranslate"><span class="pre">lambda</span></code>: summary<a class="headerlink" href="#lambda-summary" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lambda</span></code> is an easy, efficient way to define a simple function.</p></li>
+<li><p>In practice, <code class="docutils literal notranslate"><span class="pre">lambda</span></code> is most useful when defining functions “on the fly”.</p>
+<ul>
+<li><p>As <strong>arguments</strong> to pass into another function.</p></li>
+<li><p>As <strong>nested functions</strong> within another function.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="varying-number-of-arguments">
+<h2>Varying number of arguments<a class="headerlink" href="#varying-number-of-arguments" title="Permalink to this headline">#</a></h2>
+<p>So far, we’ve assumed that we <em>know</em> how many arguments will be passed into a function at any given time. But this isn’t always the case.</p>
+<p>Fortunately, Python gives us two ways to handle an <strong>arbitrary number</strong> of arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*args</span></code>: allows a <code class="docutils literal notranslate"><span class="pre">function</span></code> to receive an arbitrary number of (positional) arguments, which can be “unpacked” as needed. The function treats them as a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>: allows a <code class="docutils literal notranslate"><span class="pre">function</span></code> to receive a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> of (keyword) arguments, which can be “unpacked” as needed.</p></li>
+</ul>
+<section id="args-in-practice">
+<h3><code class="docutils literal notranslate"><span class="pre">*args</span></code> in practice<a class="headerlink" href="#args-in-practice" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">*args</span></code> syntax allows you to input an arbitrary number of arguments into a function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="o">*</span><span class="n">fruits</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The last fruit is &quot;</span> <span class="o">+</span> <span class="n">fruits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_function</span><span class="p">(</span><span class="s2">&quot;strawberry&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The last fruit is strawberry.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_function</span><span class="p">(</span><span class="s2">&quot;strawberry&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The last fruit is apple.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<p>How exactly is this working? That is, what is <code class="docutils literal notranslate"><span class="pre">my_function</span></code> treating <code class="docutils literal notranslate"><span class="pre">*fruits</span></code> as?</p>
+<p>Try <code class="docutils literal notranslate"><span class="pre">print</span></code>ing out <code class="docutils literal notranslate"><span class="pre">fruits</span></code> to see what’s going on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h4>Solution<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">*args</span></code> syntax tells Python to allow <em>an arbitrary number</em> of arguments. Any argument ends up being packaged as a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, which the body of your function code can then unpack.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="o">*</span><span class="n">fruits</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_function</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;strawberry&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;apple&#39;, &#39;strawberry&#39;, &#39;banana&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="kargs-in-practice">
+<h3><code class="docutils literal notranslate"><span class="pre">**kargs</span></code> in practice<a class="headerlink" href="#kargs-in-practice" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">*kwargs</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">*args</span></code>, but allows for an arbitrary number of <strong>keyword arguments</strong>.</p>
+<ul class="simple">
+<li><p>These are treated as a <code class="docutils literal notranslate"><span class="pre">dict</span></code> by the function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="o">**</span><span class="n">fruits</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Keyword and value are automatically placed into dictionary</span>
+<span class="n">my_function</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="n">amount</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;apple&#39;, &#39;amount&#39;: 5}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### The specific keyword can be altered as needed</span>
+<span class="n">my_function</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;banana&#39;, &#39;cost&#39;: 10}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="why-use-this">
+<h4>Why use this?<a class="headerlink" href="#why-use-this" title="Permalink to this headline">#</a></h4>
+<p>In general, <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is useful when you want <strong>flexibility</strong>.</p>
+<p>For example, suppose you have a website, in which people can (optionally) fill out the following information:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Email</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Phone</span> <span class="pre">number</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Location</span></code>.</p></li>
+</ul>
+<p>But because not everyone fills out <em>every field</em>, the function you use to store this information needs to be flexible about how many arguments it receives.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">store_user</span><span class="p">(</span><span class="o">**</span><span class="n">info</span><span class="p">):</span>
+    <span class="c1">## For now, this is just a placeholder to demonstrate</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">store_user</span><span class="p">(</span><span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;Sean&quot;</span><span class="p">,</span> <span class="n">Location</span> <span class="o">=</span> <span class="s2">&quot;San Diego&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Name&#39;, &#39;Sean&#39;)
+(&#39;Location&#39;, &#39;San Diego&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="practice-problems">
+<h2>Practice problems<a class="headerlink" href="#practice-problems" title="Permalink to this headline">#</a></h2>
+<p>One of the best ways to learn a new concept is to actually practice it. Thus, I’m including a number of practice problems at the end of this lecture, which we’ll work through.</p>
+<section id="problem-1-find-the-maximum-number-of-a-list">
+<h3>Problem 1: find the maximum number of a <code class="docutils literal notranslate"><span class="pre">list</span></code><a class="headerlink" href="#problem-1-find-the-maximum-number-of-a-list" title="Permalink to this headline">#</a></h3>
+<p>Goal: write a function that takes in a <code class="docutils literal notranslate"><span class="pre">list</span></code> of numbers as input, and finds the <strong>maximum</strong> of the <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<p>The catch: you can’t use the operator <code class="docutils literal notranslate"><span class="pre">max</span></code>.</p>
+<p>Things to consider:</p>
+<ul class="simple">
+<li><p>If the input <code class="docutils literal notranslate"><span class="pre">list</span></code> is empty, you should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p>Since you can’t use <code class="docutils literal notranslate"><span class="pre">max</span></code>, you might consider using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, checking the value of each number in turn.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id6">
+<h4>Solution<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_max</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1">### Start by setting max to first item in list</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">### Then iterate through each item</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="c1">### if item is greater than first item...</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">:</span>
+            <span class="c1">### Reset max to new item</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_max</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_max</span><span class="p">([])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="problem-2-find-the-maximum-number-in-a-set-of-args">
+<h3>Problem 2: find the maximum number in a set of <code class="docutils literal notranslate"><span class="pre">*args</span></code><a class="headerlink" href="#problem-2-find-the-maximum-number-in-a-set-of-args" title="Permalink to this headline">#</a></h3>
+<p>Goal: write a function that takes in an arbitrary number of arguments (i.e., uses <code class="docutils literal notranslate"><span class="pre">*args</span></code>), and finds the maximum.</p>
+<p>The catch: you can’t use the operator <code class="docutils literal notranslate"><span class="pre">max</span></code>.</p>
+<p>Things to consider:</p>
+<ul class="simple">
+<li><p>If there are no arguments, you should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p>Since you can’t use <code class="docutils literal notranslate"><span class="pre">max</span></code>, you might consider using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, checking the value of each number in turn.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id7">
+<h4>Solution<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_max</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="c1">## if no args are presented, &quot;args&quot; = ([],)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1">### Start by setting max to first item in list</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">### Then iterate through each item</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="c1">### if item is greater than first item...</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">:</span>
+            <span class="c1">### Reset max to new item</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_max</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 10, 5]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_max</span><span class="p">([])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="problem-3-find-the-even-numbers">
+<h3>Problem 3: find the even numbers<a class="headerlink" href="#problem-3-find-the-even-numbers" title="Permalink to this headline">#</a></h3>
+<p>Goal: write a function that takes in a <code class="docutils literal notranslate"><span class="pre">list</span></code> of numbers, and prints the even ones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id8">
+<h4>Solution<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_even</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_even</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+8
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_even</span><span class="p">([</span><span class="mi">104</span><span class="p">,</span> <span class="mi">57</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>104
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="problem-4-find-the-tallest-in-a-dictionary">
+<h3>Problem 4: find the tallest in a dictionary.<a class="headerlink" href="#problem-4-find-the-tallest-in-a-dictionary" title="Permalink to this headline">#</a></h3>
+<p>Suppose we want a <code class="docutils literal notranslate"><span class="pre">function</span></code> that takes in a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of <code class="docutils literal notranslate"><span class="pre">Names</span></code> and <code class="docutils literal notranslate"><span class="pre">Heights</span></code>. That is, each <em>key</em> is a <code class="docutils literal notranslate"><span class="pre">Name</span></code>, and it maps onto a <code class="docutils literal notranslate"><span class="pre">Height</span></code>.</p>
+<p>We want the function to return the <code class="docutils literal notranslate"><span class="pre">Name</span></code> of the person with the largest <code class="docutils literal notranslate"><span class="pre">Height</span></code>, <em>as well as</em> the <code class="docutils literal notranslate"><span class="pre">Height</span></code> itself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Can&#39;t just max...that&#39;ll return &quot;Sean&quot;</span>
+<span class="n">heights</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Sean&#39;</span><span class="p">:</span> <span class="mi">67</span><span class="p">,</span> <span class="s1">&#39;Ben&#39;</span><span class="p">:</span> <span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;Anne&#39;</span><span class="p">:</span> <span class="mi">66</span><span class="p">}</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id9">
+<h4>Solution<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_tallest</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
+    <span class="c1">## Get all tuples...</span>
+    <span class="c1">### turn into list so we can index into it</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="c1">## Start by assigning tallest to first in list</span>
+    <span class="n">tallest</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">## Then iterate through tuples...</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="c1">### if item is taller than initial</span>
+        <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">tallest</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="c1">### Reset &quot;tallest&quot;</span>
+            <span class="n">tallest</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">tallest</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_tallest</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Ben&#39;, 72)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_tallest</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;C&#39;, 200)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="14-functions.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Functions</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="16-classes.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Classes</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

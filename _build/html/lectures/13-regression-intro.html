@@ -1,0 +1,1876 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Linear regression in Python &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/13-regression-intro';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Linear regression: prediction error and more" href="14-regression-predictions.html" />
+    <link rel="prev" title="Introduction to statistical models" href="12-statistical-modeling.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/13-regression-intro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/13-regression-intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linear regression in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-python">Regression in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-our-first-dataset">Loading our first dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-visualization">Exploratory visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-regression-model">Building a regression model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-output">Inspecting output</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#extracing-specific-information">Extracing specific information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-our-model">Interpreting our model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-linear-equation">The linear equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rewriting-the-linear-equation">Rewriting the linear equation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-intercept">Understanding the <em>intercept</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intercept-and-the-linear-equation">The intercept and the linear equation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-slope">Understanding the <em>slope</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in-more-practice-with-statsmodels">Check-in: more practice with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-relevant-output">Other relevant output</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error">Standard error</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#t-value-and-p-value">t-value and p-value</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-interval">Confidence interval</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-with-categorical-predictors">Regression with categorical predictors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-categorical-variables">What are <em>categorical</em> variables?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset-stroop-task">Example dataset: <em>Stroop task</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-linear-model">Building a linear model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-slope-for-categorical-variables">Interpreting the slope for categorical variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-indicator-variables">Using indicator variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-our-equation-with-indicator-variables-pt-1">Interpreting our equation with indicator variables (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-condition-congruent">When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Congruent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-condition-incongruent">When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Incongruent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Check-in</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-with-2-levels">Variables with <span class="math notranslate nohighlight">\(&gt;2\)</span> levels?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-code-your-variables">How to <em>code</em> your variables?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-in-python">
+<h1>Linear regression in Python<a class="headerlink" href="#linear-regression-in-python" title="Permalink to this heading">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Implementing linear regression in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>.</p></li>
+<li><p>Interpreting model summaries:</p>
+<ul>
+<li><p>Interpreting <em>coefficients</em> for <strong>continuous</strong> data.</p></li>
+<li><p>Interpreting <em>coefficients</em> for <strong>categorical</strong> data.</p></li>
+</ul>
+</li>
+</ul>
+<section id="libraries">
+<h3>Libraries<a class="headerlink" href="#libraries" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # makes figs nicer!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="regression-in-python">
+<h2>Regression in Python<a class="headerlink" href="#regression-in-python" title="Permalink to this heading">#</a></h2>
+<p>There are many packages for implementing <strong>linear regression</strong> in Python, but we’ll be focusing on <a class="reference external" href="https://www.statsmodels.org/stable/index.html"><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code></a>.</p>
+<section id="loading-our-first-dataset">
+<h3>Loading our first dataset<a class="headerlink" href="#loading-our-first-dataset" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/models/income.csv&quot;</span><span class="p">)</span>
+<span class="n">df_income</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Education</th>
+      <th>Seniority</th>
+      <th>Income</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>21.586207</td>
+      <td>113.103448</td>
+      <td>99.917173</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>18.275862</td>
+      <td>119.310345</td>
+      <td>92.579135</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>12.068966</td>
+      <td>100.689655</td>
+      <td>34.678727</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="exploratory-visualization">
+<h3>Exploratory visualization<a class="headerlink" href="#exploratory-visualization" title="Permalink to this heading">#</a></h3>
+<p>Does <code class="docutils literal notranslate"><span class="pre">Education</span></code> correlate with <code class="docutils literal notranslate"><span class="pre">Income</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Income&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Education&#39;, ylabel=&#39;Income&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/3354795f7adc4e03affc5a5a75de160294a86a17f63f5615ea0c3d016e7716bc.png" src="../_images/3354795f7adc4e03affc5a5a75de160294a86a17f63f5615ea0c3d016e7716bc.png" />
+</div>
+</div>
+</section>
+<section id="building-a-regression-model">
+<h3>Building a regression model<a class="headerlink" href="#building-a-regression-model" title="Permalink to this heading">#</a></h3>
+<p>We can build a regression model using <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.formula.api.ols.html"><code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api.ols</span></code></a>, here imported as <code class="docutils literal notranslate"><span class="pre">smf</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_name</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;Y ~ X&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;Income ~ Education&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>statsmodels.regression.linear_model.RegressionResultsWrapper
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inspecting-output">
+<h4>Inspecting output<a class="headerlink" href="#inspecting-output" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span> <span class="c1">### Lots of stuff here!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>         <td>Income</td>      <th>  R-squared:         </th> <td>   0.812</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.805</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   120.8</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Fri, 12 Jan 2024</td> <th>  Prob (F-statistic):</th> <td>1.15e-11</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>10:40:11</td>     <th>  Log-Likelihood:    </th> <td> -115.90</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>    30</td>      <th>  AIC:               </th> <td>   235.8</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>    28</td>      <th>  BIC:               </th> <td>   238.6</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     1</td>      <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th> <td>  -41.9166</td> <td>    9.769</td> <td>   -4.291</td> <td> 0.000</td> <td>  -61.927</td> <td>  -21.906</td>
+</tr>
+<tr>
+  <th>Education</th> <td>    6.3872</td> <td>    0.581</td> <td>   10.990</td> <td> 0.000</td> <td>    5.197</td> <td>    7.578</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 0.561</td> <th>  Durbin-Watson:     </th> <td>   2.194</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.756</td> <th>  Jarque-Bera (JB):  </th> <td>   0.652</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.140</td> <th>  Prob(JB):          </th> <td>   0.722</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 2.335</td> <th>  Cond. No.          </th> <td>    75.7</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div></div>
+</div>
+</section>
+<section id="extracing-specific-information">
+<h4>Extracing specific information<a class="headerlink" href="#extracing-specific-information" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## coefficients</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept   -41.916612
+Education     6.387161
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## standard errors</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">bse</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    9.768949
+Education    0.581172
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## p-values for coefficients</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">pvalues</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    1.918257e-04
+Education    1.150567e-11
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="interpreting-our-model">
+<h2>Interpreting our model<a class="headerlink" href="#interpreting-our-model" title="Permalink to this heading">#</a></h2>
+<section id="the-linear-equation">
+<h3>The linear equation<a class="headerlink" href="#the-linear-equation" title="Permalink to this heading">#</a></h3>
+<p>Recall that the linear equation is written:</p>
+<p><span class="math notranslate nohighlight">\(Y = \beta_0 + \beta_1 * X_1 + \epsilon\)</span></p>
+<p>How would these terms <strong>map onto</strong> the coefficients below?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Coefficients</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept   -41.916612
+Education     6.387161
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="rewriting-the-linear-equation">
+<h4>Rewriting the linear equation<a class="headerlink" href="#rewriting-the-linear-equation" title="Permalink to this heading">#</a></h4>
+<p>We can <em>insert</em> our coefficients into the equation.</p>
+<p><span class="math notranslate nohighlight">\(Y = -41.92 + 6.39 * X_1 + \epsilon\)</span></p>
+<p>Which can then be used to generate a prediction for a given value of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mf">41.92</span> <span class="o">+</span> <span class="mf">6.39</span> <span class="o">*</span> <span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1">### our predicted value of Y, given X!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>85.88
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">predict_y(x)</span></code> which takes in a value <code class="docutils literal notranslate"><span class="pre">x</span></code> and outputs a prediction based on these learned coefficients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict_y</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mf">41.92</span> <span class="o">+</span> <span class="mf">6.39</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_y</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21.979999999999997
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_y</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>149.77999999999997
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="understanding-the-intercept">
+<h3>Understanding the <em>intercept</em><a class="headerlink" href="#understanding-the-intercept" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>The <strong>intercept</strong> term (<span class="math notranslate nohighlight">\(\beta_0\)</span>) is the predicted value of <span class="math notranslate nohighlight">\(\hat{Y}\)</span> when <span class="math notranslate nohighlight">\(X = 0\)</span>.</p>
+</div></blockquote>
+<p>What does this <code class="docutils literal notranslate"><span class="pre">Intercept</span></code> value mean here?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Coefficients</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept   -41.916612
+Education     6.387161
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-intercept-and-the-linear-equation">
+<h4>The intercept and the linear equation<a class="headerlink" href="#the-intercept-and-the-linear-equation" title="Permalink to this heading">#</a></h4>
+<p>If <span class="math notranslate nohighlight">\(X = 0\)</span>, the linear equation reduces to:</p>
+<p><span class="math notranslate nohighlight">\(Y = -41.92 + \epsilon\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_y</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">### predicted value when x = 0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-41.92
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="understanding-the-slope">
+<h3>Understanding the <em>slope</em><a class="headerlink" href="#understanding-the-slope" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>For a <strong>continuous</strong> variable, the <em>slope</em> is the predicted change in <span class="math notranslate nohighlight">\(Y\)</span> for every 1-unit change in <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</div></blockquote>
+<p>What does this <em>slope</em> term mean here?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Coefficients</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept   -41.916612
+Education     6.387161
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in-more-practice-with-statsmodels">
+<h3>Check-in: more practice with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code><a class="headerlink" href="#check-in-more-practice-with-statsmodels" title="Permalink to this heading">#</a></h3>
+<p>Build a regression model predicting <code class="docutils literal notranslate"><span class="pre">Income</span></code> from <code class="docutils literal notranslate"><span class="pre">Seniority</span></code>. What are the <code class="docutils literal notranslate"><span class="pre">params</span></code>? What do they mean?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4>Solution<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_seniority</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;Income ~ Seniority&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mod_seniority</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    39.158326
+Seniority     0.251288
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Check-in<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Why were <em>these</em> parameters chosen as opposed to some other <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your response here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Solution<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>Linear regression finds the set of parameters <span class="math notranslate nohighlight">\(\beta\)</span> that <strong>minimizes the residual sum of squares (RSS)</strong>.</p>
+<p>I.e., it finds the <strong>line of best fit</strong>!</p>
+</section>
+</section>
+<section id="other-relevant-output">
+<h3>Other relevant output<a class="headerlink" href="#other-relevant-output" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> also gives us:</p>
+<ul class="simple">
+<li><p>A <strong>standard error</strong> associated with each coefficient.</p></li>
+<li><p>A <strong>t-value</strong> associated with each coefficient.</p></li>
+<li><p>A <strong>p-value</strong> associated with each coefficient.</p></li>
+<li><p>A <strong>confidence interval</strong> associated with each coefficient.</p></li>
+</ul>
+<section id="standard-error">
+<h4>Standard error<a class="headerlink" href="#standard-error" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>These <strong>standard errors</strong> can be used to construct a <strong>confidence interval</strong> around our parameter estimate.</p></li>
+<li><p>Assumption: parameters are <strong>estimates</strong>, which have some amount of <em>normally-distributed</em> error.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span><span class="o">.</span><span class="n">bse</span> <span class="c1">## Standard error associated with each coefficient</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    9.768949
+Education    0.581172
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Can <em>report</em> standard error as follows:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Education</span></code> was positively related with <code class="docutils literal notranslate"><span class="pre">Income</span></code>, <span class="math notranslate nohighlight">\([\beta = 6.34, SE = 0.58]\)</span>.</p>
+</div></blockquote>
+</section>
+<section id="t-value-and-p-value">
+<h4>t-value and p-value<a class="headerlink" href="#t-value-and-p-value" title="Permalink to this heading">#</a></h4>
+<p>The <strong>standard error</strong> can also be used to calculate <span class="math notranslate nohighlight">\(t\)</span>-statistics for each coefficient, which can in turn be used to  estimate a <span class="math notranslate nohighlight">\(p\)</span>-value to test for significance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## t-values = params / bse</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">params</span> <span class="o">/</span> <span class="n">mod</span><span class="o">.</span><span class="n">bse</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -4.290801
+Education    10.990148
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## double-checking our work</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">tvalues</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -4.290801
+Education    10.990148
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Check for significance</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">pvalues</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    1.918257e-04
+Education    1.150567e-11
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>Knowing what you know about <strong>standard error of the mean</strong>, how do you think our <em>sample size</em> affects the standard error for our coefficients?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your response here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h4>Solution<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>A larger sample (<span class="math notranslate nohighlight">\(n\)</span>) results in a <strong>lower standard error</strong>.</p>
+<p><em>Coming up soon</em>: We’ll discuss how to actually <em>calculate</em> standard error for our coefficients.</p>
+</section>
+<section id="confidence-interval">
+<h4>Confidence interval<a class="headerlink" href="#confidence-interval" title="Permalink to this heading">#</a></h4>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">conf_int</span></code> function <code class="docutils literal notranslate"><span class="pre">return</span></code>s a <strong>confidence interval</strong> for all of our parameters.</p>
+<ul class="simple">
+<li><p>This is calculated using the <strong>standard error</strong>.</p></li>
+<li><p>By default, this assumes <span class="math notranslate nohighlight">\(\alpha = .05\)</span>, i.e., a <span class="math notranslate nohighlight">\(95\%\)</span> CI.</p></li>
+<li><p>Crucial assumption is that distribution of <strong>sample statistics</strong> (<span class="math notranslate nohighlight">\(\beta\)</span>) is <strong>normal</strong>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## alpha = .05</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Intercept</th>
+      <td>-61.927397</td>
+      <td>-21.905827</td>
+    </tr>
+    <tr>
+      <th>Education</th>
+      <td>5.196685</td>
+      <td>7.577637</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## alpha = .01</span>
+<span class="n">mod</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Intercept</th>
+      <td>-68.910782</td>
+      <td>-14.922442</td>
+    </tr>
+    <tr>
+      <th>Education</th>
+      <td>4.781232</td>
+      <td>7.993091</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id6">
+<h4>Check-in<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>What is the <span class="math notranslate nohighlight">\(95\%\)</span> confidence interval for our coefficients for the model using <code class="docutils literal notranslate"><span class="pre">Seniority</span></code> to predict <code class="docutils literal notranslate"><span class="pre">Income</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h4>Solution<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>These could be reported as follows:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Seniority</span></code> was positively related to <code class="docutils literal notranslate"><span class="pre">Income</span></code>, <span class="math notranslate nohighlight">\([\beta = 0.25]\)</span>, <span class="math notranslate nohighlight">\(95\%\)</span> <span class="math notranslate nohighlight">\(CI = [0.09, 0.41]\)</span>.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_seniority</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Intercept</th>
+      <td>21.714212</td>
+      <td>56.60244</td>
+    </tr>
+    <tr>
+      <th>Seniority</th>
+      <td>0.090776</td>
+      <td>0.41180</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="regression-with-categorical-predictors">
+<h2>Regression with categorical predictors<a class="headerlink" href="#regression-with-categorical-predictors" title="Permalink to this heading">#</a></h2>
+<section id="what-are-categorical-variables">
+<h3>What are <em>categorical</em> variables?<a class="headerlink" href="#what-are-categorical-variables" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>categorical</strong> (or <strong>qualitative</strong>) variable takes on one of several discrete values.</p>
+</div></blockquote>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">spam</span></code> or <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">male</span></code> or <code class="docutils literal notranslate"><span class="pre">female</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">right-handed</span></code> vs. <code class="docutils literal notranslate"><span class="pre">left-handed</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smoker</span></code> vs. <code class="docutils literal notranslate"><span class="pre">non-smoker</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">treatment</span></code> vs. <code class="docutils literal notranslate"><span class="pre">placebo</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">A</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">B</span></code>.</p></li>
+</ul>
+<p><strong>Note</strong>: some variables (e.g., <code class="docutils literal notranslate"><span class="pre">handnedness</span></code> or <code class="docutils literal notranslate"><span class="pre">gender</span></code>) are treated either <em>categorically</em> or <em>continuously</em>.</p>
+</section>
+<section id="example-dataset-stroop-task">
+<h3>Example dataset: <em>Stroop task</em><a class="headerlink" href="#example-dataset-stroop-task" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>In psychology, the <a class="reference external" href="https://en.wikipedia.org/wiki/Stroop_effect">Stroop effect</a> is the delay in reaction time between congruent and incongruent stimuli.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_stroop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/models/stroop.csv&quot;</span><span class="p">)</span>
+<span class="n">df_stroop</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Condition</th>
+      <th>RT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Congruent</td>
+      <td>12.079</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Congruent</td>
+      <td>16.791</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Congruent</td>
+      <td>9.564</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="building-a-linear-model">
+<h3>Building a linear model<a class="headerlink" href="#building-a-linear-model" title="Permalink to this heading">#</a></h3>
+<p><em>How do we interpret these parameters?</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_stroop</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_stroop</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;RT ~ Condition&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mod_stroop</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept                   14.051125
+Condition[T.Incongruent]     7.964792
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpreting-the-slope-for-categorical-variables">
+<h3>Interpreting the slope for categorical variables<a class="headerlink" href="#interpreting-the-slope-for-categorical-variables" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\Large Y = \beta_0 + \beta_1X_1 + \epsilon\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta_0 = 14.05\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_1 = 7.96\)</span></p></li>
+</ul>
+<p><strong>What is <span class="math notranslate nohighlight">\(X_1\)</span> here?</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_stroop</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept                   14.051125
+Condition[T.Incongruent]     7.964792
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-indicator-variables">
+<h3>Using indicator variables<a class="headerlink" href="#using-indicator-variables" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>indicator variable</strong> (alternatively: “dummy variable”) represents the possible values of a categorical variable with different numbers, e.g., <code class="docutils literal notranslate"><span class="pre">0</span></code> vs. <code class="docutils literal notranslate"><span class="pre">1</span></code> for a binary variable.</p>
+</div></blockquote>
+<p>In our case, this variable might take the form:</p>
+<ul class="simple">
+<li><p>if <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Congruent</span></code> –&gt; 0</p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Incongruent</span></code> –&gt; 1</p></li>
+</ul>
+<p>This is also called <strong>dummy coding</strong> or <strong>treatment coding</strong>.</p>
+<section id="interpreting-our-equation-with-indicator-variables-pt-1">
+<h4>Interpreting our equation with indicator variables (pt. 1)<a class="headerlink" href="#interpreting-our-equation-with-indicator-variables-pt-1" title="Permalink to this heading">#</a></h4>
+<p>Our equation might thus look like this:</p>
+<p><span class="math notranslate nohighlight">\(Y = 14.05 + 7.96X_{incongruent=1} + \epsilon\)</span></p>
+<ul class="simple">
+<li><p>What happens when <span class="math notranslate nohighlight">\(X\)</span> is <code class="docutils literal notranslate"><span class="pre">Congruent</span></code>?</p></li>
+<li><p>What happens when <span class="math notranslate nohighlight">\(X\)</span> is <code class="docutils literal notranslate"><span class="pre">Incongruent</span></code>?</p></li>
+</ul>
+</section>
+<section id="when-condition-congruent">
+<h4>When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Congruent</span></code><a class="headerlink" href="#when-condition-congruent" title="Permalink to this heading">#</a></h4>
+<p>When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Congruent</span></code>, the equation reduces to the <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>.</p>
+<p><span class="math notranslate nohighlight">\(Y = 14.05 + 7.96 *0 + \epsilon = 14.05 + \epsilon\)</span></p>
+<p><strong>Note</strong>: This is actually <em>identical</em> to the <code class="docutils literal notranslate"><span class="pre">mean</span></code> of the <code class="docutils literal notranslate"><span class="pre">Congruent</span></code> condition!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_stroop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Condition&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RT</th>
+    </tr>
+    <tr>
+      <th>Condition</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Congruent</th>
+      <td>14.051125</td>
+    </tr>
+    <tr>
+      <th>Incongruent</th>
+      <td>22.015917</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="when-condition-incongruent">
+<h4>When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Incongruent</span></code><a class="headerlink" href="#when-condition-incongruent" title="Permalink to this heading">#</a></h4>
+<p>When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Incongruent</span></code>, the equation is the <code class="docutils literal notranslate"><span class="pre">Intercept</span></code> plus the <code class="docutils literal notranslate"><span class="pre">slope</span></code>.</p>
+<p><span class="math notranslate nohighlight">\(Y = 14.05 + 7.96 * 1 + \epsilon = 14.05 + 7.96 + \epsilon\)</span></p>
+<p><strong>Note</strong>: The resulting value is the <code class="docutils literal notranslate"><span class="pre">mean</span></code> of the <code class="docutils literal notranslate"><span class="pre">Incongruent</span></code> condition.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">14.05</span> <span class="o">+</span> <span class="mf">7.96</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22.01
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_stroop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Condition&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RT</th>
+    </tr>
+    <tr>
+      <th>Condition</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Congruent</th>
+      <td>14.051125</td>
+    </tr>
+    <tr>
+      <th>Incongruent</th>
+      <td>22.015917</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id8">
+<h4>Check-in<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>What does our <code class="docutils literal notranslate"><span class="pre">slope</span></code> parameter reflect then?</p>
+</section>
+<section id="id9">
+<h4>Solution<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>In univariate regression with a categorical, binary predictor, the slope reflects the <strong>difference</strong> in means between the two <em>levels</em> of that predictor.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pointplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_stroop</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Condition&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;RT&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Condition&#39;, ylabel=&#39;RT&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/0ccfff9b86e2e2f7f887ad295874a5d8273ddb4c2fc4a20bd8894429c50f445d.png" src="../_images/0ccfff9b86e2e2f7f887ad295874a5d8273ddb4c2fc4a20bd8894429c50f445d.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id10">
+<h3>Check-in<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>Load the <code class="docutils literal notranslate"><span class="pre">tips</span></code> dataset from <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> and fit a linear model predicting <code class="docutils literal notranslate"><span class="pre">tip</span></code> from <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<ul class="simple">
+<li><p>Inspecting the model summary.</p></li>
+<li><p>How should you interpret the resulting coefficients?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id11">
+<h4>Solution<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>The intercept reflects the mean <code class="docutils literal notranslate"><span class="pre">tip</span></code> for <code class="docutils literal notranslate"><span class="pre">Lunch</span></code>, and the slope reflects the <em>difference</em> in <code class="docutils literal notranslate"><span class="pre">tip</span></code> amount between <code class="docutils literal notranslate"><span class="pre">Lunch</span></code> and <code class="docutils literal notranslate"><span class="pre">Dinner</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mod_tips</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_tips</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;tip ~ time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mod_tips</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept         2.728088
+time[T.Dinner]    0.374582
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_tips</span><span class="p">[[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;tip&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tip</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Lunch</th>
+      <td>2.728088</td>
+    </tr>
+    <tr>
+      <th>Dinner</th>
+      <td>3.102670</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="variables-with-2-levels">
+<h3>Variables with <span class="math notranslate nohighlight">\(&gt;2\)</span> levels?<a class="headerlink" href="#variables-with-2-levels" title="Permalink to this heading">#</a></h3>
+<p>Many categorical variables have <span class="math notranslate nohighlight">\(&gt;2\)</span> <strong>levels</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Assistant</span> <span class="pre">Professor</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Associate</span> <span class="pre">Professor</span></code> vs. `Full Professor.</p></li>
+<li><p>Conditions <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, and <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Europe</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Asia</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Africa</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Americas</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Oceania</span></code>.</p></li>
+</ul>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> will use <strong>dummy coding</strong>, choosing the <em>alphabetically first</em> level as the <strong>reference level</strong>.</p>
+<section id="id12">
+<h4>Check-in<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Read in the dataset at <code class="docutils literal notranslate"><span class="pre">data/housing.csv</span></code>.</p></li>
+<li><p>Then, build a linear model predicting <code class="docutils literal notranslate"><span class="pre">median_house_value</span></code> from <code class="docutils literal notranslate"><span class="pre">ocean_proximity</span></code>.</p></li>
+<li><p>Inspect the model <code class="docutils literal notranslate"><span class="pre">summary()</span></code>. How should you interpret the results?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h4>Solution<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_housing</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/housing.csv&quot;</span><span class="p">)</span>
+<span class="n">mod_housing</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_housing</span><span class="p">,</span> <span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;median_house_value ~ ocean_proximity&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mod_housing</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept                        240084.285464
+ocean_proximity[T.INLAND]       -115278.893463
+ocean_proximity[T.ISLAND]        140355.714536
+ocean_proximity[T.NEAR BAY]       19128.026326
+ocean_proximity[T.NEAR OCEAN]      9349.691963
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_housing</span><span class="p">[[</span><span class="s1">&#39;ocean_proximity&#39;</span><span class="p">,</span> <span class="s1">&#39;median_house_value&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;ocean_proximity&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>median_house_value</th>
+    </tr>
+    <tr>
+      <th>ocean_proximity</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>&lt;1H OCEAN</th>
+      <td>240084.285464</td>
+    </tr>
+    <tr>
+      <th>INLAND</th>
+      <td>124805.392001</td>
+    </tr>
+    <tr>
+      <th>ISLAND</th>
+      <td>380440.000000</td>
+    </tr>
+    <tr>
+      <th>NEAR BAY</th>
+      <td>259212.311790</td>
+    </tr>
+    <tr>
+      <th>NEAR OCEAN</th>
+      <td>249433.977427</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="how-to-code-your-variables">
+<h3>How to <em>code</em> your variables?<a class="headerlink" href="#how-to-code-your-variables" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Coding</strong> refers to the approach taken to representing the different levels of a categorical variable in a regression model.</p>
+</div></blockquote>
+<p>There are a <a class="reference external" href="https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/">variety of different approaches to contrast coding</a>, some of which are summarized below.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>What is the <code class="docutils literal notranslate"><span class="pre">Intercept</span></code>?</p></th>
+<th class="head"><p>What is the <code class="docutils literal notranslate"><span class="pre">Slope</span></code>?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Dummy coding</p></td>
+<td><p>Choose one level as <strong>reference</strong>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code> of reference group.</p></td>
+<td><p>Difference between that level and <code class="docutils literal notranslate"><span class="pre">mean</span></code> of reference group.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Deviation coding</p></td>
+<td><p>Compare each level to <strong>grand mean</strong>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code> of all groups.</p></td>
+<td><p>Difference between that level and grand mean.</p></td>
+</tr>
+</tbody>
+</table>
+<p>And many more!</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> uses <strong>dummy coding</strong>.</p>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> package can be used to build <strong>linear regression models</strong>.</p></li>
+<li><p>These models produce many useful <em>summary</em> features, including:</p>
+<ul>
+<li><p>The fit <span class="math notranslate nohighlight">\(\beta\)</span> parameters (<strong>intercept</strong> and <strong>slope</strong>).</p></li>
+<li><p>The <strong>standard error</strong> and <strong>p-value</strong> of those parameters.</p></li>
+</ul>
+</li>
+<li><p>Each <span class="math notranslate nohighlight">\(\beta\)</span> parameter has a particular interpretation with respect to <span class="math notranslate nohighlight">\(\hat{Y}\)</span>.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="12-statistical-modeling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to statistical models</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="14-regression-predictions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear regression: prediction error and more</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-python">Regression in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-our-first-dataset">Loading our first dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-visualization">Exploratory visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-regression-model">Building a regression model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-output">Inspecting output</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#extracing-specific-information">Extracing specific information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-our-model">Interpreting our model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-linear-equation">The linear equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rewriting-the-linear-equation">Rewriting the linear equation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-intercept">Understanding the <em>intercept</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intercept-and-the-linear-equation">The intercept and the linear equation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-slope">Understanding the <em>slope</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in-more-practice-with-statsmodels">Check-in: more practice with <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-relevant-output">Other relevant output</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error">Standard error</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#t-value-and-p-value">t-value and p-value</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-interval">Confidence interval</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-with-categorical-predictors">Regression with categorical predictors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-categorical-variables">What are <em>categorical</em> variables?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset-stroop-task">Example dataset: <em>Stroop task</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-linear-model">Building a linear model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-slope-for-categorical-variables">Interpreting the slope for categorical variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-indicator-variables">Using indicator variables</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-our-equation-with-indicator-variables-pt-1">Interpreting our equation with indicator variables (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-condition-congruent">When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Congruent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-condition-incongruent">When <code class="docutils literal notranslate"><span class="pre">Condition</span> <span class="pre">==</span> <span class="pre">Incongruent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Check-in</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-with-2-levels">Variables with <span class="math notranslate nohighlight">\(&gt;2\)</span> levels?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-code-your-variables">How to <em>code</em> your variables?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

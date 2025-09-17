@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to CSS 2 &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/01-intro';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="02-Ethics (Bias)" href="02-ethics.html" />
+    <link rel="prev" title="Final Project" href="../course/final.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/01-intro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/01-intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Welcome to CSS 2</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-logistics-css-2">Course Logistics: CSS 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-css">What is CSS?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-social-science">What is social science?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-computation">What is computation?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#css-in-action-inspirations">CSS in action: inspirations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#economic-mobility">Economic mobility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pandemic-s-effect-on-missed-work-in-the-usa">The pandemic’s effect on missed work in the USA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auditing-racial-discrimination-in-hiring">Auditing racial discrimination in hiring</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moral-decision-making-across-the-world">Moral decision-making across the world</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#are-song-lyrics-getting-more-negative-over-time">Are song lyrics getting more negative over time?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-similar-are-vocabularies-across-languages">How similar are vocabularies across languages?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-structure">Course Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#following-along-in-lecture">Following along in lecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-and-assessments">Grading and Assessments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations">Expectations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#academic-integrity">Academic Integrity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-content">Course Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-questions">Key questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-topics">Sample topics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome-to-css">Welcome to CSS!</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="welcome-to-css-2">
+<h1>Welcome to CSS 2<a class="headerlink" href="#welcome-to-css-2" title="Permalink to this heading">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Quick introductions/logistics.</p></li>
+<li><p>Introduction to CSS: What is it and why does it matter?</p>
+<ul>
+<li><p>If you took CSS 1 last quarter, some of this will be familiar.</p></li>
+</ul>
+</li>
+<li><p>Overview of course content.</p></li>
+</ul>
+</section>
+<section id="course-logistics-css-2">
+<h2>Course Logistics: CSS 2<a class="headerlink" href="#course-logistics-css-2" title="Permalink to this heading">#</a></h2>
+<p><strong>Teaching Team</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://seantrott.github.io/">Sean Trott</a>: Assistant Teaching Professor in Cognitive Science and CSS.</p></li>
+<li><p>TAs: Joshua Burrows</p></li>
+</ul>
+<p><a class="reference external" href="https://ucsd-css2.github.io/ucsd-css2-website/intro.html"><strong>Course Website</strong></a>.</p>
+<ul class="simple">
+<li><p>Contains web versions of each lecture.</p></li>
+<li><p>Also contains syllabus and schedule.</p></li>
+</ul>
+</section>
+<section id="what-is-css">
+<h2>What is CSS?<a class="headerlink" href="#what-is-css" title="Permalink to this heading">#</a></h2>
+<p>In a nutshell, <a class="reference external" href="https://en.wikipedia.org/wiki/Computational_social_science">Computational Social Science</a> focuses on <strong>computational approaches</strong> to <strong>social science</strong>.</p>
+<p>At UCSD, <a class="reference external" href="https://socialsciences.ucsd.edu/">Social Sciences</a> encompasses many disciplines:</p>
+<ul class="simple">
+<li><p>Psychology.</p></li>
+<li><p>Economics.</p></li>
+<li><p>Political Science.</p></li>
+<li><p>Cognitive Science.</p></li>
+<li><p>Urban Studies and Planning.</p></li>
+</ul>
+<p>And <a class="reference external" href="https://socialsciences.ucsd.edu/about/org-chart.html">many more</a>!</p>
+<section id="what-is-social-science">
+<h3>What is social science?<a class="headerlink" href="#what-is-social-science" title="Permalink to this heading">#</a></h3>
+<p><strong>Social Science</strong> refers to a domain of study: social phenomena.</p>
+<ul class="simple">
+<li><p>Encompasses many <strong>scales</strong>: human psychology, language, economic behavior, political systems.</p></li>
+<li><p>Can involve many <strong>approaches</strong>: qualitative interviews, statistical analysis, simulations.</p></li>
+</ul>
+</section>
+<section id="what-is-computation">
+<h3>What is computation?<a class="headerlink" href="#what-is-computation" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Computation"><strong>Computation</strong></a> is <em>calculation</em> using well-defined steps, e.g., an <em>algorithm</em>.</p>
+<ul class="simple">
+<li><p>A <em>computer</em> is anything that implements these well-defined steps.</p></li>
+<li><p>Historically, the term “computer” used to refer to <em>people</em>!</p></li>
+</ul>
+<p>A <strong>programming language</strong> is a way to get a computer to do these things for you.</p>
+<ul class="simple">
+<li><p>Can <em>automate</em> processes: speed things up!</p></li>
+<li><p>Can perform computations at <em>scale</em>.</p></li>
+<li><p>Can <em>share</em> with others.</p></li>
+</ul>
+</section>
+</section>
+<section id="css-in-action-inspirations">
+<h2>CSS in action: inspirations<a class="headerlink" href="#css-in-action-inspirations" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>CSS often involves analysis of <strong>large-scale datasets</strong> using <strong>statistical tools</strong>.</p></li>
+<li><p>Can yield important theoretical and practical <strong>insights</strong>.</p></li>
+</ul>
+<section id="economic-mobility">
+<h3>Economic mobility<a class="headerlink" href="#economic-mobility" title="Permalink to this heading">#</a></h3>
+<p><strong>N = 22B (Facebook connections)</strong></p>
+<p><a class="reference external" href="https://www.nature.com/articles/s41586-022-04996-4?campaign_id=9&amp;emc=edit_nn_20220801&amp;instance_id=68142&amp;nl=the-morning&amp;regi_id=180204414&amp;segment_id=100125&amp;te=1&amp;user_id=ee66cc1cf7db7a658ede84f5e390f1ff"><em>Jackson et al. (2022)</em></a>:</p>
+<p><img alt="title" src="../_images/chetty_2022.png" /></p>
+</section>
+<section id="the-pandemic-s-effect-on-missed-work-in-the-usa">
+<h3>The pandemic’s effect on missed work in the USA<a class="headerlink" href="#the-pandemic-s-effect-on-missed-work-in-the-usa" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://fullstackeconomics.com/18-charts-that-explain-the-american-economy/">Reference: Full Stack Economics</a></p>
+<p><img alt="title" src="../_images/work_pandemic.png" /></p>
+</section>
+<section id="auditing-racial-discrimination-in-hiring">
+<h3>Auditing racial discrimination in hiring<a class="headerlink" href="#auditing-racial-discrimination-in-hiring" title="Permalink to this heading">#</a></h3>
+<p><strong>N = 13,000 (applications)</strong></p>
+<p><a class="reference external" href="https://academic.oup.com/sf/article/99/2/732/5816667?login=true&amp;casa_token=MLzPTGCAAC4AAAAA:cr3p4XuFqdKEt8TLXYu0KJWJpaigrfsYg1oltxnuUPLhgSTLD8ZI_B3K2-_j0IQhYNpobYaFFsqBHj4"><em>Quillian et al. (2020)</em></a></p>
+<p><img alt="title" src="../_images/discrimination.png" /></p>
+</section>
+<section id="moral-decision-making-across-the-world">
+<h3>Moral decision-making across the world<a class="headerlink" href="#moral-decision-making-across-the-world" title="Permalink to this heading">#</a></h3>
+<p><strong>N = 70,000 (from 42 countries!)</strong></p>
+<p><a class="reference external" href="https://www.pnas.org/doi/10.1073/pnas.1911517117"><em>Awad et al. (2020)</em></a></p>
+<p><img alt="title" src="../_images/trolley_problem.png" /></p>
+</section>
+<section id="are-song-lyrics-getting-more-negative-over-time">
+<h3>Are song lyrics getting more negative over time?<a class="headerlink" href="#are-song-lyrics-getting-more-negative-over-time" title="Permalink to this heading">#</a></h3>
+<p><strong>N = ~150K songs</strong></p>
+<p><a class="reference external" href="https://www.cambridge.org/core/journals/evolutionary-human-sciences/article/cultural-evolution-of-emotional-expression-in-50-years-of-song-lyrics/E6E64C02BDB0480DB13B8B6BB7DFF598"><em>Brand et al. (2019)</em></a></p>
+<p><img alt="title" src="../_images/lyrics.png" /></p>
+</section>
+<section id="how-similar-are-vocabularies-across-languages">
+<h3>How similar are vocabularies across languages?<a class="headerlink" href="#how-similar-are-vocabularies-across-languages" title="Permalink to this heading">#</a></h3>
+<p><strong>N = 41 languages (1010 concepts)</strong></p>
+<p><a class="reference external" href="https://www.nature.com/articles/s41562-020-0924-8"><em>Thompson et al. (2020)</em></a></p>
+<p><img alt="title" src="../_images/alignment.png" /></p>
+</section>
+</section>
+<section id="course-structure">
+<h2>Course Structure<a class="headerlink" href="#course-structure" title="Permalink to this heading">#</a></h2>
+<p>Class time is divided into <em>lecture</em> and <em>section</em>.</p>
+<ul class="simple">
+<li><p>Lecture is a time to <strong>introduce</strong>, <strong>explain</strong>, and <strong>demonstrate</strong> new concepts.</p>
+<ul>
+<li><p>There will be a focus on <strong>hands-on practice</strong> (i.e., “check-ins”).</p></li>
+</ul>
+</li>
+<li><p>Section is a time to <strong>practice</strong> and <strong>develop further fluency</strong> with these concepts.</p></li>
+</ul>
+<section id="following-along-in-lecture">
+<h3>Following along in lecture<a class="headerlink" href="#following-along-in-lecture" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Lecture will have many opportunities to <strong>follow along</strong> via <strong>check-ins</strong>.</p></li>
+<li><p>I do recommend doing this, whether you’re in-person or watching the podcast!</p></li>
+<li><p>The lectures can all be found on GitHub, and downloaded or <strong>cloned</strong> into your DataHub account:</p>
+<ul>
+<li><p>Link: <a class="github reference external" href="https://github.com/UCSD-CSS2/lectures">UCSD-CSS2/lectures</a></p></li>
+<li><p>We’ll review exactly how to do that in class.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="grading-and-assessments">
+<h3>Grading and Assessments<a class="headerlink" href="#grading-and-assessments" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Most weeks will have a <strong>coding lab</strong> due the following week.</p></li>
+<li><p>There are also <strong>four problem sets</strong>, which will be auto-graded.</p></li>
+<li><p>There is also a <strong>final project</strong>––like a big, more coherent problem set.</p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Grade Component</p></th>
+<th class="head"><p>Percentage of Final Grade</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>8 Coding Labs</p></td>
+<td><p>50% (6.25% each)</p></td>
+</tr>
+<tr class="row-odd"><td><p>4 Problem Sets</p></td>
+<td><p>32% (8% each)</p></td>
+</tr>
+<tr class="row-even"><td><p>1 Final Project</p></td>
+<td><p>18%</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="expectations">
+<h3>Expectations<a class="headerlink" href="#expectations" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Course will involve programming in Python.</p>
+<ul>
+<li><p>We will review basics, but expectations include <a class="reference external" href="https://ucsd-css2.github.io/ucsd-css2-website/course/expectations.html">CSS 1 content</a>.</p></li>
+<li><p>Lab 1 will be basic Python review!</p></li>
+</ul>
+</li>
+<li><p>Will also involve using <strong>DataHub</strong> (and Jupyter notebooks).</p></li>
+<li><p>Lecture/section attendance not required.</p></li>
+<li><p>No midterms or final exam.</p></li>
+</ul>
+</section>
+<section id="academic-integrity">
+<h3>Academic Integrity<a class="headerlink" href="#academic-integrity" title="Permalink to this heading">#</a></h3>
+<p>From the syllabus:</p>
+<blockquote>
+<div><p>Please turn in your own work. While you are encouraged to work together on some assignments (e.g., on <a class="reference internal" href="../labs/overview.html"><span class="doc std std-doc">labs</span></a>), you should still understand the code you’ve submitted. Problem sets and final project should be completed independently.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Please review academic integrity policies <a class="reference external" href="http://academicintegrity.ucsd.edu">here</a>. Cheating and plagiarism are unfair to other students and ultimately to yourself, and you will be penalized if caught. Instead, if you’re struggling with something, please come to office hours and ask for help!</p>
+</div></blockquote>
+</section>
+</section>
+<section id="course-content">
+<h2>Course Content<a class="headerlink" href="#course-content" title="Permalink to this heading">#</a></h2>
+<section id="key-questions">
+<h3>Key questions<a class="headerlink" href="#key-questions" title="Permalink to this heading">#</a></h3>
+<p>We’ll examine some <strong>key questions</strong> involved in CSS:</p>
+<ul class="simple">
+<li><p>How is a dataset <strong>formatted</strong>, and is this the appropriate format for what I want to do?</p></li>
+<li><p>Is this dataset <strong>representative</strong> or does it reflect a <strong>biased sample</strong>?</p></li>
+<li><p>What <strong>ethical considerations</strong> should I take into account when obtaining and analyzing data?</p></li>
+<li><p>What kind of <strong>model</strong> is the most appropriate for these data?</p></li>
+<li><p>How do I <strong>design and implement</strong> these models––ranging in complexity from <a class="reference external" href="https://en.wikipedia.org/wiki/Linear_regression">linear regression</a> to <a class="reference external" href="https://en.wikipedia.org/wiki/Support_vector_machine">support vector machines</a>?</p></li>
+</ul>
+</section>
+<section id="sample-topics">
+<h3>Sample topics<a class="headerlink" href="#sample-topics" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ethical issues in CSS.</p></li>
+<li><p>Data visualization.</p></li>
+<li><p>Data wrangling.</p></li>
+<li><p>Linear regression.</p></li>
+<li><p>Classification.</p></li>
+<li><p>Model evaluation.</p></li>
+</ul>
+</section>
+</section>
+<section id="welcome-to-css">
+<h2>Welcome to CSS!<a class="headerlink" href="#welcome-to-css" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../course/final.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Final Project</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02-ethics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">02-Ethics (Bias)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-logistics-css-2">Course Logistics: CSS 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-css">What is CSS?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-social-science">What is social science?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-computation">What is computation?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#css-in-action-inspirations">CSS in action: inspirations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#economic-mobility">Economic mobility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pandemic-s-effect-on-missed-work-in-the-usa">The pandemic’s effect on missed work in the USA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auditing-racial-discrimination-in-hiring">Auditing racial discrimination in hiring</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moral-decision-making-across-the-world">Moral decision-making across the world</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#are-song-lyrics-getting-more-negative-over-time">Are song lyrics getting more negative over time?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-similar-are-vocabularies-across-languages">How similar are vocabularies across languages?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-structure">Course Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#following-along-in-lecture">Following along in lecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-and-assessments">Grading and Assessments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations">Expectations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#academic-integrity">Academic Integrity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-content">Course Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-questions">Key questions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-topics">Sample topics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome-to-css">Welcome to CSS!</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

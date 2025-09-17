@@ -1,0 +1,1122 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to statistical models &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/12-statistical-modeling';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Linear regression in Python" href="13-regression-intro.html" />
+    <link rel="prev" title="Statistics and Sampling" href="11-stats-sampling.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/12-statistical-modeling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/12-statistical-modeling.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to statistical models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-descriptions-to-statistical-models">From descriptions to statistical models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-our-data">Describing our data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-our-data">Modeling our data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-models">Why models?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-vs-inference">Prediction vs. inference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-encode-functions">Models encode <em>functions</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-aren-t-perfect">Models aren’t perfect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-have-trade-offs">Models have <em>trade-offs</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#above-all-models-are-tools">Above all, models are <em>tools</em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-linear-model">Introducing the <em>linear model</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-basics">Linear regression: basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-line-of-best-fit">The line of “best fit”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-linear-equation">The linear equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-equation-in-action-no-error">Linear equation in action (no error)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-equation-in-action-with-error">Linear equation in action (with error)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in-the-effect-of-error">Check-in: the effect of error</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#many-possible-lines-between-x-and-y">Many <em>possible</em> lines between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#same-slope-different-intercept">Same slope, different intercept</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#same-intercept-different-slope">Same intercept, different slope</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-lines-are-better-than-others">Some lines are better than others.</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analogy-ss-x-vs-rss">Analogy: <span class="math notranslate nohighlight">\(SS_X\)</span> vs. <span class="math notranslate nohighlight">\(RSS\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mse-the-mean-squared-error">MSE: the <em>mean squared error</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mse-in-action-pt-1">MSE in action (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mse-in-action-pt-2">MSE in action (pt. 2)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-assumptions">Key assumptions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-1-linearity">Assumption 1: Linearity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-2-normally-distributed-residuals">Assumption 2: Normally-distributed residuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-3-homoscedasticity">Assumption 3: Homoscedasticity</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heteroscedasticity-in-action">Heteroscedasticity in action</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-4-independence">Assumption 4: Independence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-statistical-models">
+<h1>Introduction to statistical models<a class="headerlink" href="#introduction-to-statistical-models" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # makes figs nicer!
+</pre></div>
+</div>
+</div>
+</div>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>From <strong>descriptive statistics</strong> to <strong>statistical models</strong>.</p></li>
+<li><p>Introducing the <strong>linear model</strong>.</p></li>
+<li><p>Key <strong>assumptions</strong> of linear regression.</p></li>
+</ul>
+</section>
+<section id="from-descriptions-to-statistical-models">
+<h2>From descriptions to statistical models<a class="headerlink" href="#from-descriptions-to-statistical-models" title="Permalink to this heading">#</a></h2>
+<section id="describing-our-data">
+<h3>Describing our data<a class="headerlink" href="#describing-our-data" title="Permalink to this heading">#</a></h3>
+<p>So far, we’ve discussed approaches to <em>describing</em> features of our data:</p>
+<ul class="simple">
+<li><p><strong>Central tendency</strong> (univariate): <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">mode</span></code>.</p></li>
+<li><p><strong>Variability</strong> (univariate): <code class="docutils literal notranslate"><span class="pre">std</span></code>, <code class="docutils literal notranslate"><span class="pre">range</span></code>.</p></li>
+<li><p><strong>Correlation</strong> (bivariate): <code class="docutils literal notranslate"><span class="pre">corr</span></code>.</p></li>
+</ul>
+<p>But often, we want to do more than simply <em>describe</em> data––we want to <strong>model</strong> it.</p>
+</section>
+<section id="modeling-our-data">
+<h3>Modeling our data<a class="headerlink" href="#modeling-our-data" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>statistical model</strong> is a mathematical model representing a “data-generating process”.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Data-generating process</strong> = how did our data come to be?</p>
+<ul>
+<li><p>We can’t observe this directly, but we can <strong>estimate</strong> it.</p></li>
+</ul>
+</li>
+<li><p>Usually involves learning a <em>relationship</em> (or <strong>function</strong>) between different variables (e.g., <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>).</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/All_models_are_wrong">“All models are wrong, but some are useful”</a>.</p></li>
+</ul>
+</section>
+<section id="why-models">
+<h3>Why models?<a class="headerlink" href="#why-models" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>Statistical models help us <strong>understand</strong> our data, and also <strong>predict</strong> new data.</p>
+</div></blockquote>
+<p>Broadly, two “paradigms” of using statistical models:</p>
+<ol class="arabic simple">
+<li><p><strong>Prediction</strong>: try to predict unseen values of <span class="math notranslate nohighlight">\(Y\)</span>, given <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+<li><p><strong>Inference</strong>: try to understand how <span class="math notranslate nohighlight">\(X\)</span> relates to <span class="math notranslate nohighlight">\(Y\)</span>, test hypotheses, etc.</p></li>
+</ol>
+<p>Both are very useful, and also <em>compatible</em>.</p>
+</section>
+<section id="prediction-vs-inference">
+<h3>Prediction vs. inference<a class="headerlink" href="#prediction-vs-inference" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>“It’s tough to make predictions, especially about the future” - Yogi Berra</p>
+</div></blockquote>
+<p>Prediction and inference can be done on the <em>same dataset</em>––it’s mostly about your goals.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Prediction</p></th>
+<th class="head"><p>Inference</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Loan repayment</p></td>
+<td><p>Will this person repay a loan?</p></td>
+<td><p>How does education quality affect loan repayment?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Road behavior</p></td>
+<td><p>Will this vehicle suddenly merge left?</p></td>
+<td><p>Which features of a driver correlate with sudden, erratic movements?</p></td>
+</tr>
+<tr class="row-even"><td><p>Advertising</p></td>
+<td><p>How much can we expect to earn this quarter?</p></td>
+<td><p>Which kinds of ads are most successful?</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="models-encode-functions">
+<h3>Models encode <em>functions</em><a class="headerlink" href="#models-encode-functions" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A statistical model often represents a <strong>function</strong> mapping from <span class="math notranslate nohighlight">\(X\)</span> (inputs) to <span class="math notranslate nohighlight">\(Y\)</span> (outputs).</p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(\Large Y = f(X, \beta) + \epsilon\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Y\)</span>: what we want to predict (outputs).</p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span>: the features we will use to predict <span class="math notranslate nohighlight">\(Y\)</span> (inputs).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span>: the <em>weights</em> (or “coefficients”) mapping <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span>: residual error from the model</p></li>
+</ul>
+</section>
+<section id="models-aren-t-perfect">
+<h3>Models aren’t perfect<a class="headerlink" href="#models-aren-t-perfect" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>No model is perfect; all models have some amount of <strong>prediction error</strong>, sometimes called <strong>residuals</strong> (or <span class="math notranslate nohighlight">\(\epsilon\)</span>).</p>
+</div></blockquote>
+<p><img alt="title" src="../_images/education.png" /></p>
+<p><a class="reference external" href="https://www.statlearning.com/">Figure from <em>An Introduction to Statistical Learning</em></a>.</p>
+</section>
+<section id="models-have-trade-offs">
+<h3>Models have <em>trade-offs</em><a class="headerlink" href="#models-have-trade-offs" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>In general, <a class="reference external" href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">there is often a trade-off</a> between the <strong>flexibility</strong> of a model and the <strong>interpretability</strong> of that model.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>More <em>flexible</em> models (e.g., neural networks) can learn more complex functions/relationships, but they are often harder to interpret.</p></li>
+<li><p>Less <em>flexible</em> models (e.g., linear regression) have higher “bias”, but are often easier to interpret.</p></li>
+</ul>
+<p>The suitability of each model depends on your <strong>goals</strong>.</p>
+</section>
+<section id="above-all-models-are-tools">
+<h3>Above all, models are <em>tools</em><a class="headerlink" href="#above-all-models-are-tools" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A model is a <em>map</em> of the data––not the data itself.</p></li>
+<li><p><a class="reference external" href="https://xcelab.net/rm/">Richard McElreath</a> compares models to <a class="reference external" href="https://en.wikipedia.org/wiki/Golem">golems</a>.</p>
+<ul>
+<li><p>Powerful machines that follow their instructions to the <em>letter</em>, for better or for worse.</p></li>
+</ul>
+</li>
+<li><p>They’re a powerful part of our toolkit, but the final responsibility always rests with the scientist.</p></li>
+</ul>
+</section>
+</section>
+<section id="introducing-the-linear-model">
+<h2>Introducing the <em>linear model</em><a class="headerlink" href="#introducing-the-linear-model" title="Permalink to this heading">#</a></h2>
+<section id="linear-regression-basics">
+<h3>Linear regression: basics<a class="headerlink" href="#linear-regression-basics" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>The goal of linear regression is to find the <strong>line of best fit</strong> between some variable(s) <span class="math notranslate nohighlight">\(X\)</span> and the <strong>continuous</strong> dependent variable <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Assuming a <em>linear relationship</em> between inputs <span class="math notranslate nohighlight">\(X\)</span> and response <span class="math notranslate nohighlight">\(Y\)</span>…</p></li>
+<li><p>…find parameters <span class="math notranslate nohighlight">\(\beta\)</span> that minimize <strong>prediction error</strong>.</p></li>
+<li><p>Allows for many predictors, but we’ll start with <strong>univariate regression</strong>.</p></li>
+</ul>
+</section>
+<section id="the-line-of-best-fit">
+<h3>The line of “best fit”<a class="headerlink" href="#the-line-of-best-fit" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>The goal of linear regression is to find the <strong>line of best fit</strong> between some variable(s) <span class="math notranslate nohighlight">\(X\)</span> and the dependent variable <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_income</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/models/income.csv&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Income&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x137ca4b50&gt;
+</pre></div>
+</div>
+<img alt="../_images/978e1e7e10b18724cf5421f00a09697aa3e5f1147ea6b91c06ebd31e2eab0ee7.png" src="../_images/978e1e7e10b18724cf5421f00a09697aa3e5f1147ea6b91c06ebd31e2eab0ee7.png" />
+</div>
+</div>
+</section>
+<section id="the-linear-equation">
+<h3>The linear equation<a class="headerlink" href="#the-linear-equation" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\Large Y = \beta_0 + \beta_1X_1 + \epsilon\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta_0\)</span>, or <strong>intercept</strong>: predicted <span class="math notranslate nohighlight">\(\hat{Y}\)</span> when <span class="math notranslate nohighlight">\(X_1 = 0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_1\)</span>, or <strong>slope</strong>: predicted increase in <span class="math notranslate nohighlight">\(\hat{Y}\)</span> for each 1-unit increase in <span class="math notranslate nohighlight">\(X_1\)</span>.</p>
+<ul>
+<li><p>When <span class="math notranslate nohighlight">\(X_1\)</span> is categorical, <strong>slope</strong> (typically) reflects the <strong>difference in means</strong> between categories.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span>, or <strong>error</strong>: assumes normally-distributed “leftover variance”.</p></li>
+</ul>
+<section id="linear-equation-in-action-no-error">
+<h4>Linear equation in action (no error)<a class="headerlink" href="#linear-equation-in-action-no-error" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span> <span class="c1">### Given some inputs X...</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="c1">### some coefficient relating X to Y</span>
+<span class="n">intercept</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">### and some intercept</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">X</span><span class="o">*</span><span class="n">beta</span> <span class="o">+</span> <span class="n">intercept</span> <span class="c1">### we can generate data</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7226a3a0c3e9d0a9682022a23e87206e017553a32e6fe6a036a4f65675c9dcd9.png" src="../_images/7226a3a0c3e9d0a9682022a23e87206e017553a32e6fe6a036a4f65675c9dcd9.png" />
+</div>
+</div>
+</section>
+<section id="linear-equation-in-action-with-error">
+<h4>Linear equation in action (with error)<a class="headerlink" href="#linear-equation-in-action-with-error" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">X</span><span class="o">*</span><span class="n">beta</span> <span class="o">+</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">ERROR</span> <span class="c1">### add error now</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1b84169f6ecd2dcd3e64a3dc0cdcd6af13712ae9232f606d090102868efa0253.png" src="../_images/1b84169f6ecd2dcd3e64a3dc0cdcd6af13712ae9232f606d090102868efa0253.png" />
+</div>
+</div>
+</section>
+<section id="check-in-the-effect-of-error">
+<h4>Check-in: the effect of error<a class="headerlink" href="#check-in-the-effect-of-error" title="Permalink to this heading">#</a></h4>
+<p>How does changing the <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">np.random.normal</span></code> change the amount of error? Why is this?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="many-possible-lines-between-x-and-y">
+<h3>Many <em>possible</em> lines between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span><a class="headerlink" href="#many-possible-lines-between-x-and-y" title="Permalink to this heading">#</a></h3>
+<p>With linear regression, our goal is to <strong>learn</strong> the coefficients mapping <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta_0\)</span>: Intercept.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_1\)</span>: Slope.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Income&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Education&#39;, ylabel=&#39;Income&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/3354795f7adc4e03affc5a5a75de160294a86a17f63f5615ea0c3d016e7716bc.png" src="../_images/3354795f7adc4e03affc5a5a75de160294a86a17f63f5615ea0c3d016e7716bc.png" />
+</div>
+</div>
+<section id="same-slope-different-intercept">
+<h4>Same slope, different intercept<a class="headerlink" href="#same-slope-different-intercept" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Income&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">intercept</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">]:</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Education&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">6.4</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Education&#39;</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f1e1c0f7197bd11c17fe0b261fbc0dee2cc3aee6ea6d31c69f601bfc376dafb5.png" src="../_images/f1e1c0f7197bd11c17fe0b261fbc0dee2cc3aee6ea6d31c69f601bfc376dafb5.png" />
+</div>
+</div>
+</section>
+<section id="same-intercept-different-slope">
+<h4>Same intercept, different slope<a class="headerlink" href="#same-intercept-different-slope" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_income</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Education&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Income&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">slope</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">,</span> <span class="mf">10.4</span><span class="p">]:</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="o">-</span><span class="mi">40</span> <span class="o">+</span> <span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Education&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">slope</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Education&#39;</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/357fc0035ff9e7bc8d1de874369056af68800f2de903d987c9b296b78cb2e140.png" src="../_images/357fc0035ff9e7bc8d1de874369056af68800f2de903d987c9b296b78cb2e140.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="some-lines-are-better-than-others">
+<h3>Some lines are better than others.<a class="headerlink" href="#some-lines-are-better-than-others" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>We can quantify <strong>quality of fit</strong> by calculating <strong>prediction error</strong> in some way.</p></li>
+<li><p>Simple approach: sum of squared deviations (residuals) between predictions <span class="math notranslate nohighlight">\(\hat{Y}\)</span> and actual values <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\Large RSS = \sum_i^N (\hat{y}_i - y_i)^2\)</span></p>
+<p><strong>Check-in:</strong> Does this equation remind you of anything?</p>
+<section id="analogy-ss-x-vs-rss">
+<h4>Analogy: <span class="math notranslate nohighlight">\(SS_X\)</span> vs. <span class="math notranslate nohighlight">\(RSS\)</span><a class="headerlink" href="#analogy-ss-x-vs-rss" title="Permalink to this heading">#</a></h4>
+<p>The <strong>sum of squares of X</strong> is used in the <strong>standard deviation</strong> equation, and is defined as:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Large SS_X = \sum_{i}^{N}(x_i - \mu)^2\)</span></p></li>
+</ul>
+<p>Whereas <strong>RSS</strong> is defined as:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Large RSS = \sum_i^N (\hat{y}_i - y_i)^2\)</span></p></li>
+</ul>
+</section>
+</section>
+<section id="mse-the-mean-squared-error">
+<h3>MSE: the <em>mean squared error</em><a class="headerlink" href="#mse-the-mean-squared-error" title="Permalink to this heading">#</a></h3>
+<p>We can also calculate the <strong>mean squared error</strong> (or <strong>MSE</strong>), i.e., the <em>average squared deviation</em> of each data-point <span class="math notranslate nohighlight">\(Y_i\)</span> from its predicted value <span class="math notranslate nohighlight">\(\hat{Y}_i\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\Large MSE = \frac{1}{N}*\sum_i^N (\hat{y}_i - y_i)^2\)</span></p>
+<section id="mse-in-action-pt-1">
+<h4>MSE in action (pt. 1)<a class="headerlink" href="#mse-in-action-pt-1" title="Permalink to this heading">#</a></h4>
+<p>Steps:</p>
+<ol class="arabic simple">
+<li><p>For a range of possible <em>slopes</em>, calculate predicted values <span class="math notranslate nohighlight">\(\hat{Y}\)</span>.</p></li>
+<li><p>Then, calculate <strong>mean squared error</strong> bewteen predicted values and actual values <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">SLOPES</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">,</span> <span class="mf">10.4</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">slope</span> <span class="ow">in</span> <span class="n">SLOPES</span><span class="p">:</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="o">-</span><span class="mi">40</span> <span class="o">+</span> <span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Education&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">slope</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df_income</span><span class="p">))</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">((</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Income&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1">## calculate mse</span>
+    <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;slope&#39;</span><span class="p">:</span> <span class="n">slope</span><span class="p">,</span>
+                  <span class="s1">&#39;mse&#39;</span><span class="p">:</span> <span class="n">mse</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mse-in-action-pt-2">
+<h4>MSE in action (pt. 2)<a class="headerlink" href="#mse-in-action-pt-2" title="Permalink to this heading">#</a></h4>
+<p>Now we can ask: which slope <span class="math notranslate nohighlight">\(\beta\)</span> had the <em>lowest</em> MSE?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_errors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_errors</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;slope&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;mse&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;slope&#39;, ylabel=&#39;mse&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/061bc774537e0547e200ca020b90f8afeee12ae81e6c1b5895b415ec7e02e951.png" src="../_images/061bc774537e0547e200ca020b90f8afeee12ae81e6c1b5895b415ec7e02e951.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="key-assumptions">
+<h2>Key assumptions<a class="headerlink" href="#key-assumptions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>All models have assumptions, linear regression included.</p></li>
+<li><p>Some of these (e.g., homoscedasticity) will make more sense when we discuss measures of <strong>model fit</strong> in more depth.</p></li>
+<li><p>For now, high-level summary.</p></li>
+</ul>
+<section id="assumption-1-linearity">
+<h3>Assumption 1: Linearity<a class="headerlink" href="#assumption-1-linearity" title="Permalink to this heading">#</a></h3>
+<p>Linear regression assumes the <em>function</em> relating <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is <strong>linear</strong>––even if it’s not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_anscombe</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;anscombe&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_anscombe</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;dataset&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x140b60290&gt;
+</pre></div>
+</div>
+<img alt="../_images/176c117d03074ef38a3b52aa2d9aef3e8309c89cdffd9ea510a03f1f351be73d.png" src="../_images/176c117d03074ef38a3b52aa2d9aef3e8309c89cdffd9ea510a03f1f351be73d.png" />
+</div>
+</div>
+</section>
+<section id="assumption-2-normally-distributed-residuals">
+<h3>Assumption 2: Normally-distributed residuals<a class="headerlink" href="#assumption-2-normally-distributed-residuals" title="Permalink to this heading">#</a></h3>
+<p>Linear regression also assumes the <strong>residuals</strong> (i.e., the <em>prediction errors</em>) are <strong>normally-distributed</strong>.</p>
+<ul class="simple">
+<li><p>Specifically, many estimates of <strong>prediction error</strong> depend on this assumption.</p></li>
+<li><p>We’ll return to this in a later lecture!</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resid</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="n">df_income</span><span class="p">[</span><span class="s1">&#39;Income&#39;</span><span class="p">]</span> <span class="c1">## calculate residuals</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.4</span><span class="p">)</span>  <span class="c1">## plot them to see normality?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/be526cbe9d4b2a8dbc2b887c814af661d41cac1d83d829e684ce797f0769ea7b.png" src="../_images/be526cbe9d4b2a8dbc2b887c814af661d41cac1d83d829e684ce797f0769ea7b.png" />
+</div>
+</div>
+</section>
+<section id="assumption-3-homoscedasticity">
+<h3>Assumption 3: Homoscedasticity<a class="headerlink" href="#assumption-3-homoscedasticity" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Homoscedasticity</strong> means that the residuals are evenly distributed along the regression line.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The opposite of homoscedasticity is <strong>heteroscedasticity</strong>.</p></li>
+<li><p>Again, this will become very important when we discuss measures of <em>prediction error</em>.</p></li>
+</ul>
+<section id="heteroscedasticity-in-action">
+<h4>Heteroscedasticity in action<a class="headerlink" href="#heteroscedasticity-in-action" title="Permalink to this heading">#</a></h4>
+<p>Heteroscedasticity often (but not always) can be identified by a <strong>funnel-shape</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">X</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x140a41290&gt;
+</pre></div>
+</div>
+<img alt="../_images/fcb5a83687314b17e56426011faa1bb7116f8259fbf33a308e5429bc399aafc5.png" src="../_images/fcb5a83687314b17e56426011faa1bb7116f8259fbf33a308e5429bc399aafc5.png" />
+</div>
+</div>
+</section>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p>Does this data display heteroscedasticity? Why or why not?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x140952ad0&gt;
+</pre></div>
+</div>
+<img alt="../_images/b90b6a20343d2a5fb27d7437a4e17fc9d7535cd14906ab73085a2ddaeba5cb96.png" src="../_images/b90b6a20343d2a5fb27d7437a4e17fc9d7535cd14906ab73085a2ddaeba5cb96.png" />
+</div>
+</div>
+</section>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>Does this data display heteroscedasticity? Why or why not?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">500</span><span class="o">/</span><span class="n">X</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x140e750d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/6b2aa09f218a4b546fb961d8be4c6ffd4c0602d5d75ba4e0158bf46d4dae37f2.png" src="../_images/6b2aa09f218a4b546fb961d8be4c6ffd4c0602d5d75ba4e0158bf46d4dae37f2.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="assumption-4-independence">
+<h3>Assumption 4: Independence<a class="headerlink" href="#assumption-4-independence" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://en.wikipedia.org/wiki/Independence_(probability_theory)"><strong>Independence</strong></a> means that each <strong>event</strong> or <em>observation</em> in our dataset was generated by distinct processes.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>An example of <strong>non-independence</strong> would be multiple observations from the same subject (or country, etc.).</p></li>
+<li><p>Advanced statistical methods control for non-independence using <a class="reference external" href="https://en.wikipedia.org/wiki/Mixed_model">mixed effects</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>This lecture marks a shift towards <strong>modeling</strong> our data.</p></li>
+<li><p>Statistical models encode some <strong>functional relationship</strong> between our variables.</p></li>
+<li><p>No model is perfect: all models have <strong>assumptions</strong>, and all models have <strong>prediction error</strong>.</p></li>
+<li><p>Linear regression is a commonly used model for predicting <strong>continuous data</strong>.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="11-stats-sampling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Statistics and Sampling</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="13-regression-intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear regression in Python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-descriptions-to-statistical-models">From descriptions to statistical models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-our-data">Describing our data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-our-data">Modeling our data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-models">Why models?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-vs-inference">Prediction vs. inference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-encode-functions">Models encode <em>functions</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-aren-t-perfect">Models aren’t perfect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#models-have-trade-offs">Models have <em>trade-offs</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#above-all-models-are-tools">Above all, models are <em>tools</em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-the-linear-model">Introducing the <em>linear model</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-basics">Linear regression: basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-line-of-best-fit">The line of “best fit”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-linear-equation">The linear equation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-equation-in-action-no-error">Linear equation in action (no error)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-equation-in-action-with-error">Linear equation in action (with error)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in-the-effect-of-error">Check-in: the effect of error</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#many-possible-lines-between-x-and-y">Many <em>possible</em> lines between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#same-slope-different-intercept">Same slope, different intercept</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#same-intercept-different-slope">Same intercept, different slope</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-lines-are-better-than-others">Some lines are better than others.</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analogy-ss-x-vs-rss">Analogy: <span class="math notranslate nohighlight">\(SS_X\)</span> vs. <span class="math notranslate nohighlight">\(RSS\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mse-the-mean-squared-error">MSE: the <em>mean squared error</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mse-in-action-pt-1">MSE in action (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mse-in-action-pt-2">MSE in action (pt. 2)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-assumptions">Key assumptions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-1-linearity">Assumption 1: Linearity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-2-normally-distributed-residuals">Assumption 2: Normally-distributed residuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-3-homoscedasticity">Assumption 3: Homoscedasticity</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heteroscedasticity-in-action">Heteroscedasticity in action</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumption-4-independence">Assumption 4: Independence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

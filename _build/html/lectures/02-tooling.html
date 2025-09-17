@@ -1,0 +1,1245 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>02-Tooling &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Basics: Variables" href="03-basics-variables.html" />
+    <link rel="prev" title="Introduction to CSS" href="01-intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/02-tooling.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/02-tooling.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/02-tooling.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   02-Tooling
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#addressing-q-a">
+     Addressing Q/A
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#office-hours">
+     Office Hours
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#goals-of-this-lecture">
+     Goals of this lecture
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-tooling-and-why-is-it-hard">
+     What is tooling, and why is it hard?
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-1-python">
+     Tool 1: Python
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-python">
+       What is Python?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#versions">
+       Versions
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#libraries">
+       Libraries
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-2-jupyter-notebooks">
+     Tool 2: Jupyter Notebooks
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#notebooks-are-versatile">
+       Notebooks are versatile
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-a-cell">
+       What is a “cell”?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-markdown">
+       What is
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         markdown
+        </span>
+       </code>
+       ?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-uses-of-markdown">
+       Additional uses of
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         markdown
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#code-cells-revisited">
+       Code cells, revisited
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-functions">
+       Additional functions
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#auto-complete">
+         Auto-complete
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#documentation">
+         Documentation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-3-datahub">
+     Tool 3: Datahub
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-will-you-find-on-datahub">
+       What will you find on Datahub?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#working-on-assignments">
+       Working on assignments
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#turning-in-assignments">
+       Turning in assignments
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-4-anaconda">
+     Tool 4: Anaconda
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-anaconda-is-useful">
+       Why Anaconda is useful:
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>02-Tooling</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   02-Tooling
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#addressing-q-a">
+     Addressing Q/A
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#office-hours">
+     Office Hours
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#goals-of-this-lecture">
+     Goals of this lecture
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-tooling-and-why-is-it-hard">
+     What is tooling, and why is it hard?
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-1-python">
+     Tool 1: Python
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-python">
+       What is Python?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#versions">
+       Versions
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#libraries">
+       Libraries
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-2-jupyter-notebooks">
+     Tool 2: Jupyter Notebooks
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#notebooks-are-versatile">
+       Notebooks are versatile
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-a-cell">
+       What is a “cell”?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-markdown">
+       What is
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         markdown
+        </span>
+       </code>
+       ?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-uses-of-markdown">
+       Additional uses of
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         markdown
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#code-cells-revisited">
+       Code cells, revisited
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additional-functions">
+       Additional functions
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#auto-complete">
+         Auto-complete
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#documentation">
+         Documentation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-3-datahub">
+     Tool 3: Datahub
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-will-you-find-on-datahub">
+       What will you find on Datahub?
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#working-on-assignments">
+       Working on assignments
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#turning-in-assignments">
+       Turning in assignments
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tool-4-anaconda">
+     Tool 4: Anaconda
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-anaconda-is-useful">
+       Why Anaconda is useful:
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="tooling">
+<h1>02-Tooling<a class="headerlink" href="#tooling" title="Permalink to this headline">#</a></h1>
+<section id="addressing-q-a">
+<h2>Addressing Q/A<a class="headerlink" href="#addressing-q-a" title="Permalink to this headline">#</a></h2>
+<p><strong>Question</strong>: What is Piazza?
+<strong>Answer</strong>: Piazza is a way to ask questions about course content. In general, we prefer questions over Piazza than email. The course Piazza can be found here: <a class="reference external" href="https://piazza.com/class?nid=l88zbj22p6w26z">https://piazza.com/class?nid=l88zbj22p6w26z</a></p>
+<p><strong>Question</strong>: People are talking about DataHub, labs, etc. I feel a little behind because I don’t know what they’re referring to.<br />
+<strong>Answer</strong>: I know it can feel overwhelming, but we’re going to start covering those details today. <em>No labs or assignments have been relased yet, so don’t worry that you’ve missed anything.</em></p>
+<p><strong>Question</strong>: What is DataHub? How do I login?<br />
+<strong>Answer</strong>: DataHub is a way to use Jupyter notebooks (and more) through UCSD server infrastructure. We’ll talk about that more today. You <em>should</em> be able to login using your student-sign on (SSO). <strong>Note that if DataHub continues to have issues, we will extend the deadline for the first lab!</strong></p>
+<p><strong>Question</strong>: Where will I find assignments?<br />
+<strong>Answer</strong>: Assignments will be released through DataHub. We have a guide on the website for <strong>fetching</strong> and <strong>submitting assignments</strong> but</p>
+<p><strong>Question</strong>: I’m on the waitlist. Can/will I get into the class?<br />
+<strong>Answer</strong>: I don’t have direct control over the waitlist. I’ve contacted the CSS administration about this and will keep you updated; if you have questions, I recommend contacting CSS staff.</p>
+</section>
+<section id="office-hours">
+<h2>Office Hours<a class="headerlink" href="#office-hours" title="Permalink to this headline">#</a></h2>
+<p>My office hours will be:</p>
+<ul class="simple">
+<li><p>When: Monday, 10-11 AM (after class).</p></li>
+<li><p>Where: CSB courtyard.</p></li>
+</ul>
+<p>TA Office hours:</p>
+<ul class="simple">
+<li><p>Nikolay Kudrin: 4-5pm (Zoom/remote).</p></li>
+<li><p>(Others updated shortly)</p></li>
+</ul>
+</section>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this headline">#</a></h2>
+<p>In this lecture, we’ll discuss some of the key <strong>software tools</strong> we’ll be using throughout the course.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/">Python</a>.</p></li>
+<li><p><a class="reference external" href="https://jupyter.org/">Jupyter notebooks</a>.</p></li>
+<li><p><a class="reference external" href="http://datahub.ucsd.edu/hub/login">Datahub</a>.</p></li>
+<li><p><a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda</a>.</p></li>
+</ul>
+</section>
+<section id="what-is-tooling-and-why-is-it-hard">
+<h2>What is tooling, and why is it hard?<a class="headerlink" href="#what-is-tooling-and-why-is-it-hard" title="Permalink to this headline">#</a></h2>
+<p>Often, one of the hardest things about learning programming is <strong>tooling</strong>.</p>
+<ul class="simple">
+<li><p>There are tons of new tools you’ve never used before, and it can seem overwhelming.</p></li>
+<li><p>Lots of new technical terms: “library”, “syntax”, “version”.</p></li>
+<li><p>So if you <em>do</em> feel overwhelmed, you’re not alone.</p></li>
+</ul>
+<p>This means: <strong>Don’t hesitate to ask us for help!</strong></p>
+</section>
+<section id="tool-1-python">
+<h2>Tool 1: Python<a class="headerlink" href="#tool-1-python" title="Permalink to this headline">#</a></h2>
+<p><img alt="title" src="../_images/python_logo.png" /></p>
+<section id="what-is-python">
+<h3>What is Python?<a class="headerlink" href="#what-is-python" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Python is a <strong>programming language</strong>.</p>
+<ul>
+<li><p>It’s a way to “do” computation.</p></li>
+<li><p>Each programming language has its own “syntax”: how to write commands in that language.</p></li>
+</ul>
+</li>
+<li><p>Python is also an <strong>ecosystem</strong>.</p>
+<ul>
+<li><p>A particular computational approach with its own community and practices.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_string</span> <span class="o">=</span> <span class="s2">&quot;This is a Python string&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">var_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This is a Python string
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="versions">
+<h3>Versions<a class="headerlink" href="#versions" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Many different <em>versions</em> of Python.</p>
+<ul>
+<li><p>Main difference between versions is specific syntax (e.g., <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">&quot;...&quot;</span></code> vs. <code class="docutils literal notranslate"><span class="pre">print(&quot;...&quot;)</span></code>).</p></li>
+</ul>
+</li>
+<li><p>The version on DataHub is <strong>3.9</strong>.</p>
+<ul>
+<li><p>Any version <span class="math notranslate nohighlight">\(&gt;3.6\)</span> should work.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="libraries">
+<h3>Libraries<a class="headerlink" href="#libraries" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Python also has many different <em>libraries</em> you can <code class="docutils literal notranslate"><span class="pre">import</span></code>.</p></li>
+<li><p>A “library” is a <strong>set of useful tools/functions</strong> that eliminate the need for you to code something from scratch.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> has many functions to make beautiful visualizations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> has many functions to work with <code class="docutils literal notranslate"><span class="pre">arrays</span></code>, e.g., calculate the <code class="docutils literal notranslate"><span class="pre">mean</span></code> or <code class="docutils literal notranslate"><span class="pre">median</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Some libraries are “native” to Python, and others must be installed.</p></li>
+<li><p>DataHub should already have the packages we’ll need for the course.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1">### Example import statement</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span> <span class="c1">### Example function with numpy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tool-2-jupyter-notebooks">
+<h2>Tool 2: Jupyter Notebooks<a class="headerlink" href="#tool-2-jupyter-notebooks" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://jupyter.org/">Jupyter notebooks</a> are tools to make <strong>interactive code</strong> with a variety of programming languages, including Python.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jupyter-notebook.readthedocs.io/en/stable/">Official documentation</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/jupyter/notebook/tree/main/docs/source/examples/Notebook">Example notebooks</a>.</p></li>
+</ul>
+<p>Notebooks are also tools for <strong>scientific communication</strong>.</p>
+<section id="notebooks-are-versatile">
+<h3>Notebooks are versatile<a class="headerlink" href="#notebooks-are-versatile" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>This lecture was written in a Jupyter notebook (<a class="reference external" href="https://github.com/seantrott/css1_ucsd/blob/main/lectures/02-tooling.ipynb">source code here</a>).</p>
+<ul>
+<li><p>The same notebook can contain Python code <em>and</em> <code class="docutils literal notranslate"><span class="pre">markdown</span></code> code.</p></li>
+</ul>
+</li>
+<li><p>The course website was created using an extension of Jupyter notebooks called <a class="reference external" href="https://jupyterbook.org/en/stable/intro.html"><code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">book</span></code></a>.</p></li>
+<li><p>The labs, problem sets, and final project will all be distributed and submitted using Jupyter notebooks.</p></li>
+</ul>
+</section>
+<section id="what-is-a-cell">
+<h3>What is a “cell”?<a class="headerlink" href="#what-is-a-cell" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Cells are an independent unit in a Jupyter notebook.</p></li>
+<li><p>A cell can contain Python code, <code class="docutils literal notranslate"><span class="pre">markdown</span></code> text, or another programming language.</p>
+<ul>
+<li><p>The “type” of cell can be specified accordingly (<code class="docutils literal notranslate"><span class="pre">markdown</span></code>, <code class="docutils literal notranslate"><span class="pre">Code</span></code>, etc.).</p></li>
+</ul>
+</li>
+<li><p>Code cells can be <strong>executed</strong> by pressing <code class="docutils literal notranslate"><span class="pre">Shift</span></code> + <code class="docutils literal notranslate"><span class="pre">Enter/Return</span></code>, or by pressing the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button above.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### This is a code cell; it will produce output.</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is a <code class="docutils literal notranslate"><span class="pre">markdown</span></code> cell; the same expression will not produce output.</p>
+<p>2 + 2</p>
+</section>
+<section id="what-is-markdown">
+<h3>What is <code class="docutils literal notranslate"><span class="pre">markdown</span></code>?<a class="headerlink" href="#what-is-markdown" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">markdown</span></code> is a way to specify how text is formatted.</p></li>
+<li><p>Simple examples:</p>
+<ul>
+<li><p><strong>Bold text</strong> can be created with two asterisks on each side (<code class="docutils literal notranslate"><span class="pre">**like</span> <span class="pre">this**</span></code>), or with two undescores (<code class="docutils literal notranslate"><span class="pre">__like</span> <span class="pre">this__</span></code>).</p></li>
+<li><p><em>Italicized text</em> can be created with one asterisk on each side (<code class="docutils literal notranslate"><span class="pre">*like</span> <span class="pre">this*</span></code>), or with one underscore (<code class="docutils literal notranslate"><span class="pre">_like</span> <span class="pre">this_</span></code>).</p></li>
+</ul>
+</li>
+<li><p>Ultimately, <a class="reference external" href="https://www.markdownguide.org/">markdown</a> gets turned into <a class="reference external" href="https://en.wikipedia.org/wiki/HTML"><code class="docutils literal notranslate"><span class="pre">html</span></code></a>, another <strong>markup language</strong>.</p></li>
+<li><p>Thus, you can create <code class="docutils literal notranslate"><span class="pre">html</span></code> websites (like this one!) using <code class="docutils literal notranslate"><span class="pre">markdown</span></code>.</p></li>
+</ul>
+</section>
+<section id="check-in">
+<h3>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h3>
+<p>What would happen if I surrounded text with three asterisks, e.g., <code class="docutils literal notranslate"><span class="pre">***this</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">test***</span></code>?</p>
+<p>(If you’re following along with Jupyter notebook, modify this cell to check.)</p>
+</section>
+<section id="additional-uses-of-markdown">
+<h3>Additional uses of <code class="docutils literal notranslate"><span class="pre">markdown</span></code><a class="headerlink" href="#additional-uses-of-markdown" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">markdown</span></code> can also be used to <a class="reference external" href="https://www.markdownguide.org/">make links</a> using <code class="docutils literal notranslate"><span class="pre">[text](url)</span></code>.</p></li>
+<li><p>Additionally, you can make <strong>lists</strong> in <code class="docutils literal notranslate"><span class="pre">markdown</span></code> (like this one) using <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p>
+<ul>
+<li><p>These lists can have indented points.</p></li>
+</ul>
+</li>
+<li><p>You can change the font size using <strong>headings</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">#</span></code> vs. <code class="docutils literal notranslate"><span class="pre">##</span></code>).</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Check-in<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>What creates a bigger heading, <code class="docutils literal notranslate"><span class="pre">#heading</span> <span class="pre">1</span></code> vs. <code class="docutils literal notranslate"><span class="pre">##heading</span> <span class="pre">2</span></code>?</p>
+<p>(If you’re following along with Jupyter notebook, modify this cell to check.)</p>
+</section>
+<section id="code-cells-revisited">
+<h3>Code cells, revisited<a class="headerlink" href="#code-cells-revisited" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>If you’re writing a Python program, you’ll want to make sure you’re using a <strong>code cell</strong>.</p></li>
+<li><p>Each code cell can have either very few or very many different lines of code.</p></li>
+<li><p>Cells can also produce <strong>output</strong>, e.g., by using <code class="docutils literal notranslate"><span class="pre">print</span></code> or simply calling a variable at the end of the cell.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This cell only has one line, plus a comment&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This cell only has one line, plus a comment
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="s2">&quot;This cell has multiple lines&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This
+cell
+has
+multiple
+lines
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Check-in<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>How would you create a cell that outputs the value <code class="docutils literal notranslate"><span class="pre">200</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="additional-functions">
+<h3>Additional functions<a class="headerlink" href="#additional-functions" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Code cells have a really useful <strong>auto-complete function</strong>.</p></li>
+<li><p>As you’re typing code, press the <code class="docutils literal notranslate"><span class="pre">tab</span></code> key, and a menu will appear showing possible functions/variables you might be referencing.</p></li>
+</ul>
+<section id="auto-complete">
+<h4>Auto-complete<a class="headerlink" href="#auto-complete" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>Code cells have a really useful <strong>auto-complete function</strong>.</p></li>
+<li><p>As you’re typing code, press the <code class="docutils literal notranslate"><span class="pre">tab</span></code> key, and a menu will appear showing possible functions/variables you might be referencing.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#### If you&#39;re following along, try typing something (e.g., np), then press tab. </span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="documentation">
+<h4>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>Additionally, you can get information about a particular variable or function by typing <code class="docutils literal notranslate"><span class="pre">?</span></code> before the name of that function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#### If you&#39;re following along, try uncommenting the following line</span>
+<span class="c1">### ?print</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="tool-3-datahub">
+<h2>Tool 3: Datahub<a class="headerlink" href="#tool-3-datahub" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="http://datahub.ucsd.edu/hub/login">Datahub</a> is a way to use Jupyter notebooks (and other software) using UCSD <strong>infrastructure</strong>.</p>
+<p>There are several advantages to this:</p>
+<ul class="simple">
+<li><p>Everyone uses the same version, so we’re all on the same page.</p></li>
+<li><p>You won’t need to install everything yourself, which is sometimes a painful process!</p></li>
+<li><p>You can access/submit assignments directly through Datahub.</p></li>
+</ul>
+<section id="what-will-you-find-on-datahub">
+<h3>What will you find on Datahub?<a class="headerlink" href="#what-will-you-find-on-datahub" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Course lectures.</p></li>
+<li><p>Coding labs.</p></li>
+<li><p>Problem sets.</p></li>
+<li><p>Final project.</p></li>
+</ul>
+</section>
+<section id="working-on-assignments">
+<h3>Working on assignments<a class="headerlink" href="#working-on-assignments" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The problem sets and final project will be <strong>auto-graded</strong>.</p></li>
+<li><p>For this to work correctly, it’s very important that:</p>
+<ul>
+<li><p>You don’t change any file names.</p></li>
+<li><p>You don’t delete or remove any cells.</p></li>
+</ul>
+</li>
+<li><p>It’s fine to add <em>more</em> cells (i.e., to answer a question).</p></li>
+</ul>
+</section>
+<section id="turning-in-assignments">
+<h3>Turning in assignments<a class="headerlink" href="#turning-in-assignments" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Make sure you press <strong>submit</strong>.</p>
+<ul>
+<li><p>Otherwise we won’t see the updated version you completed!</p></li>
+</ul>
+</li>
+<li><p>If you have doubts, double-check that your project/lab/etc. shows up under “submitted assignments”.</p></li>
+<li><p>We only have access to your most recent submission.</p></li>
+</ul>
+</section>
+</section>
+<section id="tool-4-anaconda">
+<h2>Tool 4: Anaconda<a class="headerlink" href="#tool-4-anaconda" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda</a> is a <strong>distribution</strong>. This means it includes a <em>version</em> of Python, plus a bunch of really useful packages.</p>
+<section id="why-anaconda-is-useful">
+<h3>Why Anaconda is useful:<a class="headerlink" href="#why-anaconda-is-useful" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Features over 8000 open-source data science and machine learning packages (e.g., <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, etc.).</p></li>
+<li><p>Auto-installs all these packages: again, installation can be very painful, so Anaconda takes care of all that for you “under the hood”.</p>
+<ul>
+<li><p>Makes sure that installed versions are all compatible, etc.</p></li>
+</ul>
+</li>
+<li><p><strong>If you want to work on Python/Jupyter locally (i.e., not on Datahub), Anaconda is one of the easiest ways to get things installed</strong>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h1>
+<p>This concludes the high-level introduction to various <strong>tools</strong>.</p>
+<p>If you’re feeling a bit overwhelmed by all the software you haven’t encountered before, try not to worry! As we progress through the class, you’ll start to feel more comfortable with these tools. And again, if you have questions, please don’t hesitate to reach out to the teaching team (or other classmates)!</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="01-intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Introduction to CSS</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="03-basics-variables.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python Basics: Variables</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

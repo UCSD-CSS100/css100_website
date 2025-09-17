@@ -1,0 +1,1152 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>02-Ethics (Bias) &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/02-ethics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="03-Ethics (Privacy and Dual Use)" href="03-ethics-privacy.html" />
+    <link rel="prev" title="Welcome to CSS 2" href="01-intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/02-ethics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/02-ethics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>02-Ethics (Bias)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-1-how-machine-learning-can-perpetuate-inequality-in-the-court-system">Case Study 1: How machine learning can perpetuate inequality in the court system</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-court-system-involves-life-altering-decisions">The court system involves life-altering decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-risk-scores-work">How risk scores work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-s-with-risk-scores">The problem(s) with risk scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brief-detour-types-of-errors">Brief detour: types of errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-types-and-risk-scores">Error types and risk scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-bias-in-error-types">Racial bias in error types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-scores-can-perpetuate-racial-injustice">Risk scores can perpetuate racial injustice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-proxy-discrimination">Problem 1: Proxy discrimination</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-opaque-models">Problem 2: Opaque models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summing-up">Summing up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-ethics">What is ethics?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-ethics-for-css">Why ethics for CSS?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-1-css-has-impact">Reason 1: CSS has impact</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-2-css-involves-hard-decisions">Reason 2: CSS involves hard decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-we-start-with-ethics">Why we <em>start</em> with ethics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-in-action">Bias in Action</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-past-is-biased">When the past is biased</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-bias-in-recidivism-predictions">Racial bias in recidivism predictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gender-bias-in-hiring">Gender bias in hiring</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-and-racial-bias-in-lending">Class and racial bias in lending</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-in-risk-assessment">Bias in risk assessment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#so-where-does-bias-come-from">So where does bias come from?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unrepresentative-data">Unrepresentative data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy discrimination</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-makes-an-algorithm-fair">What makes an algorithm “fair”?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-1-no-explicit-discrimination">Definition 1: No explicit discrimination?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disdavantages">Disdavantages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-2-predictive-parity">Definition 2: Predictive parity?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages">Disadvantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-comparison">Visual comparison</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-3-demographic-parity">Definition 3: Demographic parity</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalent-predicted-scores-across-groups">Equivalent <em>predicted scores</em> across groups</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Disadvantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Disadvantages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-fair">What’s fair?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-resources">Other resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ethics-bias">
+<h1>02-Ethics (Bias)<a class="headerlink" href="#ethics-bias" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # makes figs nicer!
+</pre></div>
+</div>
+</div>
+</div>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Case Study 1: How machine learning can perpetuate inequality.</p></li>
+<li><p>What is ethics and why does it matter for CSS?</p></li>
+<li><p>Bias in action: where does it come from?</p></li>
+<li><p>Exploring <strong>fairness</strong>.</p></li>
+</ul>
+</section>
+<section id="case-study-1-how-machine-learning-can-perpetuate-inequality-in-the-court-system">
+<h2>Case Study 1: How machine learning can perpetuate inequality in the court system<a class="headerlink" href="#case-study-1-how-machine-learning-can-perpetuate-inequality-in-the-court-system" title="Permalink to this heading">#</a></h2>
+<section id="the-court-system-involves-life-altering-decisions">
+<h3>The court system involves life-altering decisions<a class="headerlink" href="#the-court-system-involves-life-altering-decisions" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>In the USA, judges make life-altering decisions about defendants:</p>
+<ul>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Bail">Determining <strong>bail amounts</strong></a></p></li>
+<li><p><a class="reference external" href="https://www.justice.gov/usao/justice-101/sentencing">Determining <strong>sentence length</strong></a></p></li>
+</ul>
+</li>
+<li><p>These decisions are often <a class="reference external" href="https://www.brennancenter.org/our-work/analysis-opinion/bfd-criminal-justice-reform?ms=gad_sentencing%20reform_617065346569_8628877148_145936558771"><strong>biased</strong> and can perpetuate racial inequality.</a></p></li>
+<li><p>More recently, some researchers and companies have offered a “solution”: <strong>risk scores</strong>.</p></li>
+</ul>
+</section>
+<section id="how-risk-scores-work">
+<h3>How risk scores work<a class="headerlink" href="#how-risk-scores-work" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>risk score</strong> is a number (usually assigned by a statistical model) that estimates the <em>likelihood</em> that someone will commit another crime.</p>
+</div></blockquote>
+<p>These models take various factors as <strong>input</strong>, including:</p>
+<ul class="simple">
+<li><p>The defendant’s age.</p></li>
+<li><p>The defendant’s history of misconduct.</p></li>
+</ul>
+<p>As <strong>output</strong>, they produce a score, i.e., the <strong>probability of re-offending</strong>.</p>
+</section>
+<section id="the-problem-s-with-risk-scores">
+<h3>The problem(s) with risk scores<a class="headerlink" href="#the-problem-s-with-risk-scores" title="Permalink to this heading">#</a></h3>
+<p><strong>Problem 1</strong>: They’re often not very accurate.</p>
+<blockquote>
+<div><p>The score proved remarkably unreliable in forecasting violent crime: Only 20 percent of the people predicted to commit violent crimes actually went on to do so.</p>
+</div></blockquote>
+<p><strong>Problem 2</strong>: The <em>way</em> in which they’re inaccurate is <strong>racially biased</strong>.</p>
+<blockquote>
+<div><p>In forecasting who would re-offend, the algorithm made mistakes with black and white defendants at roughly the same rate but in very different ways.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">Source: Propublica</a></p>
+</section>
+<section id="brief-detour-types-of-errors">
+<h3>Brief detour: types of errors<a class="headerlink" href="#brief-detour-types-of-errors" title="Permalink to this heading">#</a></h3>
+<p>When running a test (e.g., a COVID test), you can make two kinds of errors:</p>
+<ul class="simple">
+<li><p>A <strong>false negative (FN)</strong> is when you have COVID but the test says you don’t.</p></li>
+<li><p>A <strong>false positive (FP)</strong> is when you don’t have COVID but the test says you do.</p></li>
+</ul>
+<p><img alt="title" src="../_images/detection.png" /></p>
+</section>
+<section id="check-in">
+<h3>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h3>
+<p>How would these kinds of errors map onto the <strong>risk score</strong> case we’ve been discussing?</p>
+</section>
+<section id="error-types-and-risk-scores">
+<h3>Error types and risk scores<a class="headerlink" href="#error-types-and-risk-scores" title="Permalink to this heading">#</a></h3>
+<p>In the case of <strong>risk scores</strong>:</p>
+<ul class="simple">
+<li><p>A <strong>false negative</strong> = predicting that someone <em>won’t</em> reoffend, but they do.</p></li>
+<li><p>A <strong>false positive</strong> = predicting that someone <em>will</em> reoffend, but they don’t.</p></li>
+</ul>
+<p>Which kind of error do you think is worse?</p>
+</section>
+<section id="racial-bias-in-error-types">
+<h3>Racial bias in error types<a class="headerlink" href="#racial-bias-in-error-types" title="Permalink to this heading">#</a></h3>
+<p>Overall <strong>prediction accuracy</strong> was similar across race, but <em>not</em> the <strong>type of error</strong>:</p>
+<p><img alt="title" src="../_images/bias_northpointe.png" /></p>
+<p><a class="reference external" href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">Source: Propublica</a></p>
+</section>
+<section id="risk-scores-can-perpetuate-racial-injustice">
+<h3>Risk scores can perpetuate racial injustice<a class="headerlink" href="#risk-scores-can-perpetuate-racial-injustice" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Risk scores are <strong>racially biased</strong> in the types of errors they make.</p></li>
+<li><p>This is <strong>unjust</strong>: it means that decisions about <em>sentencing</em> and <em>bail</em> could also be racially biased.</p></li>
+</ul>
+<p>But if it’s <a class="reference external" href="https://www.dol.gov/agencies/oasam/civil-rights-center/statutes/civil-rights-act-of-1964">illegal to discriminate on the basis of race</a>, how are these risk scores allowed?</p>
+<section id="problem-1-proxy-discrimination">
+<h4>Problem 1: Proxy discrimination<a class="headerlink" href="#problem-1-proxy-discrimination" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Risk assessment models usually don’t <strong>explicitly</strong> include race as a factor.</p></li>
+<li><p>Instead, they include <strong>correlates</strong> of race (such as ZIP code).</p>
+<ul>
+<li><p>This is called <strong>redundant encoding</strong> or <a class="reference external" href="https://ilr.law.uiowa.edu/assets/Uploads/ILR-105-3-Prince-Schwarcz-6.pdf"><strong>proxy discrimination</strong></a>.</p></li>
+</ul>
+</li>
+<li><p>Because of historical racial injustices, these correlates are also correlated with reoffense.</p></li>
+</ul>
+<blockquote>
+<div><p>Now populations that have historically been <strong>disproportionately targeted by law enforcement</strong>—especially low-income and minority communities—are at risk of being slapped with high recidivism scores. As a result, <strong>the algorithm could amplify and perpetuate embedded biases and generate even more bias-tainted data</strong> to feed a vicious cycle.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.technologyreview.com/2019/01/21/137783/algorithms-criminal-justice-ai/">Source: MIT Technology Review</a></p>
+</section>
+<section id="problem-2-opaque-models">
+<h4>Problem 2: Opaque models<a class="headerlink" href="#problem-2-opaque-models" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>This software is also typically <em>proprietary</em>, so <a class="reference external" href="https://en.wikipedia.org/wiki/Black_box">we don’t know exactly what goes into the models</a>.</p></li>
+<li><p>This makes it near-impossible to “cross-examine” a model.</p>
+<ul>
+<li><p>Violation of <a class="reference external" href="https://en.wikipedia.org/wiki/Procedural_due_process">procedural due process</a>?</p></li>
+</ul>
+</li>
+</ul>
+<p><a class="reference external" href="https://www.technologyreview.com/2019/01/21/137783/algorithms-criminal-justice-ai/">Source: MIT Technology Review</a></p>
+</section>
+</section>
+<section id="summing-up">
+<h3>Summing up<a class="headerlink" href="#summing-up" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Human judges are subject to bias (including <strong>racial bias</strong>).</p></li>
+<li><p><strong>Risk scores</strong> are an attempt to make this process “objective”.</p></li>
+<li><p>Yet many models are <strong>opaque</strong>, potentially violating <a class="reference external" href="https://en.wikipedia.org/wiki/Procedural_due_process">due process</a>.</p></li>
+<li><p>Despite equivalent <strong>predictive accuracy</strong> across race, many exhibit racial bias in which <strong>types of errors</strong> they make.</p></li>
+<li><p>The use of these models thus <strong>entrenches</strong> pre-existing biases.</p></li>
+</ul>
+<p>Addressing these issues requires discussing of our <strong>values</strong>––this is where <strong>ethics</strong> comes in.</p>
+</section>
+</section>
+<section id="what-is-ethics">
+<h2>What is ethics?<a class="headerlink" href="#what-is-ethics" title="Permalink to this heading">#</a></h2>
+<p>The term <strong>“ethics”</strong> can refer to:</p>
+<ul class="simple">
+<li><p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Ethics"><strong>philosophical discipline</strong></a> concerned with what is right and what is wrong.</p>
+<ul>
+<li><p>Many ethical <em>theories</em>: <a class="reference external" href="https://en.wikipedia.org/wiki/Virtue_ethics">virtue ethics</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Consequentialism">consequentialism</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Deontology">deontology</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Ethics#Normative_ethics">more</a>.</p></li>
+</ul>
+</li>
+<li><p>Any given <strong>system of ethical values</strong>, i.e., the <em>result</em> of reasoning about what’s right and wrong.</p></li>
+</ul>
+<p><strong>“Applied ethics”</strong> involves ethics in the “real world”.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Bioethics">Bioethics</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Business_ethics">business ethics</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Machine_ethics">machine ethics</a>, and more.</p></li>
+<li><p>Here at UCSD, we have the <a class="reference external" href="https://ipe.ucsd.edu/"><strong>Institute for Practical Ethics</strong></a>, which includes research on <a class="reference external" href="https://ipe.ucsd.edu/research/data-science.html">ethics for Data Science</a>.</p></li>
+</ul>
+</section>
+<section id="why-ethics-for-css">
+<h2>Why ethics for CSS?<a class="headerlink" href="#why-ethics-for-css" title="Permalink to this heading">#</a></h2>
+<section id="reason-1-css-has-impact">
+<h3>Reason 1: CSS has impact<a class="headerlink" href="#reason-1-css-has-impact" title="Permalink to this heading">#</a></h3>
+<p>In CSS, our work can have <strong>real-world impact</strong>.</p>
+<ul class="simple">
+<li><p>Is this impact <em>positive</em>?</p></li>
+<li><p>Does this work have the potential to <em>cause harm</em>?</p></li>
+<li><p>How does the potential harm compare to <em>current harms</em>?</p></li>
+</ul>
+</section>
+<section id="reason-2-css-involves-hard-decisions">
+<h3>Reason 2: CSS involves hard decisions<a class="headerlink" href="#reason-2-css-involves-hard-decisions" title="Permalink to this heading">#</a></h3>
+<p>We also face many <strong>difficult questions</strong>.</p>
+<ul class="simple">
+<li><p>Does this work perpetuate <em>bias</em>? What exactly is <em>fairness</em>? (Today)</p></li>
+<li><p>Does this work violate <em>privacy</em> or have harmful potential for <em>dual use</em>? (Next lecture)</p></li>
+<li><p>Am I conducting my data analysis <em>honestly</em> and <em>fairly</em>? (Throughout course + week 10)</p>
+<ul>
+<li><p>How should I treat missing data?</p></li>
+<li><p>Is my sample <em>representative</em>?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="why-we-start-with-ethics">
+<h3>Why we <em>start</em> with ethics<a class="headerlink" href="#why-we-start-with-ethics" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Throughout this course, we’ll learn about:</p>
+<ul>
+<li><p><strong>Acquiring</strong> and <strong>representing</strong> types of data.</p></li>
+<li><p><strong>Analyzing</strong> and <strong>interpreting</strong> data.</p></li>
+<li><p>Building <strong>predictive models</strong> of data.</p></li>
+</ul>
+</li>
+<li><p>Each of these processes involves <em>decisions</em>.</p></li>
+<li><p><strong>Ethics should be at the forefront of our minds</strong> while making these decisions––not an after-thought.</p></li>
+</ul>
+</section>
+</section>
+<section id="bias-in-action">
+<h2>Bias in Action<a class="headerlink" href="#bias-in-action" title="Permalink to this heading">#</a></h2>
+<section id="when-the-past-is-biased">
+<h3>When the past is biased<a class="headerlink" href="#when-the-past-is-biased" title="Permalink to this heading">#</a></h3>
+<p>When <strong>making predictions</strong>, we often rely on information about the <em>past</em> to predict the <em>future</em>.</p>
+<ul class="simple">
+<li><p><strong>Risk scores</strong>: will this person re-offend?</p></li>
+<li><p><strong>Hiring</strong>: will this person be a successful employee?</p></li>
+<li><p><strong>Loans</strong>: will this person pay back their debt?</p></li>
+</ul>
+<p>But what happens when the <strong>past is biased</strong>?</p>
+</section>
+<section id="racial-bias-in-recidivism-predictions">
+<h3>Racial bias in recidivism predictions<a class="headerlink" href="#racial-bias-in-recidivism-predictions" title="Permalink to this heading">#</a></h3>
+<p>Overall <strong>prediction accuracy</strong> was similar across race, but <em>not</em> the <strong>type of error</strong>:</p>
+<p><img alt="title" src="../_images/bias_northpointe.png" /></p>
+<p><a class="reference external" href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">Source: Propublica</a></p>
+</section>
+<section id="gender-bias-in-hiring">
+<h3>Gender bias in hiring<a class="headerlink" href="#gender-bias-in-hiring" title="Permalink to this heading">#</a></h3>
+<p><strong>Problem</strong>: Hiring talented people is hard; we also know that interviewers are subject to bias.</p>
+<p><strong>“Solution”</strong>: Can we automate this with a resume screening tool?</p>
+<ul class="simple">
+<li><p>Look at past and current employees.</p></li>
+<li><p>Which features of their resume are predictive of their hiring/success?</p></li>
+</ul>
+<p>Any potential issues with this?</p>
+<p><a class="reference external" href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G">Source: Reuters</a></p>
+<p>Hiring is already <strong>biased</strong>––using current data to inform future hiring will just <strong>entrench</strong> that bias.</p>
+<p><img alt="title" src="../_images/gender.png" /></p>
+<p><a class="reference external" href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G">Source: Reuters</a></p>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>What about if we <em>explicitly removed</em> features like self-identified gender from a model? Could such a model still be gender-biased?</p>
+</section>
+</section>
+<section id="class-and-racial-bias-in-lending">
+<h3>Class and racial bias in lending<a class="headerlink" href="#class-and-racial-bias-in-lending" title="Permalink to this heading">#</a></h3>
+<p>Assessing <strong>credit risk</strong> is important:</p>
+<blockquote>
+<div><p>The correct estimation of credit risk is paramount for the entire system. Failing in the credit risk estimation can lead to systemic failures such as the sub-prime crisis of 2008.</p>
+</div></blockquote>
+<p>Hard to determine the right threshold for acceptable risk:</p>
+<ul class="simple">
+<li><p>Overly <em>lenient</em> thresholds can lead to <strong>defaults</strong> and trap borrowers in debt.</p></li>
+<li><p>Overly <em>strict</em> thresholds can <strong>lock out</strong> potential borrowers from building wealth.</p></li>
+</ul>
+<p><a class="reference external" href="https://link.springer.com/article/10.1007/s00521-022-07472-2">Source: Shi et al. (2022)</a></p>
+<section id="bias-in-risk-assessment">
+<h4>Bias in risk assessment<a class="headerlink" href="#bias-in-risk-assessment" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Historically, lending practices were <strong>overtly racist</strong>, e.g., <a class="reference external" href="https://en.wikipedia.org/wiki/Redlining"><strong>redlining</strong></a>.</p></li>
+<li><p>Various laws passed (e.g., <a class="reference external" href="https://www.hud.gov/program_offices/fair_housing_equal_opp/fair_housing_act_overview">Fair Housing Act of 1968</a>) to <strong>protect potential borrowers from discrimination</strong> on the basis of <em>race</em>, <em>religion</em>, and more.</p></li>
+<li><p>But these practices have left <strong>lasting inequities</strong> in credit scores like <a class="reference external" href="https://www.fico.com/en/products/fico-score">FICO</a>.</p></li>
+</ul>
+<blockquote>
+<div><p>If FICO were invented today, would it satisfy a disparate impact test? The conclusion of Rice and Swesnik in their law review article was clear: “Our current credit-scoring systems have a disparate impact on people and communities of color.”</p>
+</div></blockquote>
+<p><img alt="title" src="../_images/fico.png" /></p>
+<p><a class="reference external" href="https://www.brookings.edu/research/reducing-bias-in-ai-based-financial-services/">Source: Brookings</a></p>
+</section>
+</section>
+</section>
+<section id="so-where-does-bias-come-from">
+<h2>So where does bias come from?<a class="headerlink" href="#so-where-does-bias-come-from" title="Permalink to this heading">#</a></h2>
+<section id="unrepresentative-data">
+<h3>Unrepresentative data<a class="headerlink" href="#unrepresentative-data" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Unrepresentative samples</strong> are very common with <strong>image recognition</strong> datasets (<a class="reference external" href="http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf">Buolamwini &amp; Gebru, 2018</a>), leading to disparate outcomes:</p></li>
+</ul>
+<blockquote>
+<div><p>Microsoft and IBM classifiers perform best on lighter male faces (error rates of 0.0% and 0.3% respectively)…All classifiers perform worst on darker female faces (20.8% − 34.7% error rate).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Likely due to historic <strong>under-representation in data</strong>: <a class="reference external" href="https://en.wikipedia.org/wiki/Garbage_in,_garbage_out">Garbage in, garbage out</a>.</p></li>
+</ul>
+<p><img alt="title" src="../_images/gender_shades.png" /></p>
+</section>
+<section id="proxy-discrimination">
+<h3>Proxy discrimination<a class="headerlink" href="#proxy-discrimination" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Explicit discrimination on the basis of protected attributes (e.g., race, religion) is <strong>illegal</strong>.</p></li>
+<li><p>But these attributes often correlate with other features or <a class="reference external" href="https://ilr.law.uiowa.edu/assets/Uploads/ILR-105-3-Prince-Schwarcz-6.pdf"><strong>“proxies”</strong> (e.g., ZIP code, income)</a>.</p></li>
+<li><p>Thus, ignoring protected attributes can just make the bias <em>less visible</em>:</p></li>
+</ul>
+<blockquote>
+<div><p>AIs armed with big data are <strong>inherently structured to engage in proxy discrimination</strong> whenever they are deprived of information about membership in a legally suspect class whose predictive power cannot be measured more directly by non-suspect data available to the AI.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://ilr.law.uiowa.edu/assets/Uploads/ILR-105-3-Prince-Schwarcz-6.pdf">Source: Prince &amp; Schwarcz, 2019</a></p>
+</section>
+</section>
+<section id="what-makes-an-algorithm-fair">
+<h2>What makes an algorithm “fair”?<a class="headerlink" href="#what-makes-an-algorithm-fair" title="Permalink to this heading">#</a></h2>
+<section id="definition-1-no-explicit-discrimination">
+<h3>Definition 1: No explicit discrimination?<a class="headerlink" href="#definition-1-no-explicit-discrimination" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A naïve approach might require that the algorithm should <strong>ignore all protected attributes</strong> such as race, color, religion, gender, disability, or family status.</p>
+</div></blockquote>
+<p>Potential issues?</p>
+<p><a class="reference external" href="https://home.ttic.edu/~nati/Publications/HardtPriceSrebro2016.pdf">Source: Hardt et al. (2016)</a>.</p>
+<section id="disdavantages">
+<h4>Disdavantages<a class="headerlink" href="#disdavantages" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Can still result in discrimination because of <a class="reference external" href="https://ilr.law.uiowa.edu/assets/Uploads/ILR-105-3-Prince-Schwarcz-6.pdf">proxies</a>.</p></li>
+<li><p>Especially problematic with large datasets––can simply make discrimination less <em>visible</em>.</p></li>
+</ul>
+<blockquote>
+<div><p>Simply denying AIs access to the most intuitive proxies for such predictive but suspect characteristics does little to thwart this process; instead it simply causes AIs to locate less intuitive proxies.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="definition-2-predictive-parity">
+<h3>Definition 2: Predictive parity?<a class="headerlink" href="#definition-2-predictive-parity" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Predictive parity</strong> meas that an algorithm’s predictions are equally <em>accurate</em> across relevant groups. I.e., the overall <strong>error rate</strong> is the same.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>E.g., suppose that <strong>risk scores</strong> are equally accurate on average for men and women.</p></li>
+</ul>
+<p>Potential issues?</p>
+<section id="disadvantages">
+<h4>Disadvantages<a class="headerlink" href="#disadvantages" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Predictions can still be inaccurate in <strong>different ways</strong>, e.g., different rates of <strong>false positives</strong>.</p></li>
+</ul>
+<p><img alt="title" src="../_images/bias_northpointe.png" /></p>
+</section>
+<section id="visual-comparison">
+<h4>Visual comparison<a class="headerlink" href="#visual-comparison" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">error_rate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">70</span><span class="p">]</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Group 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 2&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">error_rate</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error Rate (%)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;False Positives (%)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;False Negatives (%)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error Rate (%)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;False Positives (%)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;False Negatives (%)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bf9fac7422d9790e73fc0538b0d9d8cbeea1f5536395e3ffa09ca51e5263108f.png" src="../_images/bf9fac7422d9790e73fc0538b0d9d8cbeea1f5536395e3ffa09ca51e5263108f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="definition-3-demographic-parity">
+<h3>Definition 3: Demographic parity<a class="headerlink" href="#definition-3-demographic-parity" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Demographic parity</strong> requires that a decision—such as accepting or denying a loan application—be independent
+of the protected attribute…In other words, membership in a protected class should have no correlation with
+the decision.</p>
+</div></blockquote>
+<p>Potential issues?</p>
+<p><a class="reference external" href="https://home.ttic.edu/~nati/Publications/HardtPriceSrebro2016.pdf">Source: Hardt et al. (2016)</a>.</p>
+<section id="equivalent-predicted-scores-across-groups">
+<h4>Equivalent <em>predicted scores</em> across groups<a class="headerlink" href="#equivalent-predicted-scores-across-groups" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">score_parity</span> <span class="o">=</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">]</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Group 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 3&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">score_parity</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted P(Default)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demographic Parity&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Demographic Parity&#39;)
+</pre></div>
+</div>
+<img alt="../_images/c34405ad7a99a991640ef332d573ae993f46ab2bf89bd48c1cab913a0661994e.png" src="../_images/c34405ad7a99a991640ef332d573ae993f46ab2bf89bd48c1cab913a0661994e.png" />
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Disadvantages<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>What if the <a class="reference external" href="https://en.wikipedia.org/wiki/Base_rate">base rates</a> are different?</p>
+<ul>
+<li><p>E.g., suppose men are more likely than women to <strong>default</strong> on a loan (Not necessarily true––just for the sake of illustration!).</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">true_probability</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Group 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 3&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">true_probability</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;True P(Default)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Different True P(Default) Across Groups&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Different True P(Default) Across Groups&#39;)
+</pre></div>
+</div>
+<img alt="../_images/d1182af10a6b5322958858f4d26c12be2e5193b70559870ddb4ce5861abf002a.png" src="../_images/d1182af10a6b5322958858f4d26c12be2e5193b70559870ddb4ce5861abf002a.png" />
+</div>
+</div>
+<p>If base rates are different across groups, <strong>demographic parity</strong> can lead to different <em>accuracy</em> across groups.</p>
+<ul class="simple">
+<li><p>Predicted <span class="math notranslate nohighlight">\(\%\)</span> <strong>overestimates</strong> true <span class="math notranslate nohighlight">\(\%\)</span> for <code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">2</span></code>.</p></li>
+<li><p>Prediction <span class="math notranslate nohighlight">\(\%\)</span> <strong>underestimates</strong> true <span class="math notranslate nohighlight">\(\%\)</span> for <code class="docutils literal notranslate"><span class="pre">Group</span> <span class="pre">3</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Group 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 3&#39;</span><span class="p">,</span><span class="s1">&#39;Group 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Group 3&#39;</span><span class="p">]</span>
+<span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Predicted %&quot;</span><span class="p">,</span> <span class="s2">&quot;Predicted %&quot;</span><span class="p">,</span> <span class="s2">&quot;Predicted %&quot;</span><span class="p">,</span> <span class="s2">&quot;True %&quot;</span><span class="p">,</span> <span class="s2">&quot;True %&quot;</span><span class="p">,</span> <span class="s2">&quot;True %&quot;</span><span class="p">]</span>
+<span class="n">df_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Score&quot;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span>
+                         <span class="s2">&quot;Label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+                         <span class="s2">&quot;Group&quot;</span><span class="p">:</span> <span class="n">groups</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_scores</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Group&#39;</span><span class="p">,</span>
+           <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Score&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;Label&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demographic parity != Predictive Parity&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Demographic parity != Predictive Parity&#39;)
+</pre></div>
+</div>
+<img alt="../_images/40b91b1e41c34d3abcd1b6002a123bfed174b8c7532dae66471dc4a14013347f.png" src="../_images/40b91b1e41c34d3abcd1b6002a123bfed174b8c7532dae66471dc4a14013347f.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Disadvantages<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>What if the <a class="reference external" href="https://en.wikipedia.org/wiki/Base_rate">base rates</a> are different?</p>
+<ul>
+<li><p>E.g., suppose men are more likely than women to <strong>default</strong> on a loan (Not necessarily true––just for the sake of illustration!).</p></li>
+</ul>
+</li>
+<li><p>In this case, we can’t have both <strong>predictive parity</strong> and <strong>demographic parity</strong>.</p></li>
+</ul>
+<p><strong>Counterpoint</strong>: if certain differences exist because of <strong>historical/ongoing biases</strong> (e.g., <em>redlining</em>, <em>racial discrimination in the court system</em>, etc.), perhaps we <em>should</em> <strong>correct</strong> for them in the model?</p>
+</section>
+</section>
+<section id="what-s-fair">
+<h3>What’s fair?<a class="headerlink" href="#what-s-fair" title="Permalink to this heading">#</a></h3>
+<p>Different notions of <strong>fairness</strong> <a class="reference external" href="https://arxiv.org/pdf/1609.05807.pdf">cannot always be implemented simultaneously</a>.</p>
+<ul class="simple">
+<li><p>This is especially true when society contains <strong>pre-existing biases</strong>.</p></li>
+<li><p>Decisions often involve <a class="reference external" href="https://en.wikipedia.org/wiki/Trade-off">trade-offs</a>.</p></li>
+</ul>
+<p>What seems most fair to you?</p>
+<ul class="simple">
+<li><p><strong>Ignoring protected attributes</strong>: group identity not considered in model.</p></li>
+<li><p><strong>Predictive parity</strong>: same accuracy rates across groups.</p></li>
+<li><p><strong>Demographic parity</strong>: same prediction rates across groups.</p></li>
+</ul>
+</section>
+</section>
+<section id="other-resources">
+<h2>Other resources<a class="headerlink" href="#other-resources" title="Permalink to this heading">#</a></h2>
+<p>This lecture has really only <em>scratched the surface</em> of issues in <strong>bias and fairness</strong>.</p>
+<p>In recent years, many excellent books have been published relating to this topic:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Weapons_of_Math_Destruction">Weapons of Math Destruction</a>.</p></li>
+<li><p><a class="reference external" href="https://nyupress.org/9781479837243/algorithms-of-oppression/">Algorithmic Oppression</a>.</p></li>
+<li><p><a class="reference external" href="https://mitpress.mit.edu/9780262044004/data-feminism/">Data Feminism</a>.</p></li>
+<li><p><a class="reference external" href="https://us.macmillan.com/books/9781250074317/automatinginequality">Automating Inequality</a>.</p></li>
+<li><p><a class="reference external" href="https://mitpress.mit.edu/9780262538190/ai-ethics/">AI Ethics</a>.</p></li>
+<li><p><a class="reference external" href="https://brianchristian.org/the-alignment-problem/">The Alignment Problem</a>.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>As noted, this lecture is just an introduction. But hopefully you now have the conceptual tools to:</p>
+<ul class="simple">
+<li><p><strong>Explain</strong> how and why <em>bias</em> can arise in “data-driven” predictive models.</p></li>
+<li><p><strong>Compare</strong> different approaches towards correcting this bias.</p></li>
+<li><p><strong>Describe</strong> the challenges involved in building “fair” data-driven models.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01-intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to CSS 2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03-ethics-privacy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">03-Ethics (Privacy and Dual Use)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-1-how-machine-learning-can-perpetuate-inequality-in-the-court-system">Case Study 1: How machine learning can perpetuate inequality in the court system</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-court-system-involves-life-altering-decisions">The court system involves life-altering decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-risk-scores-work">How risk scores work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-s-with-risk-scores">The problem(s) with risk scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brief-detour-types-of-errors">Brief detour: types of errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-types-and-risk-scores">Error types and risk scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-bias-in-error-types">Racial bias in error types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-scores-can-perpetuate-racial-injustice">Risk scores can perpetuate racial injustice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-proxy-discrimination">Problem 1: Proxy discrimination</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-opaque-models">Problem 2: Opaque models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summing-up">Summing up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-ethics">What is ethics?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-ethics-for-css">Why ethics for CSS?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-1-css-has-impact">Reason 1: CSS has impact</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-2-css-involves-hard-decisions">Reason 2: CSS involves hard decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-we-start-with-ethics">Why we <em>start</em> with ethics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-in-action">Bias in Action</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-past-is-biased">When the past is biased</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#racial-bias-in-recidivism-predictions">Racial bias in recidivism predictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gender-bias-in-hiring">Gender bias in hiring</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-and-racial-bias-in-lending">Class and racial bias in lending</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-in-risk-assessment">Bias in risk assessment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#so-where-does-bias-come-from">So where does bias come from?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unrepresentative-data">Unrepresentative data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy discrimination</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-makes-an-algorithm-fair">What makes an algorithm “fair”?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-1-no-explicit-discrimination">Definition 1: No explicit discrimination?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disdavantages">Disdavantages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-2-predictive-parity">Definition 2: Predictive parity?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages">Disadvantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-comparison">Visual comparison</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-3-demographic-parity">Definition 3: Demographic parity</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalent-predicted-scores-across-groups">Equivalent <em>predicted scores</em> across groups</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Disadvantages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Disadvantages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-fair">What’s fair?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-resources">Other resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

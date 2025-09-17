@@ -1,0 +1,1855 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Data visualization in Python (pyplot) &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/06-dataviz-pyplot';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data visualization, pt. 2 (seaborn)" href="07-dataviz-seaborn.html" />
+    <link rel="prev" title="05-Review (Working with Data)" href="05-review2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/06-dataviz-pyplot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/06-dataviz-pyplot.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data visualization in Python (pyplot)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-ahead-weeks-3-4">Looking ahead: Weeks 3-4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-data-visualization">Introduction: data visualization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-data-visualization">What is data visualization?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-data-visualization-important">Why is data visualization important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-checking-your-assumptions">Exploratory Data Analysis: Checking your assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#communicating-insights">Communicating Insights</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impacting-the-world">Impacting the world</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impacting-the-world-pt-2">Impacting the world (pt. 2)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-matplotlib">Introducing <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-packages">Loading packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-matplotlib">What is <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pyplot">What is <code class="docutils literal notranslate"><span class="pre">pyplot</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset">Example dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">Histograms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-histograms">What are histograms?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms-in-matplotlib">Histograms in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-number-of-bins">Changing the number of bins</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-alpha-level">Changing the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> level</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-from-histograms">Learning from histograms</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normally-distributed-data">Normally distributed data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skewed-data">Skewed data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-our-plot">Modifying our plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-axis-labels">Adding axis labels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-vertical-line">Adding a vertical line</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots">Scatterplots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-scatterplots">What are scatterplots?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots-with-matplotlib">Scatterplots with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots-are-useful-for-detecting-non-linear-relationships">Scatterplots are useful for detecting non-linear relationships</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#barplots">Barplots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-barplot">What is a barplot?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barplots-with-matplotlib">Barplots with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-using-groupby">Step 1: Using <code class="docutils literal notranslate"><span class="pre">groupby</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-pass-values-into-plt-bar">Step 2: Pass values into <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-error-bars">Adding error bars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error-of-the-mean">Standard error of the mean</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-standard-error-into-error-bars">Turning standard error into error bars</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-calculate-standard-errors-with-sem">Step 1: calculate standard errors with <code class="docutils literal notranslate"><span class="pre">sem</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-create-plot-using-plt-errorbar">Step 2: Create plot using <code class="docutils literal notranslate"><span class="pre">plt.errorbar</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-combining-with-plt-bar">Step 3: Combining with <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Check-in</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-2-3">Steps 2-3</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4">Step 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-visualization-in-python-pyplot">
+<h1>Data visualization in Python (<code class="docutils literal notranslate"><span class="pre">pyplot</span></code>)<a class="headerlink" href="#data-visualization-in-python-pyplot" title="Permalink to this heading">#</a></h1>
+<section id="looking-ahead-weeks-3-4">
+<h2>Looking ahead: Weeks 3-4<a class="headerlink" href="#looking-ahead-weeks-3-4" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In week 3, we’ll dive deep into <strong>data visualization</strong>.</p>
+<ul>
+<li><p>How do we make visualizations in Python?</p></li>
+<li><p>What principles should we keep in mind?</p></li>
+</ul>
+</li>
+<li><p>In week 4, we’ll work on <strong>managing</strong> and <strong>cleaning</strong> our data.</p>
+<ul>
+<li><p>How do I deal with <em>missing values</em>?</p></li>
+<li><p>What are some basic ways to <em>describe</em> my data?</p></li>
+</ul>
+</li>
+</ul>
+<p>I view both these weeks as integral to <strong>Exploratory Data Analysis</strong> in Python.</p>
+</section>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>What <em>is</em> data visualization and why is it important?</p></li>
+<li><p>Introducing <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p></li>
+<li><p>Univariate plot types:</p>
+<ul>
+<li><p><strong>Histograms</strong> (univariate).</p></li>
+<li><p><strong>Scatterplots</strong> (bivariate).</p></li>
+<li><p><strong>Bar plots</strong> (bivariate).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="introduction-data-visualization">
+<h2>Introduction: data visualization<a class="headerlink" href="#introduction-data-visualization" title="Permalink to this heading">#</a></h2>
+<section id="what-is-data-visualization">
+<h3>What is data visualization?<a class="headerlink" href="#what-is-data-visualization" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Data_visualization">Data visualization</a> refers to the process (and result) of representing data graphically.</p>
+<p>For our purposes today, we’ll be talking mostly about common methods of <strong>plotting</strong> data, including:</p>
+<ul class="simple">
+<li><p>Histograms</p></li>
+<li><p>Scatterplots</p></li>
+<li><p>Line plots</p></li>
+<li><p>Bar plots</p></li>
+</ul>
+</section>
+<section id="why-is-data-visualization-important">
+<h3>Why is data visualization important?<a class="headerlink" href="#why-is-data-visualization-important" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Exploratory data analysis</p></li>
+<li><p>Communicating insights</p></li>
+<li><p>Impacting the world</p></li>
+</ul>
+</section>
+<section id="exploratory-data-analysis-checking-your-assumptions">
+<h3>Exploratory Data Analysis: Checking your assumptions<a class="headerlink" href="#exploratory-data-analysis-checking-your-assumptions" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s Quartet</a></p>
+<p><img alt="title" src="../_images/anscombe.png" /></p>
+</section>
+<section id="communicating-insights">
+<h3>Communicating Insights<a class="headerlink" href="#communicating-insights" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://fullstackeconomics.com/18-charts-that-explain-the-american-economy/">Reference: Full Stack Economics</a></p>
+<p><img alt="title" src="../_images/work.png" /></p>
+</section>
+<section id="impacting-the-world">
+<h3>Impacting the world<a class="headerlink" href="#impacting-the-world" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Florence_Nightingale">Florence Nightingale</a> (1820-1910) was a social reformer, statistician, and founder of modern nursing.</p>
+<p><img alt="title" src="../_images/polar.jpeg" /></p>
+</section>
+<section id="impacting-the-world-pt-2">
+<h3>Impacting the world (pt. 2)<a class="headerlink" href="#impacting-the-world-pt-2" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/John_Snow">John Snow</a> (1813-1858) was a physician whose visualization of cholera outbreaks helped identify the source and spreading mechanism (water supply).</p>
+<p><img alt="title" src="../_images/cholera.jpeg" /></p>
+</section>
+</section>
+<section id="introducing-matplotlib">
+<h2>Introducing <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code><a class="headerlink" href="#introducing-matplotlib" title="Permalink to this heading">#</a></h2>
+<section id="loading-packages">
+<h3>Loading packages<a class="headerlink" href="#loading-packages" title="Permalink to this heading">#</a></h3>
+<p>Here, we load the core packages we’ll be using.</p>
+<p>We also add some lines of code that make sure our visualizations will plot “inline” with our code, and that they’ll have nice, crisp quality.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-matplotlib">
+<h3>What is <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>?<a class="headerlink" href="#what-is-matplotlib" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://matplotlib.org/"><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a> is a <strong>plotting library</strong> for Python.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Many <a class="reference external" href="https://matplotlib.org/stable/tutorials/index.html">tutorials</a> available online.</p></li>
+<li><p>Also many <a class="reference external" href="https://matplotlib.org/stable/gallery/index">examples</a> of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> in use.</p></li>
+</ul>
+<p>Note that <a class="reference external" href="https://seaborn.pydata.org/"><code class="docutils literal notranslate"><span class="pre">seaborn</span></code></a> (which we’ll cover soon) uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> “under the hood”.</p>
+</section>
+<section id="what-is-pyplot">
+<h3>What is <code class="docutils literal notranslate"><span class="pre">pyplot</span></code>?<a class="headerlink" href="#what-is-pyplot" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/pyplot.html"><code class="docutils literal notranslate"><span class="pre">pyplot</span></code></a> is a collection of functions <em>within</em> <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> that make it really easy to plot data.</p>
+</div></blockquote>
+<p>With <code class="docutils literal notranslate"><span class="pre">pyplot</span></code>, we can easily plot things like:</p>
+<ul class="simple">
+<li><p>Histograms (<code class="docutils literal notranslate"><span class="pre">plt.hist</span></code>)</p></li>
+<li><p>Scatterplots (<code class="docutils literal notranslate"><span class="pre">plt.scatter</span></code>)</p></li>
+<li><p>Line plots (<code class="docutils literal notranslate"><span class="pre">plt.plot</span></code>)</p></li>
+<li><p>Bar plots (<code class="docutils literal notranslate"><span class="pre">plt.bar</span></code>)</p></li>
+</ul>
+</section>
+<section id="example-dataset">
+<h3>Example dataset<a class="headerlink" href="#example-dataset" title="Permalink to this heading">#</a></h3>
+<p>Let’s load our familiar Pokemon dataset, which can be found in <code class="docutils literal notranslate"><span class="pre">data/pokemon.csv</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/pokemon.csv&quot;</span><span class="p">)</span>
+<span class="n">df_pokemon</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>#</th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>Sp. Atk</th>
+      <th>Sp. Def</th>
+      <th>Speed</th>
+      <th>Generation</th>
+      <th>Legendary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Bulbasaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>318</td>
+      <td>45</td>
+      <td>49</td>
+      <td>49</td>
+      <td>65</td>
+      <td>65</td>
+      <td>45</td>
+      <td>1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Ivysaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>405</td>
+      <td>60</td>
+      <td>62</td>
+      <td>63</td>
+      <td>80</td>
+      <td>80</td>
+      <td>60</td>
+      <td>1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>525</td>
+      <td>80</td>
+      <td>82</td>
+      <td>83</td>
+      <td>100</td>
+      <td>100</td>
+      <td>80</td>
+      <td>1</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
+<section id="what-are-histograms">
+<h3>What are histograms?<a class="headerlink" href="#what-are-histograms" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>histogram</strong> is a visualization of a single continuous, quantitative variable (e.g., income or temperature).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Histograms are useful for looking at how a variable <strong>distributes</strong>.</p></li>
+<li><p>Can be used to determine whether a distribution is <strong>normal</strong>, <strong>skewed</strong>, or <strong>bimodal</strong>.</p></li>
+</ul>
+<p>A histogram is a <strong>univariate</strong> plot, i.e., it displays only a single variable.</p>
+</section>
+<section id="histograms-in-matplotlib">
+<h3>Histograms in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code><a class="headerlink" href="#histograms-in-matplotlib" title="Permalink to this heading">#</a></h3>
+<p>To create a histogram, call <code class="docutils literal notranslate"><span class="pre">plt.hist</span></code> with a <strong>single column</strong> of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (or a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>).</p>
+<p><strong>Check-in</strong>: What is this graph telling us?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b8424dae962c90986d2b98e0f0d2dc045ac51a76b78c9125f681e829c4651b06.png" src="../_images/b8424dae962c90986d2b98e0f0d2dc045ac51a76b78c9125f681e829c4651b06.png" />
+</div>
+</div>
+<section id="changing-the-number-of-bins">
+<h4>Changing the number of bins<a class="headerlink" href="#changing-the-number-of-bins" title="Permalink to this heading">#</a></h4>
+<p>A histogram puts your continuous data into <strong>bins</strong> (e.g., 1-10, 11-20, etc.).</p>
+<ul class="simple">
+<li><p>The height of each bin reflects the number of observations within that interval.</p></li>
+<li><p>Increasing or decreasing the number of bins gives you more or less granularity in your distribution.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### This has lots of bins</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3c44d9c57ea87cbb0036330953593ba3df82ce38e2c234d83974298eb1bc3656.png" src="../_images/3c44d9c57ea87cbb0036330953593ba3df82ce38e2c234d83974298eb1bc3656.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### This has fewer bins</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cc0d707b1441036a0ee95dd64fbc798bdce0e60814e18bbd2c42cdf683a4bc67.png" src="../_images/cc0d707b1441036a0ee95dd64fbc798bdce0e60814e18bbd2c42cdf683a4bc67.png" />
+</div>
+</div>
+</section>
+<section id="changing-the-alpha-level">
+<h4>Changing the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> level<a class="headerlink" href="#changing-the-alpha-level" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">alpha</span></code> level changes the <strong>transparency</strong> of your figure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### This has fewer bins</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8ee244498203795e39eee30c0dc06f57a95888b9e170a8d9537cea7649e9c394.png" src="../_images/8ee244498203795e39eee30c0dc06f57a95888b9e170a8d9537cea7649e9c394.png" />
+</div>
+</div>
+</section>
+<section id="check-in">
+<h4>Check-in:<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p>How would you make a histogram of the scores for <code class="docutils literal notranslate"><span class="pre">Defense</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Defense&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4a0f18ae0193537ef33242b59a73bd015a250474e9656a5accfbca0bda7599ca.png" src="../_images/4a0f18ae0193537ef33242b59a73bd015a250474e9656a5accfbca0bda7599ca.png" />
+</div>
+</div>
+</section>
+<section id="id1">
+<h4>Check-in:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>Could you make a histogram of the scores for <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Solution<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Not exactly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code> is a <strong>categorical variable</strong>, so there’s no intrinsic ordering.</p></li>
+<li><p>The closest we could do is <em>count</em> the number of each <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code> and then plot those counts.</p></li>
+</ul>
+</section>
+</section>
+<section id="learning-from-histograms">
+<h3>Learning from histograms<a class="headerlink" href="#learning-from-histograms" title="Permalink to this heading">#</a></h3>
+<p>Histograms are incredibly useful for learning about the <strong>shape</strong> of our distribution. We can ask questions like:</p>
+<ul class="simple">
+<li><p>Is this distribution relatively <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normal</a>?</p></li>
+<li><p>Is the distribution <a class="reference external" href="https://en.wikipedia.org/wiki/Skewness">skewed</a>?</p></li>
+<li><p>Are there <a class="reference external" href="https://en.wikipedia.org/wiki/Outlier">outliers</a>?</p></li>
+</ul>
+<section id="normally-distributed-data">
+<h4>Normally distributed data<a class="headerlink" href="#normally-distributed-data" title="Permalink to this heading">#</a></h4>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">numpy.random.normal</span></code> function to create a <strong>normal distribution</strong>, then plot it.</p>
+<p>A normal distribution has the following characteristics:</p>
+<ul class="simple">
+<li><p>Classic “bell” shape (<strong>symmetric</strong>).</p></li>
+<li><p>Mean, median, and mode are all identical.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/62e37fda49131b45a33a1fcda1c78237135eaf3345d38519b0ada799acfa0a44.png" src="../_images/62e37fda49131b45a33a1fcda1c78237135eaf3345d38519b0ada799acfa0a44.png" />
+</div>
+</div>
+</section>
+<section id="skewed-data">
+<h4>Skewed data<a class="headerlink" href="#skewed-data" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p><strong>Skew</strong> means there are values <em>elongating</em> one of the “tails” of a distribution.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Positive/right skew: the tail is pointing to the right.</p></li>
+<li><p>Negative/left skew: the tail is pointing to the left.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rskew</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">skewnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># make right-skewed data</span>
+<span class="n">lskew</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">skewnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># make left-skewed data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rskew</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Right-skewed&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lskew</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Left-skewed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Left-skewed&#39;)
+</pre></div>
+</div>
+<img alt="../_images/3b0063bb8051d88ef0a27182c6246b84531b1a69ce64db65bcd4ecfb59afefb9.png" src="../_images/3b0063bb8051d88ef0a27182c6246b84531b1a69ce64db65bcd4ecfb59afefb9.png" />
+</div>
+</div>
+</section>
+<section id="outliers">
+<h4>Outliers<a class="headerlink" href="#outliers" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p><strong>Outliers</strong> are data points that differ significantly from other points in a distribution.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Unlike skewed data, outliers are generally <strong>discontinuous</strong> with the rest of the distribution.</p></li>
+<li><p>Next week, we’ll talk about more ways to <strong>identify</strong> outliers; for now, we can rely on histograms.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">upper_outliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">])</span> <span class="c1">## some random outliers</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">norm</span><span class="p">,</span> <span class="n">upper_outliers</span><span class="p">))</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">dx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">,</span> <span class="n">head_length</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.FancyArrow at 0x171cee250&gt;
+</pre></div>
+</div>
+<img alt="../_images/1d7d08c8080b58663ba6f18ea34d40ca2e42e8f6fcd18a2f438df9810a235cac.png" src="../_images/1d7d08c8080b58663ba6f18ea34d40ca2e42e8f6fcd18a2f438df9810a235cac.png" />
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>How would you describe the following distribution?</p>
+<ul class="simple">
+<li><p>Normal vs. skewed?</p></li>
+<li><p>With or without outliers?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;HP&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1c491ad865368fba787e6f59b5deeb455621dc2dc8e1db2d1e87b9375e8f8c14.png" src="../_images/1c491ad865368fba787e6f59b5deeb455621dc2dc8e1db2d1e87b9375e8f8c14.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>How would you describe the following distribution?</p>
+<ul class="simple">
+<li><p>Normal vs. skewed?</p></li>
+<li><p>With or without outliers?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Sp. Atk&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c58c7725459de1215e3c696e2cc0fca6886d60e3dd033be6c47db262447c2bbe.png" src="../_images/c58c7725459de1215e3c696e2cc0fca6886d60e3dd033be6c47db262447c2bbe.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h4>Check-in<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>In a somewhat <strong>right-skewed distribution</strong> (like below), what’s larger––the <code class="docutils literal notranslate"><span class="pre">mean</span></code> or the <code class="docutils literal notranslate"><span class="pre">median</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Sp. Atk&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c58c7725459de1215e3c696e2cc0fca6886d60e3dd033be6c47db262447c2bbe.png" src="../_images/c58c7725459de1215e3c696e2cc0fca6886d60e3dd033be6c47db262447c2bbe.png" />
+</div>
+</div>
+</section>
+<section id="id6">
+<h4>Solution<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">mean</span></code> is the most affected by <strong>skew</strong>, so it is pulled the furthest to the right in a right-skewed distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Sp. Atk&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Sp. Atk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Sp. Atk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x1721b7310&gt;
+</pre></div>
+</div>
+<img alt="../_images/7cef4027e7621387210490c934284bedb35e26c80c8584760ad221e71172db6f.png" src="../_images/7cef4027e7621387210490c934284bedb35e26c80c8584760ad221e71172db6f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="modifying-our-plot">
+<h3>Modifying our plot<a class="headerlink" href="#modifying-our-plot" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A good data visualization should also make it <em>clear</em> what’s being plotted.</p>
+<ul>
+<li><p>Clearly labeled <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axes, title.</p></li>
+</ul>
+</li>
+<li><p>Sometimes, we may also want to add <strong>overlays</strong>.</p>
+<ul>
+<li><p>E.g., a dashed vertical line representing the <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<section id="adding-axis-labels">
+<h4>Adding axis labels<a class="headerlink" href="#adding-axis-labels" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution of Attack Scores&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Distribution of Attack Scores&#39;)
+</pre></div>
+</div>
+<img alt="../_images/f674d5fa25eb30dd25909ab98bed6c06da2ed2b45998cf65feb6d10a79095788.png" src="../_images/f674d5fa25eb30dd25909ab98bed6c06da2ed2b45998cf65feb6d10a79095788.png" />
+</div>
+</div>
+</section>
+<section id="adding-a-vertical-line">
+<h4>Adding a vertical line<a class="headerlink" href="#adding-a-vertical-line" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">plt.axvline</span></code> function allows us to draw a vertical line at a particular position, e.g., the <code class="docutils literal notranslate"><span class="pre">mean</span></code> of the <code class="docutils literal notranslate"><span class="pre">Attack</span></code> column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution of Attack Scores&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s2">&quot;dotted&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x17255d3d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/011f498e1e05e46000ec775cc66ca103637a039d21bce911e34909625c19c9be.png" src="../_images/011f498e1e05e46000ec775cc66ca103637a039d21bce911e34909625c19c9be.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="scatterplots">
+<h2>Scatterplots<a class="headerlink" href="#scatterplots" title="Permalink to this heading">#</a></h2>
+<section id="what-are-scatterplots">
+<h3>What are scatterplots?<a class="headerlink" href="#what-are-scatterplots" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>scatterplot</strong> is a visualization of how two different continuous distributions relate to each other.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Each individual point represents an observation.</p></li>
+<li><p>Very useful for <strong>exploratory data analysis</strong>.</p>
+<ul>
+<li><p>Are these variables positively or negatively correlated?</p></li>
+</ul>
+</li>
+</ul>
+<p>A scatterplot is a <strong>bivariate</strong> plot, i.e., it displays at least two variables.</p>
+</section>
+<section id="scatterplots-with-matplotlib">
+<h3>Scatterplots with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code><a class="headerlink" href="#scatterplots-with-matplotlib" title="Permalink to this heading">#</a></h3>
+<p>We can create a scatterplot using <code class="docutils literal notranslate"><span class="pre">plt.scatter(x,</span> <span class="pre">y)</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are the two variables we want to visualize.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14e408e63448fc94c13a1b377b4679de4f140697607820d9f106a20e0393ddbf.png" src="../_images/14e408e63448fc94c13a1b377b4679de4f140697607820d9f106a20e0393ddbf.png" />
+</div>
+</div>
+<section id="id7">
+<h4>Check-in<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>Are these variables related? If so, how?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x1724163d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/0afcd3ff862701e947e7022369dfa430922dc28600e3dda6a4eb7dfd29d9adfa.png" src="../_images/0afcd3ff862701e947e7022369dfa430922dc28600e3dda6a4eb7dfd29d9adfa.png" />
+</div>
+</div>
+</section>
+<section id="id8">
+<h4>Check-in<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>Are these variables related? If so, how?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x172109d90&gt;
+</pre></div>
+</div>
+<img alt="../_images/e30e72336146bb6056d5e4d95d44ec5499ee52ddb6a828328a1d34c900c013bd.png" src="../_images/e30e72336146bb6056d5e4d95d44ec5499ee52ddb6a828328a1d34c900c013bd.png" />
+</div>
+</div>
+</section>
+<section id="scatterplots-are-useful-for-detecting-non-linear-relationships">
+<h4>Scatterplots are useful for detecting non-linear relationships<a class="headerlink" href="#scatterplots-are-useful-for-detecting-non-linear-relationships" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x17374df50&gt;
+</pre></div>
+</div>
+<img alt="../_images/9b5ae0e74a718a02d92f88dc4ec3e5125f4dd992c5e0becc2c001b2a44742424.png" src="../_images/9b5ae0e74a718a02d92f88dc4ec3e5125f4dd992c5e0becc2c001b2a44742424.png" />
+</div>
+</div>
+</section>
+<section id="id9">
+<h4>Check-in<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>How would we visualize the relationship between <code class="docutils literal notranslate"><span class="pre">Attack</span></code> and <code class="docutils literal notranslate"><span class="pre">Speed</span></code> in our Pokemon dataset?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Check-in</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h4>Solution<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<p>Perhaps somewhat positively correlated, but not <em>too much</em>.</p>
+<p>Side note: what would it mean for the Pokemon game if all these attributes (<code class="docutils literal notranslate"><span class="pre">Speed</span></code>, <code class="docutils literal notranslate"><span class="pre">Defense</span></code>, etc.) were extremely positively correlated?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Speed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Speed&#39;)
+</pre></div>
+</div>
+<img alt="../_images/2a00d5b5d2411d41861928fb129a8111d7721849ed598e15abfa9c6af14c91c1.png" src="../_images/2a00d5b5d2411d41861928fb129a8111d7721849ed598e15abfa9c6af14c91c1.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="barplots">
+<h2>Barplots<a class="headerlink" href="#barplots" title="Permalink to this heading">#</a></h2>
+<section id="what-is-a-barplot">
+<h3>What is a barplot?<a class="headerlink" href="#what-is-a-barplot" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>barplot</strong> visualizes the relationship between one <em>continuous</em> variable and a <em>categorical</em> variable.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The <em>height</em> of each bar generally indicates the mean of the continuous variable.</p></li>
+<li><p>Each bar represents a different <em>level</em> of the categorical variable.</p></li>
+</ul>
+<p>A barplot is a <strong>bivariate</strong> plot, i.e., it displays at least two variables.</p>
+</section>
+<section id="barplots-with-matplotlib">
+<h3>Barplots with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code><a class="headerlink" href="#barplots-with-matplotlib" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">plt.bar</span></code> can be used to create a <strong>barplot</strong> of our data.</p>
+<ul class="simple">
+<li><p>E.g., average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Legendary</span></code> status.</p></li>
+<li><p>However, we first need to use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> to calculate the mean <code class="docutils literal notranslate"><span class="pre">Attack</span></code> per level.</p></li>
+</ul>
+<section id="step-1-using-groupby">
+<h4>Step 1: Using <code class="docutils literal notranslate"><span class="pre">groupby</span></code><a class="headerlink" href="#step-1-using-groupby" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">[[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">,</span> <span class="s1">&#39;Attack&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Legendary&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Legendary</th>
+      <th>Attack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>75.669388</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>116.676923</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Turn Legendary into a str</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Legendary</th>
+      <th>Attack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>75.669388</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>116.676923</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="step-2-pass-values-into-plt-bar">
+<h4>Step 2: Pass values into <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code><a class="headerlink" href="#step-2-pass-values-into-plt-bar" title="Permalink to this heading">#</a></h4>
+<p><strong>Check-in</strong>:</p>
+<ul class="simple">
+<li><p>What do we learn from this plot?</p></li>
+<li><p>What is this plot missing?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">],</span>
+       <span class="n">height</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span>
+       <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Legendary status&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Attack&#39;)
+</pre></div>
+</div>
+<img alt="../_images/29e77cfcc9bee63ce25e2278724fbf9e8ef2e34df67ef7300cec1ba009b60bdd.png" src="../_images/29e77cfcc9bee63ce25e2278724fbf9e8ef2e34df67ef7300cec1ba009b60bdd.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="adding-error-bars">
+<h3>Adding error bars<a class="headerlink" href="#adding-error-bars" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Without some measure of <strong>variance</strong>, bar plots just tell us the <code class="docutils literal notranslate"><span class="pre">mean</span></code> of each <em>level</em>.</p></li>
+<li><p>Ideally, we’d have a way to measure how much variance there is around that <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p></li>
+</ul>
+<p>Typically, <strong>error bars</strong> are calculated using the <strong>standard error of the mean</strong>.</p>
+<section id="standard-error-of-the-mean">
+<h4>Standard error of the mean<a class="headerlink" href="#standard-error-of-the-mean" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Standard_error"><strong>standard error of the mean</strong></a> is the <em>standard deviation</em> of the distribution of sample means; in practice, it’s an estimate of how much variance there is around our estimate of the <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><em>Standard deviation</em>, or <span class="math notranslate nohighlight">\(\sigma\)</span>, is a measure of how much scores deviate around the mean.</p></li>
+<li><p><em>Standard error of the mean</em>, or <span class="math notranslate nohighlight">\(\sigma_\bar{x}\)</span>, incorporates standard deviation, but also sample size, or <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\Large \sigma_\bar{x} = \frac{\sigma}{\sqrt{n}}\)</span></p>
+<ul class="simple">
+<li><p>As <span class="math notranslate nohighlight">\(n\)</span> increases, <span class="math notranslate nohighlight">\(\sigma_\bar{x}\)</span> decreases.</p></li>
+<li><p>I.e., <strong>larger sample size decreases standard error of the mean</strong>––which is good for our estimates!</p></li>
+</ul>
+</section>
+<section id="turning-standard-error-into-error-bars">
+<h4>Turning standard error into error bars<a class="headerlink" href="#turning-standard-error-into-error-bars" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>An <strong>error bar</strong> represents a “confidence interval”.</p></li>
+<li><p>Typically, the lower/upper bounds of a confidence interval are calculated by <em>subtracting</em> or <em>adding</em> <span class="math notranslate nohighlight">\(2 * \sigma_\bar{x}\)</span> to the <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p></li>
+</ul>
+<p><strong>Note</strong>: Next week, we’ll learn all about <em>why</em> this is!</p>
+</section>
+<section id="step-1-calculate-standard-errors-with-sem">
+<h4>Step 1: calculate standard errors with <code class="docutils literal notranslate"><span class="pre">sem</span></code><a class="headerlink" href="#step-1-calculate-standard-errors-with-sem" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sem_summ</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">[[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">,</span> <span class="s1">&#39;Attack&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Legendary&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">sem_summ</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Legendary</th>
+      <th>Attack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>1.124646</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>3.764211</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Turn Legendary into a str</span>
+<span class="n">sem_summ</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sem_summ</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">sem_summ</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Legendary</th>
+      <th>Attack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>1.124646</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>3.764211</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="step-2-create-plot-using-plt-errorbar">
+<h4>Step 2: Create plot using <code class="docutils literal notranslate"><span class="pre">plt.errorbar</span></code><a class="headerlink" href="#step-2-create-plot-using-plt-errorbar" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates are just from our original summary <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">yerr</span></code> is the <strong>standard error</strong> we just calculated.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">],</span> <span class="c1"># original coordinate</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="c1"># original coordinate</span>
+             <span class="n">yerr</span> <span class="o">=</span> <span class="n">sem_summ</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># standard error </span>
+            <span class="n">ls</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="c1">## toggle this to connect or not connect the lines</span>
+             <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+            <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Legendary status&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Attack&#39;)
+</pre></div>
+</div>
+<img alt="../_images/ea7a7e8a9c605894cd98baa2da55ba89719790ad32bd47f709979eb02b595e76.png" src="../_images/ea7a7e8a9c605894cd98baa2da55ba89719790ad32bd47f709979eb02b595e76.png" />
+</div>
+</div>
+</section>
+<section id="step-3-combining-with-plt-bar">
+<h4>Step 3: Combining with <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code><a class="headerlink" href="#step-3-combining-with-plt-bar" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">],</span> <span class="c1"># original coordinate</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span> <span class="c1"># original coordinate</span>
+             <span class="n">yerr</span> <span class="o">=</span> <span class="n">sem_summ</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># standard error </span>
+            <span class="n">ls</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="c1">## toggle this to connect or not connect the lines</span>
+             <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+            <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Legendary&#39;</span><span class="p">],</span>
+       <span class="n">height</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Attack&#39;</span><span class="p">],</span>
+       <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Legendary status&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Attack&#39;)
+</pre></div>
+</div>
+<img alt="../_images/e5b44e6830d5b426a8d060290320aac10dbe856213e46936e58c10889ebf06a3.png" src="../_images/e5b44e6830d5b426a8d060290320aac10dbe856213e46936e58c10889ebf06a3.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h3>Check-in<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>Create a barplot with errorbars representing:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code> <code class="docutils literal notranslate"><span class="pre">Speed</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code></p></li>
+<li><p>Focusing only on Pokemone with a <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code> of <code class="docutils literal notranslate"><span class="pre">Grass</span></code> or <code class="docutils literal notranslate"><span class="pre">Electric</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>Solution<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>This is a multi-step one! Steps involved:</p>
+<ol class="arabic simple">
+<li><p>Filter our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to be only <code class="docutils literal notranslate"><span class="pre">Grass</span></code> or <code class="docutils literal notranslate"><span class="pre">Electric</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> to calculate the mean <code class="docutils literal notranslate"><span class="pre">Speed</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">groupby</span></code> to calculate the standard error of the mean for <code class="docutils literal notranslate"><span class="pre">Speed</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code> and <code class="docutils literal notranslate"><span class="pre">plt.errorbar</span></code> to plot these data.</p></li>
+</ol>
+<section id="step-1">
+<h4>Step 1<a class="headerlink" href="#step-1" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">[</span><span class="n">df_pokemon</span><span class="p">[</span><span class="s1">&#39;Type 1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Grass&#39;</span><span class="p">,</span> <span class="s1">&#39;Electric&#39;</span><span class="p">])]</span>
+<span class="n">df_filtered</span><span class="p">[</span><span class="s1">&#39;Type 1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Type 1
+Grass       70
+Electric    44
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="steps-2-3">
+<h4>Steps 2-3<a class="headerlink" href="#steps-2-3" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">df_filtered</span><span class="p">[[</span><span class="s1">&#39;Type 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Speed&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Type 1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Type 1</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Electric</td>
+      <td>84.500000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Grass</td>
+      <td>61.928571</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sem_speed</span> <span class="o">=</span> <span class="n">df_filtered</span><span class="p">[[</span><span class="s1">&#39;Type 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Speed&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Type 1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sem</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">sem_speed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Type 1</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Electric</td>
+      <td>4.023911</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Grass</td>
+      <td>3.407173</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="step-4">
+<h4>Step 4<a class="headerlink" href="#step-4" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Type 1&#39;</span><span class="p">],</span> <span class="c1"># original coordinate</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span> <span class="c1"># original coordinate</span>
+             <span class="n">yerr</span> <span class="o">=</span> <span class="n">sem_speed</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># standard error </span>
+            <span class="n">ls</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+            <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Type 1&#39;</span><span class="p">],</span>
+       <span class="n">height</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;Speed&#39;</span><span class="p">],</span>
+       <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Type 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Speed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Speed&#39;)
+</pre></div>
+</div>
+<img alt="../_images/4f03c12d9c875c746f2051aab78b0cfed77261f167d74cb47f1c4a5df1f05199.png" src="../_images/4f03c12d9c875c746f2051aab78b0cfed77261f167d74cb47f1c4a5df1f05199.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>This concludes our first introduction to <strong>data visualization</strong>:</p>
+<ul class="simple">
+<li><p>Working with <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>.</p></li>
+<li><p>Creating basic plots: histograms, scatterplots, and barplots.</p></li>
+</ul>
+<p>Next time, we’ll move onto discussing <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, another very useful package for data visualization.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05-review2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">05-Review (Working with Data)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07-dataviz-seaborn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data visualization, pt. 2 (<code class="docutils literal notranslate"><span class="pre">seaborn</span></code>)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-ahead-weeks-3-4">Looking ahead: Weeks 3-4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-data-visualization">Introduction: data visualization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-data-visualization">What is data visualization?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-data-visualization-important">Why is data visualization important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-checking-your-assumptions">Exploratory Data Analysis: Checking your assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#communicating-insights">Communicating Insights</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impacting-the-world">Impacting the world</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impacting-the-world-pt-2">Impacting the world (pt. 2)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-matplotlib">Introducing <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-packages">Loading packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-matplotlib">What is <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pyplot">What is <code class="docutils literal notranslate"><span class="pre">pyplot</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset">Example dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">Histograms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-histograms">What are histograms?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms-in-matplotlib">Histograms in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-number-of-bins">Changing the number of bins</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-alpha-level">Changing the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> level</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-from-histograms">Learning from histograms</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normally-distributed-data">Normally distributed data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skewed-data">Skewed data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">Outliers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Solution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-our-plot">Modifying our plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-axis-labels">Adding axis labels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-vertical-line">Adding a vertical line</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots">Scatterplots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-scatterplots">What are scatterplots?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots-with-matplotlib">Scatterplots with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots-are-useful-for-detecting-non-linear-relationships">Scatterplots are useful for detecting non-linear relationships</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#barplots">Barplots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-barplot">What is a barplot?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barplots-with-matplotlib">Barplots with <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-using-groupby">Step 1: Using <code class="docutils literal notranslate"><span class="pre">groupby</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-pass-values-into-plt-bar">Step 2: Pass values into <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-error-bars">Adding error bars</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error-of-the-mean">Standard error of the mean</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-standard-error-into-error-bars">Turning standard error into error bars</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-calculate-standard-errors-with-sem">Step 1: calculate standard errors with <code class="docutils literal notranslate"><span class="pre">sem</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-create-plot-using-plt-errorbar">Step 2: Create plot using <code class="docutils literal notranslate"><span class="pre">plt.errorbar</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-combining-with-plt-bar">Step 3: Combining with <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Check-in</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-2-3">Steps 2-3</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4">Step 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

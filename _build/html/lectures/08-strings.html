@@ -1,0 +1,1361 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Strings in Python &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Strings in Python (continued)" href="09-strings-advanced.html" />
+    <link rel="prev" title="Loops (continued)" href="07-loops-while.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/08-strings.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/08-strings.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/08-strings.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#announcements">
+   Announcements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-string">
+   What is a string?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-line-strings">
+     Multi-line strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#side-note-a-str-is-a-kind-of-sequence">
+     Side note: a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+     is a kind of sequence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-whether-something-is-a-str">
+     Checking whether something is a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-care-about-strings">
+   Why care about strings?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-strings-basic-operations">
+   Working with strings: basic operations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculating-string-length-with-len">
+     Calculating string length with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       len
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#spaces-count-as-characters">
+       Spaces count as characters!
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#putting-quotes-into-a-string">
+       Putting quotes into a string
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indexing-into-a-str">
+     Indexing into a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#note-on-indexing">
+       Note on indexing
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Check-in
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#slicing-into-a-str">
+     Slicing into a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Check-in
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#looping-through-strings">
+     Looping through strings
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#looping-with-a-for-loop">
+       Looping with a
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         for
+        </span>
+       </code>
+       loop
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#looping-with-a-while-loop">
+       Looping with a
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         while
+        </span>
+       </code>
+       loop
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Strings in Python</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#announcements">
+   Announcements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-string">
+   What is a string?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-line-strings">
+     Multi-line strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#side-note-a-str-is-a-kind-of-sequence">
+     Side note: a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+     is a kind of sequence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#checking-whether-something-is-a-str">
+     Checking whether something is a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in">
+     Check-in
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-care-about-strings">
+   Why care about strings?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-strings-basic-operations">
+   Working with strings: basic operations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculating-string-length-with-len">
+     Calculating string length with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       len
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#spaces-count-as-characters">
+       Spaces count as characters!
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#putting-quotes-into-a-string">
+       Putting quotes into a string
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indexing-into-a-str">
+     Indexing into a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#note-on-indexing">
+       Note on indexing
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Check-in
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#slicing-into-a-str">
+     Slicing into a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Check-in
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#looping-through-strings">
+     Looping through strings
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#looping-with-a-for-loop">
+       Looping with a
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         for
+        </span>
+       </code>
+       loop
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#looping-with-a-while-loop">
+       Looping with a
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         while
+        </span>
+       </code>
+       loop
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="strings-in-python">
+<h1>Strings in Python<a class="headerlink" href="#strings-in-python" title="Permalink to this headline">#</a></h1>
+<section id="announcements">
+<h2>Announcements<a class="headerlink" href="#announcements" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Lab 1 grades posted.</p></li>
+<li><p>Lab 2 grades will be posted by early next week.</p></li>
+<li><p>Please direct grade questions to me (or TAs) in office hours or Piazza.</p></li>
+</ul>
+</section>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>What is a <strong>string</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) type?</p></li>
+<li><p>Why should we care about strings?</p></li>
+<li><p>Working with <code class="docutils literal notranslate"><span class="pre">str</span></code> types in Python.</p>
+<ul>
+<li><p>Assigning a string to a variable.</p></li>
+<li><p>Indexing characters in a <code class="docutils literal notranslate"><span class="pre">str</span></code> object.</p></li>
+<li><p>Looping through a <code class="docutils literal notranslate"><span class="pre">str</span></code> object.</p></li>
+</ul>
+</li>
+<li><p>Next time: more <strong>complex operations</strong> with strings.</p></li>
+</ul>
+</section>
+<section id="what-is-a-string">
+<h2>What is a string?<a class="headerlink" href="#what-is-a-string" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p>A <strong>string</strong> is a <em>sequence</em> of characters. It belongs to the <code class="docutils literal notranslate"><span class="pre">str</span></code> type in Python.</p>
+</div></blockquote>
+<p>A string stores characters as text, and is created using either single (<code class="docutils literal notranslate"><span class="pre">''</span></code>) or double (<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>) quotes.</p>
+<p>Note that although strings are often used to store <em>words</em>, this isn’t necessarily the case. A string could be:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;dog&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;dog&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;abcdef&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;abcdef&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;1 + 4&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1 + 4&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>With many more possibilities. Basically, <em>any</em> character that you wrap with quotes becomes part of a <code class="docutils literal notranslate"><span class="pre">str</span></code> in Python.</p>
+<section id="multi-line-strings">
+<h3>Multi-line strings<a class="headerlink" href="#multi-line-strings" title="Permalink to this headline">#</a></h3>
+<p>Multi-line strings can be defined using <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span> <span class="pre">&quot;&quot;&quot;</span></code>, as below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">This string spans multiple lines.</span>
+<span class="s2">This is the second line.</span>
+<span class="s2">This is the third line.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">long_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This string spans multiple lines.
+This is the second line.
+This is the third line.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="side-note-a-str-is-a-kind-of-sequence">
+<h3>Side note: a <code class="docutils literal notranslate"><span class="pre">str</span></code> is a kind of sequence<a class="headerlink" href="#side-note-a-str-is-a-kind-of-sequence" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p>A <strong>sequence</strong> is a collection of items (e.g., numbers, characters, etc.) with some <em>determined order</em>.</p>
+</div></blockquote>
+<p>A <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">str</span></code> are both kinds of sequences.</p>
+<p>We’ll discuss <strong>sequences</strong> more when we talk about <code class="docutils literal notranslate"><span class="pre">list</span></code>s, but there are a couple of important properties to remember:</p>
+<ul class="simple">
+<li><p>Sequences have a particular <em>order</em>.</p></li>
+<li><p>You can <strong>index</strong> into a sequence to obtain the item at a particular position.</p></li>
+</ul>
+</section>
+<section id="checking-whether-something-is-a-str">
+<h3>Checking whether something is a <code class="docutils literal notranslate"><span class="pre">str</span></code><a class="headerlink" href="#checking-whether-something-is-a-str" title="Permalink to this headline">#</a></h3>
+<p>Recall that you can check the <strong>type</strong> of a variable using <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="s2">&quot;This is a sentence.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="s2">&quot;1 + 4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in">
+<h3>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h3>
+<p>Which of the following variables would evaluate to a <code class="docutils literal notranslate"><span class="pre">str</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="s2">&quot;2 * 100&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="why-care-about-strings">
+<h2>Why care about strings?<a class="headerlink" href="#why-care-about-strings" title="Permalink to this headline">#</a></h2>
+<p><strong>Strings</strong> are incredibly useful and versatile, so it’s important to understand how they work and how to manipulate them.</p>
+<p>Common uses of strings:</p>
+<ul class="simple">
+<li><p>Pretty much all text data is stored as a <code class="docutils literal notranslate"><span class="pre">str</span></code> (e.g., a text corpus, a word, etc.).</p></li>
+<li><p>Storing information that can’t be represented as <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">bool</span></code>, such as <strong>password</strong>.</p></li>
+<li><p>Declaring <strong>features</strong> of an object in Python that can’t be represented as <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p></li>
+<li><p>Representing a <strong>filename</strong>.</p></li>
+</ul>
+<p>Strings are so useful that virtually all programming languages have something like a <code class="docutils literal notranslate"><span class="pre">str</span></code> type.</p>
+</section>
+<section id="working-with-strings-basic-operations">
+<h2>Working with strings: basic operations<a class="headerlink" href="#working-with-strings-basic-operations" title="Permalink to this headline">#</a></h2>
+<p>Today, we’re going to focus on a few <strong>basic operations</strong> we can use with strings. In a future lecture, we’ll talk about more complex operations.</p>
+<p>The basic operations include:</p>
+<ol class="simple">
+<li><p>Getting the length (<code class="docutils literal notranslate"><span class="pre">len</span></code>) of a string.</p></li>
+<li><p>Indexing into a string (<code class="docutils literal notranslate"><span class="pre">string_name[0]</span></code>).</p></li>
+<li><p>Looping through a string (<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">ch</span> <span class="pre">in</span> <span class="pre">string_name...</span></code>).</p></li>
+</ol>
+<p>You’ll note that each of these operations can also be applied to a <code class="docutils literal notranslate"><span class="pre">list</span></code> type!</p>
+<section id="calculating-string-length-with-len">
+<h3>Calculating string length with <code class="docutils literal notranslate"><span class="pre">len</span></code><a class="headerlink" href="#calculating-string-length-with-len" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p>The <code class="docutils literal notranslate"><span class="pre">len</span></code> operator calculates the number of characters in a <code class="docutils literal notranslate"><span class="pre">str</span></code> (or <code class="docutils literal notranslate"><span class="pre">list</span></code>).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="s2">&quot;CSS&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x2</span> <span class="o">=</span> <span class="s2">&quot;class&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<p>How many characters are in the string <code class="docutils literal notranslate"><span class="pre">&quot;2</span> <span class="pre">+</span> <span class="pre">2&quot;</span></code>?</p>
+<p>Try answering before you try typing in the expression.</p>
+</section>
+<section id="spaces-count-as-characters">
+<h4>Spaces count as characters!<a class="headerlink" href="#spaces-count-as-characters" title="Permalink to this headline">#</a></h4>
+<p>An empty space (<code class="docutils literal notranslate"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code>) counts as a character in Python.</p>
+<p>Thus, the <code class="docutils literal notranslate"><span class="pre">str</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;big</span> <span class="pre">dog&quot;</span></code> has one extra character than the <code class="docutils literal notranslate"><span class="pre">str</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;bigdog&quot;</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;big dog&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;bigdog&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Check-in<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<p>How many characters are in the <code class="docutils literal notranslate"><span class="pre">str</span></code> below?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">str_test</span> <span class="o">=</span> <span class="s2">&quot;Computational Social Science is fun.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="putting-quotes-into-a-string">
+<h4>Putting quotes into a string<a class="headerlink" href="#putting-quotes-into-a-string" title="Permalink to this headline">#</a></h4>
+<p>Certain characters, like quotes, require an <strong>escape</strong> character if you want to put them into a string. Otherwise they’ll simply <em>end</em> the string.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quote_str</span> <span class="o">=</span> <span class="s2">&quot;Then he said, </span><span class="se">\&quot;</span><span class="s2">I love CSS!</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">quote_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Then he said, &quot;I love CSS!&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="indexing-into-a-str">
+<h3>Indexing into a <code class="docutils literal notranslate"><span class="pre">str</span></code><a class="headerlink" href="#indexing-into-a-str" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p>In programming, <strong>indexing</strong> into a sequence means retrieving the item at a particular position.</p>
+</div></blockquote>
+<p>Because a <code class="docutils literal notranslate"><span class="pre">str</span></code> is a kind of sequence, we can retrieve the character at a particular position.</p>
+<p>We can index into a <code class="docutils literal notranslate"><span class="pre">str</span></code> (or <code class="docutils literal notranslate"><span class="pre">list</span></code>) using the <code class="docutils literal notranslate"><span class="pre">string_name[...]</span></code> notation, where <code class="docutils literal notranslate"><span class="pre">...</span></code> would be replaced with the <strong>index</strong> of the character we want to retrieve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_var</span> <span class="o">=</span> <span class="s2">&quot;computer&quot;</span>
+<span class="n">test_var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;c&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="note-on-indexing">
+<h4>Note on indexing<a class="headerlink" href="#note-on-indexing" title="Permalink to this headline">#</a></h4>
+<p>Python uses <strong>zero-indexing</strong>: the first element in a sequence is assigned the index <code class="docutils literal notranslate"><span class="pre">0</span></code>, the second is assigned <code class="docutils literal notranslate"><span class="pre">1</span></code>, and so on.</p>
+<ul class="simple">
+<li><p>This can be hard to get used to at first!</p></li>
+<li><p>But over time, it’ll start to seem more natural.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p>Which of the indexing operations below would return the letter <code class="docutils literal notranslate"><span class="pre">&quot;S&quot;</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;CSS&quot;</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<p>Why does the code below return an <strong>error</strong>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;CSS&quot;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [17],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;CSS&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="ne">IndexError</span>: string index out of range
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="slicing-into-a-str">
+<h3>Slicing into a <code class="docutils literal notranslate"><span class="pre">str</span></code><a class="headerlink" href="#slicing-into-a-str" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p><strong>Slicing</strong> is like indexing, but allows you to return a <em>subset</em> within a sequence.</p>
+</div></blockquote>
+<p>For example, rather than getting the <em>n-th</em> character of a <code class="docutils literal notranslate"><span class="pre">str</span></code>, you can return the characters between index <code class="docutils literal notranslate"><span class="pre">0</span></code> and index <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+<ul class="simple">
+<li><p>To <strong>slice</strong>, use the syntax <code class="docutils literal notranslate"><span class="pre">[start_index:end_index]</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_index</span></code> is the index of the first character you want to return.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">end_index</span></code> is the index of the final character you want to return, plus one.</p>
+<ul>
+<li><p>Like <code class="docutils literal notranslate"><span class="pre">range</span></code>, the final index is not “inclusive”.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;programming&quot;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;prog&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id5">
+<h4>Check-in<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p>How many characters would the following <strong>slice</strong> return? <em>Which</em> characters would they be?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;programming&quot;</span>
+<span class="n">subset</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="c1">## how many characters is this?</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h4>Check-in<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
+<p>Write a <strong>slice</strong> operation to return the <code class="docutils literal notranslate"><span class="pre">str</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;humid&quot;</span></code> within the string <code class="docutils literal notranslate"><span class="pre">&quot;dehumidify&quot;</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">original_str</span> <span class="o">=</span> <span class="s2">&quot;dehumidify&quot;</span>
+<span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="looping-through-strings">
+<h3>Looping through strings<a class="headerlink" href="#looping-through-strings" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p><strong>Looping</strong> through a <code class="docutils literal notranslate"><span class="pre">str</span></code> means repeating some piece of code for each (or a subset) of the characters within a string.</p>
+</div></blockquote>
+<p>We’ve already discussed <a class="reference internal" href="06-loops.html"><span class="doc std std-doc">loops in previous lectures</span></a>, so this will be a brief review:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">for</span></code> loop <strong>iterates</strong> through each item in a sequence (like a <code class="docutils literal notranslate"><span class="pre">str</span></code>), repeating some piece of code.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">while</span></code> loop <strong>continues</strong> as long as some condition is met, and can also be used to iterate through a sequence.</p></li>
+</ul>
+<section id="looping-with-a-for-loop">
+<h4>Looping with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop<a class="headerlink" href="#looping-with-a-for-loop" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq</span> <span class="o">=</span> <span class="s2">&quot;CSS&quot;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C
+S
+S
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="looping-with-a-while-loop">
+<h4>Looping with a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop<a class="headerlink" href="#looping-with-a-while-loop" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">seq</span> <span class="o">=</span> <span class="s2">&quot;CSS&quot;</span>
+<span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">seq</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C
+S
+S
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>As you learn more about Python (or other programming languages), you’ll encounter <strong>strings</strong> more and more frequently. Next time, we’ll discuss more <strong>advanced operations</strong> we can use with strings, such as modifying the <strong>case</strong> of characters in a <code class="docutils literal notranslate"><span class="pre">str</span></code>, replacing certain characters with other characters, and so on.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="07-loops-while.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Loops (continued)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="09-strings-advanced.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Strings in Python (continued)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

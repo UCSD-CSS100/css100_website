@@ -1,0 +1,1481 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Data visualization, pt. 2 (seaborn) &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/07-dataviz-seaborn';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data visualization, pt. 3 (principles)" href="08-dataviz-principles.html" />
+    <link rel="prev" title="Data visualization in Python (pyplot)" href="06-dataviz-pyplot.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-ethics-privacy.html">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/07-dataviz-seaborn.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/07-dataviz-seaborn.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data visualization, pt. 2 (seaborn)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-seaborn">Introducing <code class="docutils literal notranslate"><span class="pre">seaborn</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-seaborn">What is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-seaborn-hierarchy-of-plot-types">The <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> hierarchy of plot types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset">Example dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#univariate-plots">Univariate plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms-with-sns-histplot">Histograms with <code class="docutils literal notranslate"><span class="pre">sns.histplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-number-of-bins">Modifying the number of bins</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-y-axis-with-stat">Modifying the y-axis with <code class="docutils literal notranslate"><span class="pre">stat</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-pt-1">Solution (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-pt-2">Solution (pt. 2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-pt-3-using-log-scale">Solution (pt. 3) using <code class="docutils literal notranslate"><span class="pre">log_scale</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-continuous-plots">Bivariate continuous plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots-with-sns-scatterplot">Scatterplots with <code class="docutils literal notranslate"><span class="pre">sns.scatterplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-gdp-cap-by-life-exp">Showing <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> by <code class="docutils literal notranslate"><span class="pre">life_exp</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-gdp-cap-log-by-life-exp">Showing <code class="docutils literal notranslate"><span class="pre">gdp_cap_log</span></code> by <code class="docutils literal notranslate"><span class="pre">life_exp</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-hue">Adding a <code class="docutils literal notranslate"><span class="pre">hue</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-size">Adding a <code class="docutils literal notranslate"><span class="pre">size</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-position-of-the-legend">Changing the position of the legend</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lineplots-with-sns-lineplot">Lineplots with <code class="docutils literal notranslate"><span class="pre">sns.lineplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-life-exp-by-year">Showing <code class="docutils literal notranslate"><span class="pre">life_exp</span></code> by <code class="docutils literal notranslate"><span class="pre">year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-how-error-uncertainty-is-displayed">Modifying how error/uncertainty is displayed</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Adding a <code class="docutils literal notranslate"><span class="pre">hue</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heteroskedasticity-in-gdp-cap-by-year">Heteroskedasticity in <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> by <code class="docutils literal notranslate"><span class="pre">year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-by-country">Plotting by country</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-replot">Using <code class="docutils literal notranslate"><span class="pre">replot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#faceting-into-rows-and-cols">Faceting into <code class="docutils literal notranslate"><span class="pre">rows</span></code> and <code class="docutils literal notranslate"><span class="pre">cols</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-categorical-plots">Bivariate categorical plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Example dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barplots-with-sns-barplot">Barplots with <code class="docutils literal notranslate"><span class="pre">sns.barplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#average-attack-by-legendary-status">Average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Legendary</span></code> status</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#average-attack-by-type-1">Average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-hue">Modifying <code class="docutils literal notranslate"><span class="pre">hue</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-catplot">Using <code class="docutils literal notranslate"><span class="pre">catplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#strip-plots"><code class="docutils literal notranslate"><span class="pre">strip</span></code> plots</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-mean-to-our-strip-plot">Adding a <code class="docutils literal notranslate"><span class="pre">mean</span></code> to our <code class="docutils literal notranslate"><span class="pre">strip</span></code> plot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots"><code class="docutils literal notranslate"><span class="pre">box</span></code> plots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-visualization-pt-2-seaborn">
+<h1>Data visualization, pt. 2 (<code class="docutils literal notranslate"><span class="pre">seaborn</span></code>)<a class="headerlink" href="#data-visualization-pt-2-seaborn" title="Permalink to this heading">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Introducting <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>.</p></li>
+<li><p>Putting <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> into practice:</p>
+<ul>
+<li><p><strong>Univariate</strong> plots (histograms).</p></li>
+<li><p><strong>Bivariate</strong> continuous plots (scatterplots and line plots).</p></li>
+<li><p><strong>Bivariate</strong> categorical plots (bar plots, box plots, and strip plots).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="introducing-seaborn">
+<h2>Introducing <code class="docutils literal notranslate"><span class="pre">seaborn</span></code><a class="headerlink" href="#introducing-seaborn" title="Permalink to this heading">#</a></h2>
+<section id="what-is-seaborn">
+<h3>What is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>?<a class="headerlink" href="#what-is-seaborn" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><a class="reference external" href="https://seaborn.pydata.org/"><code class="docutils literal notranslate"><span class="pre">seaborn</span></code></a> is a data visualization library based on <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>In general, it’s easier to make nice-looking graphs with <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>.</p></li>
+<li><p>The trade-off is that <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> offers more flexibility.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> <span class="c1">### importing seaborn</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1">## just in case we need it</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-seaborn-hierarchy-of-plot-types">
+<h3>The <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> hierarchy of plot types<a class="headerlink" href="#the-seaborn-hierarchy-of-plot-types" title="Permalink to this heading">#</a></h3>
+<p>We’ll learn more about exactly what this hierarchy means today (and in next lecture).</p>
+<p><img alt="title" src="../_images/seaborn_library.png" /></p>
+</section>
+<section id="example-dataset">
+<h3>Example dataset<a class="headerlink" href="#example-dataset" title="Permalink to this heading">#</a></h3>
+<p>Today we’ll work with a new dataset, from <a class="reference external" href="https://www.gapminder.org/data/documentation/">Gapminder</a>.</p>
+<ul class="simple">
+<li><p><strong>Gapminder</strong> is an independent Swedish foundation dedicated to publishing and analyzing data to correct misconceptions about the world.</p></li>
+<li><p>Between 1952-2007, has data about <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>, <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code>, and <code class="docutils literal notranslate"><span class="pre">population</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_gapminder</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/viz/gapminder_full.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_gapminder</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>year</th>
+      <th>population</th>
+      <th>continent</th>
+      <th>life_exp</th>
+      <th>gdp_cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>1952</td>
+      <td>8425333</td>
+      <td>Asia</td>
+      <td>28.801</td>
+      <td>779.445314</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Afghanistan</td>
+      <td>1957</td>
+      <td>9240934</td>
+      <td>Asia</td>
+      <td>30.332</td>
+      <td>820.853030</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_gapminder</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1704, 6)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="univariate-plots">
+<h2>Univariate plots<a class="headerlink" href="#univariate-plots" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>A <strong>univariate plot</strong> is a visualization of only a <em>single</em> variable, i.e., a <strong>distribution</strong>.</p>
+</div></blockquote>
+<p><img alt="title" src="../_images/displot.png" /></p>
+<section id="histograms-with-sns-histplot">
+<h3>Histograms with <code class="docutils literal notranslate"><span class="pre">sns.histplot</span></code><a class="headerlink" href="#histograms-with-sns-histplot" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>We’ve produced histograms with <code class="docutils literal notranslate"><span class="pre">plt.hist</span></code>.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, we can use <code class="docutils literal notranslate"><span class="pre">sns.histplot(...)</span></code>.</p></li>
+</ul>
+<p>Rather than use <code class="docutils literal notranslate"><span class="pre">df['col_name']</span></code>, we can use the syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">col_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will become even more useful when we start making <strong>bivariate plots</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Histogram of life expectancy</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;life_exp&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;life_exp&#39;, ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/fafae383153215dd4be6faeaa14bbfa08f4608a1accaa8b9447bf3f7b680587c.png" src="../_images/fafae383153215dd4be6faeaa14bbfa08f4608a1accaa8b9447bf3f7b680587c.png" />
+</div>
+</div>
+<section id="modifying-the-number-of-bins">
+<h4>Modifying the number of bins<a class="headerlink" href="#modifying-the-number-of-bins" title="Permalink to this heading">#</a></h4>
+<p>As with <code class="docutils literal notranslate"><span class="pre">plt.hist</span></code>, we can modify the number of <em>bins</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fewer bins</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;life_exp&#39;, ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/ca3456de3de6b94349ddd679d06164b561585882eeeba00f639267688723f886.png" src="../_images/ca3456de3de6b94349ddd679d06164b561585882eeeba00f639267688723f886.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Many more bins!</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;life_exp&#39;, ylabel=&#39;Count&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/460b459d138d506c045ff537dc2b2579bd6204befe72716ea985a707b47f6fd1.png" src="../_images/460b459d138d506c045ff537dc2b2579bd6204befe72716ea985a707b47f6fd1.png" />
+</div>
+</div>
+</section>
+<section id="modifying-the-y-axis-with-stat">
+<h4>Modifying the y-axis with <code class="docutils literal notranslate"><span class="pre">stat</span></code><a class="headerlink" href="#modifying-the-y-axis-with-stat" title="Permalink to this heading">#</a></h4>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">sns.histplot</span></code> will plot the <strong>count</strong> in each bin. However, we can change this using the <code class="docutils literal notranslate"><span class="pre">stat</span></code> parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">probability</span></code>: normalize such that bar heights sum to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">percent</span></code>: normalize such that bar heights sum to <code class="docutils literal notranslate"><span class="pre">100</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code>: normalize such that total <em>area</em> sums to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note the modified y-axis!</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;life_exp&#39;, ylabel=&#39;Probability&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/74b812bba55bdb821f51a5d7db46d32a4dfc3b0ff0bdbcfd1636863d6e14fd3b.png" src="../_images/74b812bba55bdb821f51a5d7db46d32a4dfc3b0ff0bdbcfd1636863d6e14fd3b.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="check-in">
+<h3>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h3>
+<p>How would you make a histogram showing the distribution of <code class="docutils literal notranslate"><span class="pre">population</span></code> values in <code class="docutils literal notranslate"><span class="pre">2007</span></code> alone?</p>
+<ul class="simple">
+<li><p>Bonus 1: Modify this graph to show <code class="docutils literal notranslate"><span class="pre">probability</span></code>, not <code class="docutils literal notranslate"><span class="pre">count</span></code>.</p></li>
+<li><p>Bonus 2: What do you notice about this graph, and how might you change it?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="solution-pt-1">
+<h4>Solution (pt. 1)<a class="headerlink" href="#solution-pt-1" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### original graph</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2007</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;population&#39;, ylabel=&#39;Probability&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/77dc1df6bd2fa2e107153cc1bca9b481e74dde28c26f58a4c2cad03c803ed77d.png" src="../_images/77dc1df6bd2fa2e107153cc1bca9b481e74dde28c26f58a4c2cad03c803ed77d.png" />
+</div>
+</div>
+</section>
+<section id="solution-pt-2">
+<h4>Solution (pt. 2)<a class="headerlink" href="#solution-pt-2" title="Permalink to this heading">#</a></h4>
+<p>The plot is extremely <strong>right-skewed</strong>. We could transform it using a log-transform.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;pop_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;pop_log&#39;</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Population (Log 10)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Population (Log 10)&#39;)
+</pre></div>
+</div>
+<img alt="../_images/025f39969f1cf80559ac89442ab58366000d34021dc0a6195ecfc4118362d556.png" src="../_images/025f39969f1cf80559ac89442ab58366000d34021dc0a6195ecfc4118362d556.png" />
+</div>
+</div>
+</section>
+<section id="solution-pt-3-using-log-scale">
+<h4>Solution (pt. 3) using <code class="docutils literal notranslate"><span class="pre">log_scale</span></code><a class="headerlink" href="#solution-pt-3-using-log-scale" title="Permalink to this heading">#</a></h4>
+<p>Rather than transforming the data directly, we can do this using <code class="docutils literal notranslate"><span class="pre">sns.histplot</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;pop_log&#39;</span><span class="p">,</span> <span class="n">stat</span> <span class="o">=</span> <span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">log_scale</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;pop_log&#39;, ylabel=&#39;Probability&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/72ec35b87f631b9212bddf3d00bd7b72a7f4ab773be9d0edc0b7a19ac9272c74.png" src="../_images/72ec35b87f631b9212bddf3d00bd7b72a7f4ab773be9d0edc0b7a19ac9272c74.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="bivariate-continuous-plots">
+<h2>Bivariate continuous plots<a class="headerlink" href="#bivariate-continuous-plots" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>A <strong>bivariate continuous plot</strong> visualizes the relationship between <em>two continuous variables</em>.</p>
+</div></blockquote>
+<p><img alt="title" src="../_images/seaborn_relplot.png" /></p>
+<section id="scatterplots-with-sns-scatterplot">
+<h3>Scatterplots with <code class="docutils literal notranslate"><span class="pre">sns.scatterplot</span></code><a class="headerlink" href="#scatterplots-with-sns-scatterplot" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>scatterplot</strong> visualizes the relationship between two continuous variables.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Each observation is plotted as a single dot/mark.</p></li>
+<li><p>The position on the <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> axes reflects the value of those variables.</p></li>
+</ul>
+<p>One way to make a scatterplot in <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> is using <code class="docutils literal notranslate"><span class="pre">sns.scatterplot</span></code>.</p>
+<section id="showing-gdp-cap-by-life-exp">
+<h4>Showing <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> by <code class="docutils literal notranslate"><span class="pre">life_exp</span></code><a class="headerlink" href="#showing-gdp-cap-by-life-exp" title="Permalink to this heading">#</a></h4>
+<p>What do we notice about <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap&#39;</span><span class="p">,</span>
+               <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;gdp_cap&#39;, ylabel=&#39;life_exp&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/bd0b2965db38376763829b793d9b399758c213ca29263a72d3e1481956c1fedf.png" src="../_images/bd0b2965db38376763829b793d9b399758c213ca29263a72d3e1481956c1fedf.png" />
+</div>
+</div>
+</section>
+<section id="showing-gdp-cap-log-by-life-exp">
+<h4>Showing <code class="docutils literal notranslate"><span class="pre">gdp_cap_log</span></code> by <code class="docutils literal notranslate"><span class="pre">life_exp</span></code><a class="headerlink" href="#showing-gdp-cap-log-by-life-exp" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Log GDP</span>
+<span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;gdp_cap&#39;</span><span class="p">])</span> 
+<span class="c1">## Show log GDP by life exp</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;gdp_cap_log&#39;, ylabel=&#39;life_exp&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/c0c2c856cf6bce2fa0f59fb2adfe74afbe32fbd13d9376aacfe2273a3b7ed48b.png" src="../_images/c0c2c856cf6bce2fa0f59fb2adfe74afbe32fbd13d9376aacfe2273a3b7ed48b.png" />
+</div>
+</div>
+</section>
+<section id="adding-a-hue">
+<h4>Adding a <code class="docutils literal notranslate"><span class="pre">hue</span></code><a class="headerlink" href="#adding-a-hue" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>What if we want to add a <em>third</em> component that’s categorical, like <code class="docutils literal notranslate"><span class="pre">continent</span></code>?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> allows us to do this with <code class="docutils literal notranslate"><span class="pre">hue</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Log GDP</span>
+<span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;gdp_cap&#39;</span><span class="p">])</span> 
+<span class="c1">## Show log GDP by life exp</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2007</span><span class="p">],</span>
+               <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;gdp_cap_log&#39;, ylabel=&#39;life_exp&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/cac8fb31c7167dd92aa17f6ce0001ac6c6dd9e27f371ef154baca740a6d4bbac.png" src="../_images/cac8fb31c7167dd92aa17f6ce0001ac6c6dd9e27f371ef154baca740a6d4bbac.png" />
+</div>
+</div>
+</section>
+<section id="adding-a-size">
+<h4>Adding a <code class="docutils literal notranslate"><span class="pre">size</span></code><a class="headerlink" href="#adding-a-size" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>What if we want to add a <em>fourth</em> component that’s continuous, like <code class="docutils literal notranslate"><span class="pre">population</span></code>?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> allows us to do this with <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Log GDP</span>
+<span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;gdp_cap&#39;</span><span class="p">])</span> 
+<span class="c1">## Show log GDP by life exp</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2007</span><span class="p">],</span>
+               <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span>
+                <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;gdp_cap_log&#39;, ylabel=&#39;life_exp&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/ae59721b13cc3693fa077181c6037503cda0ea80e0af2a0440ec4f8d9998d24e.png" src="../_images/ae59721b13cc3693fa077181c6037503cda0ea80e0af2a0440ec4f8d9998d24e.png" />
+</div>
+</div>
+</section>
+<section id="changing-the-position-of-the-legend">
+<h4>Changing the position of the legend<a class="headerlink" href="#changing-the-position-of-the-legend" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Show log GDP by life exp</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2007</span><span class="p">],</span>
+               <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap_log&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span>
+                <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;continent&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.7</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x168779910&gt;
+</pre></div>
+</div>
+<img alt="../_images/69675be037b7381b1a05c740dd18099d85e482d3401cf7109c16d676e82be61a.png" src="../_images/69675be037b7381b1a05c740dd18099d85e482d3401cf7109c16d676e82be61a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="lineplots-with-sns-lineplot">
+<h3>Lineplots with <code class="docutils literal notranslate"><span class="pre">sns.lineplot</span></code><a class="headerlink" href="#lineplots-with-sns-lineplot" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>lineplot</strong> also visualizes the relationship between two continuous variables.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Typically, the position of the line on the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis reflects the <em>mean</em> of the <code class="docutils literal notranslate"><span class="pre">y</span></code>-axis variable for that value of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>Often used for plotting <strong>change over time</strong>.</p></li>
+</ul>
+<p>One way to make a lineplot in <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> is using <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.lineplot.html"><code class="docutils literal notranslate"><span class="pre">sns.lineplot</span></code></a>.</p>
+<section id="showing-life-exp-by-year">
+<h4>Showing <code class="docutils literal notranslate"><span class="pre">life_exp</span></code> by <code class="docutils literal notranslate"><span class="pre">year</span></code><a class="headerlink" href="#showing-life-exp-by-year" title="Permalink to this heading">#</a></h4>
+<p>What general trend do we notice?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span>
+             <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;year&#39;, ylabel=&#39;life_exp&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/24b5a4fe4d7924aa1dd85f572155269794b66c2ee8fd6c8f9d51db6cae3f5c26.png" src="../_images/24b5a4fe4d7924aa1dd85f572155269794b66c2ee8fd6c8f9d51db6cae3f5c26.png" />
+</div>
+</div>
+</section>
+<section id="modifying-how-error-uncertainty-is-displayed">
+<h4>Modifying how error/uncertainty is displayed<a class="headerlink" href="#modifying-how-error-uncertainty-is-displayed" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>By default, <code class="docutils literal notranslate"><span class="pre">seaborn.lineplot</span></code> will draw <strong>shading</strong> around the line representing a confidence interval.</p></li>
+<li><p>We can change this with <code class="docutils literal notranslate"><span class="pre">errstyle</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span>
+             <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span>
+            <span class="n">err_style</span> <span class="o">=</span> <span class="s2">&quot;bars&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;year&#39;, ylabel=&#39;life_exp&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/45705befb1bd3c83044856ab6377f21465288c288c90a0b8b4f3758119f4c18d.png" src="../_images/45705befb1bd3c83044856ab6377f21465288c288c90a0b8b4f3758119f4c18d.png" />
+</div>
+</div>
+</section>
+<section id="id1">
+<h4>Adding a <code class="docutils literal notranslate"><span class="pre">hue</span></code><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>We could also show this by <code class="docutils literal notranslate"><span class="pre">continent</span></code>.</p></li>
+<li><p>There’s (fortunately) a positive trend line for each <code class="docutils literal notranslate"><span class="pre">continent</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span>
+             <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span><span class="p">,</span>
+            <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;continent&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x16913d7d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/79c442d3b7b17ef421232dc7d18ae766650d073eb3bd2c2ecd03764ee6b0fc49.png" src="../_images/79c442d3b7b17ef421232dc7d18ae766650d073eb3bd2c2ecd03764ee6b0fc49.png" />
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Check-in<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>How would you plot the relationship between <code class="docutils literal notranslate"><span class="pre">year</span></code> and <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> for countries in the <code class="docutils literal notranslate"><span class="pre">Americas</span></code> only?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this heading">#</a></h4>
+<p>What do we notice about:</p>
+<ul class="simple">
+<li><p>The overall trend line?</p></li>
+<li><p>The <strong>error bands</strong> as <code class="docutils literal notranslate"><span class="pre">year</span></code> increases?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;Americas&quot;</span><span class="p">],</span>
+             <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+             <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;year&#39;, ylabel=&#39;gdp_cap&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/b4ce0ec440e9d936c356c6047812fb7451d8b099e6af82361abc5de85c870b48.png" src="../_images/b4ce0ec440e9d936c356c6047812fb7451d8b099e6af82361abc5de85c870b48.png" />
+</div>
+</div>
+</section>
+<section id="heteroskedasticity-in-gdp-cap-by-year">
+<h4>Heteroskedasticity in <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> by <code class="docutils literal notranslate"><span class="pre">year</span></code><a class="headerlink" href="#heteroskedasticity-in-gdp-cap-by-year" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity"><strong>Heteroskedasticity</strong></a> is when the <em>variance</em> in one variable (e.g., <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code>) changes as a function of another variable (e.g., <code class="docutils literal notranslate"><span class="pre">year</span></code>).</p></li>
+<li><p>In this case, why do you think that is?</p></li>
+</ul>
+</section>
+<section id="plotting-by-country">
+<h4>Plotting by country<a class="headerlink" href="#plotting-by-country" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>There are too many countries to clearly display in the <code class="docutils literal notranslate"><span class="pre">legend</span></code>.</p></li>
+<li><p>But the top two lines are the <code class="docutils literal notranslate"><span class="pre">United</span> <span class="pre">States</span></code> and <code class="docutils literal notranslate"><span class="pre">Canada</span></code>.</p>
+<ul>
+<li><p>I.e., two countries have gotten much wealthier per capita, while the others have not seen the same economic growth.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">[</span><span class="n">df_gapminder</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;Americas&quot;</span><span class="p">],</span>
+             <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;gdp_cap&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;year&#39;, ylabel=&#39;gdp_cap&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/cdcf3af17f8f394aa11b16d4cf8c101da93d8730e7946636c106f3493d598d06.png" src="../_images/cdcf3af17f8f394aa11b16d4cf8c101da93d8730e7946636c106f3493d598d06.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="using-replot">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">replot</span></code><a class="headerlink" href="#using-replot" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">relplot</span></code> allows you to plot either line plots or scatter plots using <code class="docutils literal notranslate"><span class="pre">kind</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relplot</span></code> also makes it easier to <code class="docutils literal notranslate"><span class="pre">facet</span></code> (which we’ll discuss momentarily).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;life_exp&quot;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;line&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x1690401d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/f6f44ed18a37d6c8bd387c2611db485456e921408194dcecd8fb6fe6df243f08.png" src="../_images/f6f44ed18a37d6c8bd387c2611db485456e921408194dcecd8fb6fe6df243f08.png" />
+</div>
+</div>
+<section id="faceting-into-rows-and-cols">
+<h4>Faceting into <code class="docutils literal notranslate"><span class="pre">rows</span></code> and <code class="docutils literal notranslate"><span class="pre">cols</span></code><a class="headerlink" href="#faceting-into-rows-and-cols" title="Permalink to this heading">#</a></h4>
+<p>We can also plot the same relationship across multiple “windows” or <strong>facets</strong> by adding a <code class="docutils literal notranslate"><span class="pre">rows</span></code>/<code class="docutils literal notranslate"><span class="pre">cols</span></code> parameter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_gapminder</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;life_exp&quot;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;continent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x1692edb10&gt;
+</pre></div>
+</div>
+<img alt="../_images/18c3c84b154108fbd49ee6f52d526df694ff7fbf169ac2ca0b0f0a84ab870db7.png" src="../_images/18c3c84b154108fbd49ee6f52d526df694ff7fbf169ac2ca0b0f0a84ab870db7.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="bivariate-categorical-plots">
+<h2>Bivariate categorical plots<a class="headerlink" href="#bivariate-categorical-plots" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>A <strong>bivariate categorical plot</strong> visualizes the relationship between one categorical variable and one continuous variable.</p>
+</div></blockquote>
+<p><img alt="title" src="../_images/seaborn_catplot.png" /></p>
+<section id="id3">
+<h3>Example dataset<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Here, we’ll return to our Pokemon dataset, which has more examples of categorical variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_pokemon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/pokemon.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="barplots-with-sns-barplot">
+<h3>Barplots with <code class="docutils literal notranslate"><span class="pre">sns.barplot</span></code><a class="headerlink" href="#barplots-with-sns-barplot" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A <strong>barplot</strong> visualizes the relationship between one <em>continuous</em> variable and a <em>categorical</em> variable.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The <em>height</em> of each bar generally indicates the mean of the continuous variable.</p></li>
+<li><p>Each bar represents a different <em>level</em> of the categorical variable.</p></li>
+</ul>
+<p>With <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, we can use the function <code class="docutils literal notranslate"><span class="pre">sns.barplot</span></code>.</p>
+<section id="average-attack-by-legendary-status">
+<h4>Average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Legendary</span></code> status<a class="headerlink" href="#average-attack-by-legendary-status" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span>
+           <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Legendary&#39;, ylabel=&#39;Attack&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/ffdc35bc97f9dd02091c3c0fbd8b37c9f3c66f111ed165161154185dea3e2fcb.png" src="../_images/ffdc35bc97f9dd02091c3c0fbd8b37c9f3c66f111ed165161154185dea3e2fcb.png" />
+</div>
+</div>
+</section>
+<section id="average-attack-by-type-1">
+<h4>Average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code><a class="headerlink" href="#average-attack-by-type-1" title="Permalink to this heading">#</a></h4>
+<p>Here, notice that I make the figure <em>bigger</em>, to make sure the labels all fit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span>
+           <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Type 1&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Type 1&#39;, ylabel=&#39;Attack&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/9e87f19c255362418728191a216bb9a28bfddafcbf28bb26aeb65f0123327f47.png" src="../_images/9e87f19c255362418728191a216bb9a28bfddafcbf28bb26aeb65f0123327f47.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>How would you plot <code class="docutils literal notranslate"><span class="pre">HP</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h4>Solution<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span>
+           <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Type 1&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;HP&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Type 1&#39;, ylabel=&#39;HP&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/61656be4b0e8a7e2d3ac5e0250b2e0a63d11ff0c4089221935d7897a2e022227.png" src="../_images/61656be4b0e8a7e2d3ac5e0250b2e0a63d11ff0c4089221935d7897a2e022227.png" />
+</div>
+</div>
+</section>
+<section id="modifying-hue">
+<h4>Modifying <code class="docutils literal notranslate"><span class="pre">hue</span></code><a class="headerlink" href="#modifying-hue" title="Permalink to this heading">#</a></h4>
+<p>As with <code class="docutils literal notranslate"><span class="pre">scatterplot</span></code> and <code class="docutils literal notranslate"><span class="pre">lineplot</span></code>, we can change the <code class="docutils literal notranslate"><span class="pre">hue</span></code> to give further granularity.</p>
+<ul class="simple">
+<li><p>E.g., <code class="docutils literal notranslate"><span class="pre">HP</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code>, further divided by <code class="docutils literal notranslate"><span class="pre">Legendary</span></code> status.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span>
+           <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Type 1&quot;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;HP&quot;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Type 1&#39;, ylabel=&#39;HP&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/0f988cc4c166fbbe5bb7450b8f0635403ee32d050bbe8b6226a89aa0c9791f6e.png" src="../_images/0f988cc4c166fbbe5bb7450b8f0635403ee32d050bbe8b6226a89aa0c9791f6e.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="using-catplot">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">catplot</span></code><a class="headerlink" href="#using-catplot" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">seaborn.catplot</span></code> is a convenient function for plotting bivariate categorical data using a range of plot types (<code class="docutils literal notranslate"><span class="pre">bar</span></code>, <code class="docutils literal notranslate"><span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">strip</span></code>).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">,</span> 
+             <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x16878f9d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/24c41529817a3e92b7b56d1f17f8a21dea7344266f7e430c82f0cf53fe2b406f.png" src="../_images/24c41529817a3e92b7b56d1f17f8a21dea7344266f7e430c82f0cf53fe2b406f.png" />
+</div>
+</div>
+<section id="strip-plots">
+<h4><code class="docutils literal notranslate"><span class="pre">strip</span></code> plots<a class="headerlink" href="#strip-plots" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>A <code class="docutils literal notranslate"><span class="pre">strip</span></code> plot shows each individual point (like a scatterplot), divided by a <strong>category label</strong>.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">,</span> 
+             <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;strip&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x16c6f0d50&gt;
+</pre></div>
+</div>
+<img alt="../_images/f5508e395bf0194068a8bc1c68ca559e446f70587943cfb513e9dde386b373a5.png" src="../_images/f5508e395bf0194068a8bc1c68ca559e446f70587943cfb513e9dde386b373a5.png" />
+</div>
+</div>
+</section>
+<section id="adding-a-mean-to-our-strip-plot">
+<h4>Adding a <code class="docutils literal notranslate"><span class="pre">mean</span></code> to our <code class="docutils literal notranslate"><span class="pre">strip</span></code> plot<a class="headerlink" href="#adding-a-mean-to-our-strip-plot" title="Permalink to this heading">#</a></h4>
+<p>We can plot <em>two graphs</em> at the same time, showing both the individual points and the means.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">,</span> 
+             <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;strip&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pointplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">,</span> 
+             <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Legendary&#39;, ylabel=&#39;Attack&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/0a6f41567d3800770d8f2e907176f748d5080c1cabf03ebefeab779b1024940f.png" src="../_images/0a6f41567d3800770d8f2e907176f748d5080c1cabf03ebefeab779b1024940f.png" />
+</div>
+</div>
+</section>
+<section id="box-plots">
+<h4><code class="docutils literal notranslate"><span class="pre">box</span></code> plots<a class="headerlink" href="#box-plots" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>A <code class="docutils literal notranslate"><span class="pre">box</span></code> plot shows the interquartile range (the middle 50% of the data), along with the minimum and maximum.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_pokemon</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Legendary&quot;</span><span class="p">,</span> 
+             <span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Attack&quot;</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/seantrott/anaconda3/lib/python3.11/site-packages/seaborn/axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x16c696c90&gt;
+</pre></div>
+</div>
+<img alt="../_images/42bc8584ef9ef0912def4b86eb206c1d6be729e23304e6be886e74d96bc27ba6.png" src="../_images/42bc8584ef9ef0912def4b86eb206c1d6be729e23304e6be886e74d96bc27ba6.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>As with our lecture on <code class="docutils literal notranslate"><span class="pre">pyplot</span></code>, this just scratches the surface.</p>
+<p>But now, you’ve had an introduction to:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> package.</p></li>
+<li><p>Plotting both <strong>univariate</strong> and <strong>bivariate</strong> data.</p></li>
+<li><p>Creating plots with multiple layers.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06-dataviz-pyplot.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data visualization in Python (<code class="docutils literal notranslate"><span class="pre">pyplot</span></code>)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="08-dataviz-principles.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data visualization, pt. 3 (principles)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-seaborn">Introducing <code class="docutils literal notranslate"><span class="pre">seaborn</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-seaborn">What is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-seaborn-hierarchy-of-plot-types">The <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> hierarchy of plot types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dataset">Example dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#univariate-plots">Univariate plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms-with-sns-histplot">Histograms with <code class="docutils literal notranslate"><span class="pre">sns.histplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-number-of-bins">Modifying the number of bins</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-y-axis-with-stat">Modifying the y-axis with <code class="docutils literal notranslate"><span class="pre">stat</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-pt-1">Solution (pt. 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-pt-2">Solution (pt. 2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-pt-3-using-log-scale">Solution (pt. 3) using <code class="docutils literal notranslate"><span class="pre">log_scale</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-continuous-plots">Bivariate continuous plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplots-with-sns-scatterplot">Scatterplots with <code class="docutils literal notranslate"><span class="pre">sns.scatterplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-gdp-cap-by-life-exp">Showing <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> by <code class="docutils literal notranslate"><span class="pre">life_exp</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-gdp-cap-log-by-life-exp">Showing <code class="docutils literal notranslate"><span class="pre">gdp_cap_log</span></code> by <code class="docutils literal notranslate"><span class="pre">life_exp</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-hue">Adding a <code class="docutils literal notranslate"><span class="pre">hue</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-size">Adding a <code class="docutils literal notranslate"><span class="pre">size</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-position-of-the-legend">Changing the position of the legend</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lineplots-with-sns-lineplot">Lineplots with <code class="docutils literal notranslate"><span class="pre">sns.lineplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#showing-life-exp-by-year">Showing <code class="docutils literal notranslate"><span class="pre">life_exp</span></code> by <code class="docutils literal notranslate"><span class="pre">year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-how-error-uncertainty-is-displayed">Modifying how error/uncertainty is displayed</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Adding a <code class="docutils literal notranslate"><span class="pre">hue</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heteroskedasticity-in-gdp-cap-by-year">Heteroskedasticity in <code class="docutils literal notranslate"><span class="pre">gdp_cap</span></code> by <code class="docutils literal notranslate"><span class="pre">year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-by-country">Plotting by country</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-replot">Using <code class="docutils literal notranslate"><span class="pre">replot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#faceting-into-rows-and-cols">Faceting into <code class="docutils literal notranslate"><span class="pre">rows</span></code> and <code class="docutils literal notranslate"><span class="pre">cols</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-categorical-plots">Bivariate categorical plots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Example dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#barplots-with-sns-barplot">Barplots with <code class="docutils literal notranslate"><span class="pre">sns.barplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#average-attack-by-legendary-status">Average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Legendary</span></code> status</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#average-attack-by-type-1">Average <code class="docutils literal notranslate"><span class="pre">Attack</span></code> by <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Check-in</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Solution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-hue">Modifying <code class="docutils literal notranslate"><span class="pre">hue</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-catplot">Using <code class="docutils literal notranslate"><span class="pre">catplot</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#strip-plots"><code class="docutils literal notranslate"><span class="pre">strip</span></code> plots</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-mean-to-our-strip-plot">Adding a <code class="docutils literal notranslate"><span class="pre">mean</span></code> to our <code class="docutils literal notranslate"><span class="pre">strip</span></code> plot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots"><code class="docutils literal notranslate"><span class="pre">box</span></code> plots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

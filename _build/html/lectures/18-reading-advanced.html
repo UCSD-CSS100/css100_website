@@ -1,0 +1,1650 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Working with Text Files (pt. 2) &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working with JSON Files" href="19-reading-json.html" />
+    <link rel="prev" title="Working with Text Files" href="17-reading-text.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/18-reading-advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/18-reading-advanced.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/18-reading-advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-a-target-str">
+   Finding a target
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     str
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#our-sample-text">
+     Our sample text
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#inspecting-the-text">
+       Inspecting the text
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-a-sample-str">
+     Finding a sample
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution-enumerate">
+     Solution:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       enumerate
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in-finding-the-next-n-lines">
+     Check-in: Finding the next
+     <span class="math notranslate nohighlight">
+      \(N\)
+     </span>
+     lines
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in-what-if-target-str-occurs-multiple-times">
+     Check-in: What if
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       target_str
+      </span>
+     </code>
+     occurs multiple times?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Solution
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#checking-line-indices">
+       Checking
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         line_indices
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in-other-considerations">
+     Check-in: Other considerations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-words">
+   Counting Words
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#caveat-what-is-a-word">
+     Caveat: what
+     <em>
+      is
+     </em>
+     a word?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#nlp-is-historically-english-centric">
+       NLP is (historically) English-centric
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-words">
+     How
+     <em>
+      many
+     </em>
+     words?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-split-a-review">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         split
+        </span>
+       </code>
+       : a review
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-split-for-hamlet">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         split
+        </span>
+       </code>
+       for Hamlet
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-unique-words">
+     How many
+     <em>
+      unique
+     </em>
+     words?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-set">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         set
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-times-does-each-word-occur">
+     How many times does each word occur?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#first-pass-counting-each-word">
+       First pass: counting each word
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#which-word-is-most-common">
+     Which word is most common?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#finding-the-most-frequent-word">
+       Finding the most frequent word
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#other-approaches">
+       Other approaches
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Working with Text Files (pt. 2)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-a-target-str">
+   Finding a target
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     str
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#our-sample-text">
+     Our sample text
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#inspecting-the-text">
+       Inspecting the text
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-a-sample-str">
+     Finding a sample
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       str
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution-enumerate">
+     Solution:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       enumerate
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in-finding-the-next-n-lines">
+     Check-in: Finding the next
+     <span class="math notranslate nohighlight">
+      \(N\)
+     </span>
+     lines
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in-what-if-target-str-occurs-multiple-times">
+     Check-in: What if
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       target_str
+      </span>
+     </code>
+     occurs multiple times?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Solution
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#checking-line-indices">
+       Checking
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         line_indices
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-in-other-considerations">
+     Check-in: Other considerations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-words">
+   Counting Words
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#caveat-what-is-a-word">
+     Caveat: what
+     <em>
+      is
+     </em>
+     a word?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#nlp-is-historically-english-centric">
+       NLP is (historically) English-centric
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-words">
+     How
+     <em>
+      many
+     </em>
+     words?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-split-a-review">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         split
+        </span>
+       </code>
+       : a review
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-split-for-hamlet">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         split
+        </span>
+       </code>
+       for Hamlet
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-unique-words">
+     How many
+     <em>
+      unique
+     </em>
+     words?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-set">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         set
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-many-times-does-each-word-occur">
+     How many times does each word occur?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#first-pass-counting-each-word">
+       First pass: counting each word
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#which-word-is-most-common">
+     Which word is most common?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#finding-the-most-frequent-word">
+       Finding the most frequent word
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#other-approaches">
+       Other approaches
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-text-files-pt-2">
+<h1>Working with Text Files (pt. 2)<a class="headerlink" href="#working-with-text-files-pt-2" title="Permalink to this headline">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this headline">#</a></h2>
+<p>In the previous lecture, we discussed the basics of <code class="docutils literal notranslate"><span class="pre">open</span></code>ing a <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file, as well as <strong>reading</strong> and <strong>writing</strong> to that file.</p>
+<p>In this lecture, we’ll talk about what you can do with a text file once you’ve already opened it. Because text files are <code class="docutils literal notranslate"><span class="pre">read</span></code> in as strings, you’ll see many echoes of our previous lecture on <span class="xref myst">working with strings</span>.</p>
+<ul class="simple">
+<li><p><strong>Finding</strong> a target <code class="docutils literal notranslate"><span class="pre">str</span></code> in a file.</p></li>
+<li><p><strong>Counting</strong> the number of words in a file.</p>
+<ul>
+<li><p><strong>Counting</strong> how many times <em>each word</em> occurs.</p></li>
+<li><p>Finding the most <strong>frequent</strong> word in a text.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="finding-a-target-str">
+<h2>Finding a target <code class="docutils literal notranslate"><span class="pre">str</span></code><a class="headerlink" href="#finding-a-target-str" title="Permalink to this headline">#</a></h2>
+<p>One common use case is <strong>searching</strong> a large volume of text to <code class="docutils literal notranslate"><span class="pre">return</span></code> particular sub-string.</p>
+<ul class="simple">
+<li><p>Where in the text does this sub-string occur?</p></li>
+<li><p>What is the text surrounding one of its occurrences?</p></li>
+</ul>
+<p>Note that this is not too far afield from a <strong>search engine</strong> like <a class="reference external" href="https://www.google.com/">Google</a>!</p>
+<section id="our-sample-text">
+<h3>Our sample text<a class="headerlink" href="#our-sample-text" title="Permalink to this headline">#</a></h3>
+<p>To start, we’ll use a <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file of <a class="reference external" href="https://en.wikipedia.org/wiki/Hamlet"><strong>Hamlet</strong></a>, by <a class="reference external" href="https://en.wikipedia.org/wiki/William_Shakespeare">William Shakespeare</a>. The <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file was retrieved from the <a class="reference external" href="https://www.gutenberg.org/browse/scores/top">Project Gutenberg Corpus</a> online, and should be credited as such.</p>
+<p>The file is included in the <code class="docutils literal notranslate"><span class="pre">lectures</span></code> GitHub repository under the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory.</p>
+<p>First, let’s use <code class="docutils literal notranslate"><span class="pre">readlines()</span></code> to extract each <strong>line</strong> of the play as a separate item in a list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/hamlet.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inspecting-the-text">
+<h4>Inspecting the text<a class="headerlink" href="#inspecting-the-text" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## This is just the title</span>
+<span class="n">book</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;THE TRAGEDY OF HAMLET, PRINCE OF DENMARK\n&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Partial list of characters in play</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">book</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">12</span><span class="p">]:</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dramatis Personae
+
+  Claudius, King of Denmark.
+  Marcellus, Officer.
+  Hamlet, son to the former, and nephew to the present king.
+  Polonius, Lord Chamberlain.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h4>
+<p>How could we check how many <strong>lines</strong> are in the <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Number of entries in list</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4934
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="finding-a-sample-str">
+<h3>Finding a sample <code class="docutils literal notranslate"><span class="pre">str</span></code><a class="headerlink" href="#finding-a-sample-str" title="Permalink to this headline">#</a></h3>
+<p>One of the most famous lines in <em>Hamlet</em> reads:</p>
+<blockquote>
+<div><p>To be, or not to be- that is the question…</p>
+</div></blockquote>
+<p>Suppose we wanted to <strong>find</strong> the <code class="docutils literal notranslate"><span class="pre">str</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;that</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">question&quot;</span></code> in the book, and <strong>return</strong> the line number (at least in this <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file).</p>
+<p>How could we go about that?</p>
+</section>
+<section id="solution-enumerate">
+<h3>Solution: <code class="docutils literal notranslate"><span class="pre">enumerate</span></code><a class="headerlink" href="#solution-enumerate" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">enumerate</span></code> to iterate through each line of the play.</p></li>
+<li><p>For each line, check if some <code class="docutils literal notranslate"><span class="pre">target_str</span></code> occurs in that line.</p></li>
+<li><p>If it does, use <code class="docutils literal notranslate"><span class="pre">break</span></code> to <strong>stop</strong> iterating, and record which line it is.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_str</span> <span class="o">=</span> <span class="s2">&quot;that is the question&quot;</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">book</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">target_str</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Line: </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Line number: </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">index</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Line:   Ham. To be, or not to be- that is the question:
+Line number: 2048
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in-finding-the-next-n-lines">
+<h3>Check-in: Finding the next <span class="math notranslate nohighlight">\(N\)</span> lines<a class="headerlink" href="#check-in-finding-the-next-n-lines" title="Permalink to this headline">#</a></h3>
+<p>What if we wanted to return the next <span class="math notranslate nohighlight">\(N\)</span> (e.g., <code class="docutils literal notranslate"><span class="pre">5</span></code>) lines <em>after</em> this target string?</p>
+<ul class="simple">
+<li><p>To do this, we just need to add another variable: <code class="docutils literal notranslate"><span class="pre">keep_lines</span></code>, which tells us <em>how many</em> additional lines we want to return.</p></li>
+<li><p>Then, once we’ve retrieved the <code class="docutils literal notranslate"><span class="pre">index</span></code> of our <code class="docutils literal notranslate"><span class="pre">target_str</span></code>, we can <strong>slice</strong> between that <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">+</span> <span class="pre">3</span></code>.</p></li>
+</ul>
+<p>Try implementing this algorithm yourself first.</p>
+<p><strong>Hint</strong>: The code can be <em>mostly</em> the same as before (i.e., use <code class="docutils literal notranslate"><span class="pre">enumerate</span></code>, etc.).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Solution<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_str</span> <span class="o">=</span> <span class="s2">&quot;that is the question&quot;</span>
+<span class="n">keep_lines</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1">### New variable to track</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">book</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">target_str</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve all lines between target and 3 lines later</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="n">book</span><span class="p">[</span><span class="n">index</span><span class="p">:</span> <span class="n">index</span><span class="o">+</span> <span class="n">keep_lines</span><span class="p">]</span>
+<span class="c1">## Now, print out each of those lines</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Ham. To be, or not to be- that is the question:
+    Whether &#39;tis nobler in the mind to suffer
+    The slings and arrows of outrageous fortune
+    Or to take arms against a sea of troubles,
+    And by opposing end them. To die- to sleep-
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-in-what-if-target-str-occurs-multiple-times">
+<h3>Check-in: What if <code class="docutils literal notranslate"><span class="pre">target_str</span></code> occurs multiple times?<a class="headerlink" href="#check-in-what-if-target-str-occurs-multiple-times" title="Permalink to this headline">#</a></h3>
+<p>What if we were looking for a more common <code class="docutils literal notranslate"><span class="pre">target_str</span></code>, e.g., one that occurred multiple times?</p>
+<ol class="simple">
+<li><p>What problems do you see with our previous approach (e.g., using <code class="docutils literal notranslate"><span class="pre">break</span></code> once we find <code class="docutils literal notranslate"><span class="pre">target_str</span></code>)?</p></li>
+<li><p>How might you solve this problem?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your answer here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Solution<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p><strong>Problem</strong>: If we <code class="docutils literal notranslate"><span class="pre">break</span></code> <em>as soon as</em> we find the <code class="docutils literal notranslate"><span class="pre">target_str</span></code>, we’ll always only ever find the first instance.</p>
+<p><strong>Solution</strong>: Instead, we can <strong>track</strong> the indices of each occurrence of <code class="docutils literal notranslate"><span class="pre">target_str</span></code>. Then, we <code class="docutils literal notranslate"><span class="pre">return</span></code> a <code class="docutils literal notranslate"><span class="pre">list</span></code> of these indices when we finish checking the entire book.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_str</span> <span class="o">=</span> <span class="s2">&quot;the question&quot;</span>
+<span class="c1">## Track a list of indices</span>
+<span class="n">line_indices</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">book</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">target_str</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="c1">## Rather than breaking, we </span>
+        <span class="c1">## add index to list_indices</span>
+        <span class="n">line_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="checking-line-indices">
+<h4>Checking <code class="docutils literal notranslate"><span class="pre">line_indices</span></code><a class="headerlink" href="#checking-line-indices" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">line_indices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[192, 1658, 2048, 3354]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">line_indices</span><span class="p">:</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">book</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Line </span><span class="si">{x}</span><span class="s2">: </span><span class="si">{y}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">line</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Line 192:     That was and is the question of these wars.
+Line 1658:     went to cuffs in the question.
+Line 2048:   Ham. To be, or not to be- that is the question:
+Line 3354:     Will not debate the question of this straw.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="check-in-other-considerations">
+<h3>Check-in: Other considerations<a class="headerlink" href="#check-in-other-considerations" title="Permalink to this headline">#</a></h3>
+<p>These exercises really only scratch the surface of <strong>searching</strong> a file. Here are some other issues for consideration and discussion.</p>
+<p>How might you address:</p>
+<ol class="simple">
+<li><p>Issues of <strong>case</strong>: e.g., what if <em>question</em> is spelled <code class="docutils literal notranslate"><span class="pre">&quot;Question&quot;</span></code>, not <code class="docutils literal notranslate"><span class="pre">&quot;question&quot;</span></code>?</p></li>
+<li><p>Situations where a <code class="docutils literal notranslate"><span class="pre">target_str</span></code> spans multiple <em>lines</em>?</p></li>
+<li><p>Mismatch in punctuation, e.g., a misplaced <code class="docutils literal notranslate"><span class="pre">,</span></code>?</p></li>
+<li><p>A <strong>partial match</strong>, e.g., if <span class="math notranslate nohighlight">\(90\%\)</span> of the characters match?</p></li>
+</ol>
+<p><strong>Note</strong>: These are challenging issues! And each of them likely has multiple solutions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Discussion</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="counting-words">
+<h2>Counting Words<a class="headerlink" href="#counting-words" title="Permalink to this headline">#</a></h2>
+<p>Another very common <strong>use case</strong> is simply <strong>counting</strong> words.</p>
+<ul class="simple">
+<li><p>How many words are there overall?</p></li>
+<li><p>How many <em>unique words</em> are used?</p></li>
+<li><p>How many times does <em>each word</em> occur?</p></li>
+<li><p>What is the <em>most frequent word</em>?</p></li>
+</ul>
+<section id="caveat-what-is-a-word">
+<h3>Caveat: what <em>is</em> a word?<a class="headerlink" href="#caveat-what-is-a-word" title="Permalink to this headline">#</a></h3>
+<p>The question of what defines a word is surprisingly complex.</p>
+<ul class="simple">
+<li><p>First, languages have very different <a class="reference external" href="https://en.wikipedia.org/wiki/Morphological_typology"><strong>morphological systems</strong></a>. So even <em>conceptually</em>, it’s not always clear what makes a word “a word” in a given language.</p></li>
+<li><p>Second, languages have very different <a class="reference external" href="https://en.wikipedia.org/wiki/Orthography"><strong>writing systems</strong></a>.</p>
+<ul>
+<li><p>Some languages (like English, Spanish, etc.) have <em>spaces</em> between words in their written form.</p></li>
+<li><p>Other languages (like Classical Latin, Chinese, etc.) do <a class="reference external" href="https://en.wikipedia.org/wiki/Scriptio_continua">not typically use <em>spaces</em> between words</a> in their written form.</p></li>
+</ul>
+</li>
+</ul>
+<p>Many <strong>conceptual definitions</strong> and <strong>tools</strong> for identifying <em>words</em> are rooted in English specifically, but those definitions and tools don’t always generalize––languages can be very different.</p>
+<section id="nlp-is-historically-english-centric">
+<h4>NLP is (historically) English-centric<a class="headerlink" href="#nlp-is-historically-english-centric" title="Permalink to this headline">#</a></h4>
+<p>Historically, work in <a class="reference external" href="https://en.wikipedia.org/wiki/Natural_language_processing">Natural Language Processing</a> has been quite English-centric.</p>
+<ul class="simple">
+<li><p>Often, English was seen as the “default language”––to such a degree that researchers didn’t always mention that they were working on English specifically!</p></li>
+<li><p>However, this is starting to change.</p>
+<ul>
+<li><p>Researchers like <a class="reference external" href="https://faculty.washington.edu/ebender/">Emily Bender</a> have pushed scholars to <a class="reference external" href="https://thegradient.pub/the-benderrule-on-naming-the-languages-we-study-and-why-it-matters/"><strong>name the language they’re working on</strong></a>.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Text_segmentation">Word segmentation</a> is increasingly recognized as an important problem.</p></li>
+</ul>
+</li>
+</ul>
+<p>This will be important to keep in mind as we discuss <strong>identifying</strong> and <strong>counting</strong> words in written English text.</p>
+</section>
+</section>
+<section id="how-many-words">
+<h3>How <em>many</em> words?<a class="headerlink" href="#how-many-words" title="Permalink to this headline">#</a></h3>
+<p>The first question that might occur to us is <em>how many words</em> are in a book.</p>
+<p>To do this, we could:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">read</span></code> the book in as one long <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">split</span></code> function to separate this long <code class="docutils literal notranslate"><span class="pre">str</span></code> by <strong>spaces</strong>, into a <code class="docutils literal notranslate"><span class="pre">list</span></code> of words.</p></li>
+<li><p>Count the number of items in this list.</p></li>
+</ul>
+<section id="using-split-a-review">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">split</span></code>: a review<a class="headerlink" href="#using-split-a-review" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot;To be or not to be, that is the question&quot;</span>
+<span class="n">sentence</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;To&#39;, &#39;be&#39;, &#39;or&#39;, &#39;not&#39;, &#39;to&#39;, &#39;be,&#39;, &#39;that&#39;, &#39;is&#39;, &#39;the&#39;, &#39;question&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-split-for-hamlet">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">split</span></code> for Hamlet<a class="headerlink" href="#using-split-for-hamlet" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, read in as string</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/hamlet.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">book_str</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We should also clean up all those *newline* characters.</span>
+<span class="n">book_str</span> <span class="o">=</span> <span class="n">book_str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="c1"># To make it easier for later, we can also turn it into lowercase</span>
+<span class="n">book_str</span> <span class="o">=</span> <span class="n">book_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="c1"># Now, use split to separate into words</span>
+<span class="n">book_words</span> <span class="o">=</span> <span class="n">book_str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">book_words</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;the&#39;, &#39;tragedy&#39;, &#39;of&#39;, &#39;hamlet,&#39;, &#39;prince&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many items in list?</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">book_words</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32724
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-many-unique-words">
+<h3>How many <em>unique</em> words?<a class="headerlink" href="#how-many-unique-words" title="Permalink to this headline">#</a></h3>
+<p>Above, we calculated how many word <em>tokens</em> were in the book.</p>
+<ul class="simple">
+<li><p>This means that the word “the” will be counted <em>every time</em> it occurs.</p></li>
+<li><p>Instead, let’s calculate the number of <em>unique</em> word types.</p></li>
+</ul>
+<section id="using-set">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">set</span></code><a class="headerlink" href="#using-set" title="Permalink to this headline">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">set</span></code> function will turn a <code class="docutils literal notranslate"><span class="pre">list</span></code> into a <code class="docutils literal notranslate"><span class="pre">set</span></code> object, which contains only the <em>unique elements</em> in that list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span> <span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;best&quot;</span><span class="p">]</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;best&#39;, &#39;dog&#39;, &#39;is&#39;, &#39;the&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">set</span></code> function to calculate how many <em>unique</em> words are in this book.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Solution<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<p>We already have the <code class="docutils literal notranslate"><span class="pre">book_words</span></code> list, so we can just convert this to a <code class="docutils literal notranslate"><span class="pre">set</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">book_words</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">words_set</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7251
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-many-times-does-each-word-occur">
+<h3>How many times does each word occur?<a class="headerlink" href="#how-many-times-does-each-word-occur" title="Permalink to this headline">#</a></h3>
+<p>We might also want to know <em>how many times</em> each word occurs.</p>
+<ul class="simple">
+<li><p>For example, perhaps “the” occurs <span class="math notranslate nohighlight">\(&gt;1000\)</span> times, whereas “question” occurs only ~<span class="math notranslate nohighlight">\(10\)</span> times.</p></li>
+<li><p>Ideally, we would store this in a <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+<ul>
+<li><p>Each <strong>key</strong> represents a <em>word</em>.</p></li>
+<li><p>Each <strong>value</strong> represents <em>how many times</em> that word occurred in <em>Hamlet</em>.</p></li>
+</ul>
+</li>
+</ul>
+<p>How might we go about this?</p>
+<section id="first-pass-counting-each-word">
+<h4>First pass: counting each word<a class="headerlink" href="#first-pass-counting-each-word" title="Permalink to this headline">#</a></h4>
+<p>As a first pass, let’s use the following approach:</p>
+<ul class="simple">
+<li><p>First, create a <code class="docutils literal notranslate"><span class="pre">dict</span></code> to store our words.</p></li>
+<li><p>Then, <em>iterate</em> through our <code class="docutils literal notranslate"><span class="pre">list</span></code> of words.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code> a given word is not in our <code class="docutils literal notranslate"><span class="pre">dict</span></code>, add an entry for it (and set the value to <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span></code> a given word <em>is</em> in a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, increase its value by <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_counts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">book_words</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">word_counts</span><span class="p">:</span>
+        <span class="n">word_counts</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">word_counts</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many times does &quot;the&quot; occur?</span>
+<span class="n">word_counts</span><span class="p">[</span><span class="s1">&#39;the&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1095
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many times does &quot;king&quot; occur?</span>
+<span class="n">word_counts</span><span class="p">[</span><span class="s1">&#39;king&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h4>Check-in<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p>Any issues with this <strong>first pass</strong> approach?</p>
+<p><strong>Hint</strong>: One issue could have to do with punctuation…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h4>Solution<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
+<p>One problem that you might’ve noticed is that words occurring at the <em>end of a sentence</em> don’t have a space between the word and a period (e.g., <code class="docutils literal notranslate"><span class="pre">question.</span></code>).</p>
+<ul class="simple">
+<li><p>This will <em>under-count</em> certain words.</p></li>
+</ul>
+<p>To resolve this, we can <code class="docutils literal notranslate"><span class="pre">replace</span></code> all periods with an empty character before adding a word to our <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_counts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">book_words</span><span class="p">:</span>
+    <span class="n">w_no_period</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">w_no_period</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">word_counts</span><span class="p">:</span>
+        <span class="n">word_counts</span><span class="p">[</span><span class="n">w_no_period</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">word_counts</span><span class="p">[</span><span class="n">w_no_period</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many times does &quot;king&quot; occur?</span>
+<span class="n">word_counts</span><span class="p">[</span><span class="s1">&#39;king&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>162
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="which-word-is-most-common">
+<h3>Which word is most common?<a class="headerlink" href="#which-word-is-most-common" title="Permalink to this headline">#</a></h3>
+<p>Now that we have a <code class="docutils literal notranslate"><span class="pre">dict</span></code> representing how many times each word occurs, we can calculate <strong>which word</strong> is most common.</p>
+<p><strong>Check-in</strong>: Which word do you think is most frequent in <em>Hamlet</em>?</p>
+<section id="finding-the-most-frequent-word">
+<h4>Finding the most frequent word<a class="headerlink" href="#finding-the-most-frequent-word" title="Permalink to this headline">#</a></h4>
+<p>As always, there are multiple ways to do this.</p>
+<p>But one simple approach is to:</p>
+<ul class="simple">
+<li><p>Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through all <code class="docutils literal notranslate"><span class="pre">items()</span></code> in the <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+<li><p>Track the <code class="docutils literal notranslate"><span class="pre">key_with_highest_value</span></code> we’ve seen so far.</p></li>
+<li><p>Once the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is done, inspect <code class="docutils literal notranslate"><span class="pre">key_with_highest_value</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">key_with_highest_value</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">max_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">word_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># If this word frequency &gt; max_count</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="n">max_count</span><span class="p">:</span>
+        <span class="c1"># Set new &quot;highest word&quot; to this word</span>
+        <span class="n">key_with_highest_value</span> <span class="o">=</span> <span class="n">word</span>
+        <span class="n">max_count</span> <span class="o">=</span> <span class="n">count</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Now, inspect which word was most frequent</span>
+<span class="n">key_with_highest_value</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;the&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-approaches">
+<h4>Other approaches<a class="headerlink" href="#other-approaches" title="Permalink to this headline">#</a></h4>
+<p>There are <em>many different approaches</em> you could take to solving this problem. Some are more generalizable (but also more complicated) than what I’ve shown here.</p>
+<ul class="simple">
+<li><p>You can <code class="docutils literal notranslate"><span class="pre">sort</span></code> the dictionary by <strong>value</strong> (see the lecture on <a class="reference internal" href="13-dictionaries-advanced.html"><span class="doc std std-doc">advanced dictionary operations</span></a>).</p></li>
+<li><p>You could use the <code class="docutils literal notranslate"><span class="pre">max</span></code> function with <code class="docutils literal notranslate"><span class="pre">dict.get</span></code> as your <code class="docutils literal notranslate"><span class="pre">key</span></code> parameter (see below).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Another approach</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">word_counts</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">word_counts</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;the&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>This concludes our brief introduction to <em>working with text files</em>.</p>
+<ul class="simple">
+<li><p>The material in this lecture is a pre-cursor to basic Natural Language Processing techniques.</p></li>
+<li><p>The material in the <a class="reference internal" href="17-reading-text.html"><span class="doc std std-doc">previous lecture</span></a> covers the basics of <strong>interacting with files</strong> (<code class="docutils literal notranslate"><span class="pre">open</span></code>ing a file, using <code class="docutils literal notranslate"><span class="pre">read</span></code> and <code class="docutils literal notranslate"><span class="pre">write</span></code>, etc.).</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="17-reading-text.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Working with Text Files</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="19-reading-json.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Working with JSON Files</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

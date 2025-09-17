@@ -1,0 +1,1285 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Working with JSON Files &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Vector operations with numpy" href="20-numpy.html" />
+    <link rel="prev" title="Working with Text Files (pt. 2)" href="18-reading-advanced.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="22-pandas.html">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/19-reading-json.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/19-reading-json.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/19-reading-json.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-json-file">
+   What is a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .json
+    </span>
+   </code>
+   file?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-json">
+     What is JSON?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-python-dict-is-a-collection-of-key-value-pairs">
+     A Python
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     is a collection of key-value pairs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json-and-dict-an-analogy">
+     JSON and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     : an analogy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-in-a-json-file">
+   Reading in a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .json
+    </span>
+   </code>
+   file
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-simple-file">
+     Example: simple file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-creates-a-dict">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       load
+      </span>
+     </code>
+     creates a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution">
+     Solution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-a-json-file">
+   Writing a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .json
+    </span>
+   </code>
+   file
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-example-course">
+     Simple example: course
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#checking-that-this-worked">
+       Checking that this worked
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Check-in
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#json-files-vs-json-strings">
+   JSON files vs. JSON strings
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json-dumps">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       json.dumps
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json-loads">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       json.loads
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-objects-besides-dicts">
+     Other objects besides
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     s
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Working with JSON Files</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-json-file">
+   What is a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .json
+    </span>
+   </code>
+   file?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-json">
+     What is JSON?
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-python-dict-is-a-collection-of-key-value-pairs">
+     A Python
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     is a collection of key-value pairs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json-and-dict-an-analogy">
+     JSON and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     : an analogy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-in-a-json-file">
+   Reading in a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .json
+    </span>
+   </code>
+   file
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-simple-file">
+     Example: simple file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-creates-a-dict">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       load
+      </span>
+     </code>
+     creates a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Check-in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution">
+     Solution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-a-json-file">
+   Writing a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .json
+    </span>
+   </code>
+   file
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-example-course">
+     Simple example: course
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#checking-that-this-worked">
+       Checking that this worked
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Check-in
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#json-files-vs-json-strings">
+   JSON files vs. JSON strings
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json-dumps">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       json.dumps
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#json-loads">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       json.loads
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-objects-besides-dicts">
+     Other objects besides
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     s
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-json-files">
+<h1>Working with JSON Files<a class="headerlink" href="#working-with-json-files" title="Permalink to this headline">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this headline">#</a></h2>
+<p>We’ve already discussed the basics of <strong>reading</strong> and <strong>writing</strong> text (<code class="docutils literal notranslate"><span class="pre">.txt</span></code>) files.</p>
+<p>But another common file type is a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file, which allows you to store <strong>structured data</strong>.</p>
+<p>This lecture will cover:</p>
+<ul class="simple">
+<li><p>What is a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file? What is JSON more generally and why is it useful?</p></li>
+<li><p>How do we <strong>read in</strong> a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file?</p></li>
+<li><p>How do we <strong>write</strong> a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file?</p></li>
+<li><p>JSON files vs. JSON strings.</p></li>
+</ul>
+</section>
+<section id="what-is-a-json-file">
+<h2>What is a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file?<a class="headerlink" href="#what-is-a-json-file" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p>A <code class="docutils literal notranslate"><span class="pre">.json</span></code> file is a <strong>file written in the JSON file format</strong>. It allows us to store structured data objects consisting of <strong>key-value</strong> pairs.</p>
+</div></blockquote>
+<section id="what-is-json">
+<h3>What is JSON?<a class="headerlink" href="#what-is-json" title="Permalink to this headline">#</a></h3>
+<p><strong>JSON</strong> = JavaScript Object Notation.</p>
+<ul class="simple">
+<li><p>Standard format for <em>representing</em> and <em>transmitting</em> data.</p>
+<ul>
+<li><p>“Standard” = different people/systems agree to use this format to send and receive information.</p></li>
+</ul>
+</li>
+<li><p>Represents data in <strong>key-value</strong> pairs.</p></li>
+</ul>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h4>
+<p>What else have we seen that represents data in <strong>key-value pairs</strong>?</p>
+</section>
+</section>
+<section id="a-python-dict-is-a-collection-of-key-value-pairs">
+<h3>A Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> is a collection of key-value pairs<a class="headerlink" href="#a-python-dict-is-a-collection-of-key-value-pairs" title="Permalink to this headline">#</a></h3>
+<p>A <strong>dictionary</strong> (<code class="docutils literal notranslate"><span class="pre">dict</span></code>) stores <strong>key-value</strong> pairs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_class</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Code&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Department&#39;</span><span class="p">:</span> <span class="s1">&#39;CSS&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;Instructor&#39;</span><span class="p">:</span> <span class="s1">&#39;Trott&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Prerequisite&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+           <span class="s1">&#39;Enrollment&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_class</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Code&#39;: &#39;1&#39;, &#39;Department&#39;: &#39;CSS&#39;, &#39;Instructor&#39;: &#39;Trott&#39;, &#39;Prerequisite&#39;: True, &#39;Enrollment&#39;: 120}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_class</span><span class="p">[</span><span class="s1">&#39;Department&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;CSS&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="json-and-dict-an-analogy">
+<h3>JSON and <code class="docutils literal notranslate"><span class="pre">dict</span></code>: an analogy<a class="headerlink" href="#json-and-dict-an-analogy" title="Permalink to this headline">#</a></h3>
+<p>Conceptually, JSON accomplishes the same goals as a Python <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<ul class="simple">
+<li><p>In fact, Python programmers often <em>convert</em> a <code class="docutils literal notranslate"><span class="pre">dict</span></code> into a JSON <code class="docutils literal notranslate"><span class="pre">str</span></code> when they want to store it in a file.</p></li>
+<li><p>Similarly, you can <strong>read in</strong> a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file and convert the contents into a <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+</ul>
+<p><strong>Bottom line</strong>: we’re not dealing with a fundamentally new data sturcture––it’s another standardized way to represent <strong>key-value pairs</strong>.</p>
+</section>
+</section>
+<section id="reading-in-a-json-file">
+<h2>Reading in a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file<a class="headerlink" href="#reading-in-a-json-file" title="Permalink to this headline">#</a></h2>
+<p>Reading in a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file shares some similarities with <a class="reference internal" href="17-reading-text.html"><span class="doc std std-doc">reading <code class="docutils literal notranslate"><span class="pre">.txt</span></code> files</span></a>.</p>
+<ul class="simple">
+<li><p>Must specify a <strong>file path</strong>.</p></li>
+<li><p>File path can be either <em>absolute</em> or <em>relative</em>.</p></li>
+</ul>
+<p>But there are also some important differences:</p>
+<ul class="simple">
+<li><p>To <strong>read in</strong> a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file, we’ll need to <code class="docutils literal notranslate"><span class="pre">import</span></code> the <code class="docutils literal notranslate"><span class="pre">json</span></code> library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">json.load</span></code> will read in a <strong>structured <code class="docutils literal notranslate"><span class="pre">.json</span></code> file</strong> as a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, not a <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p></li>
+</ul>
+<section id="example-simple-file">
+<h3>Example: simple file<a class="headerlink" href="#example-simple-file" title="Permalink to this headline">#</a></h3>
+<p>Here, we will work with a simple <code class="docutils literal notranslate"><span class="pre">.json</span></code> file: <code class="docutils literal notranslate"><span class="pre">data/restaurant.json</span></code>.</p>
+<ul class="simple">
+<li><p>The file contains a structured representation of a restaurant.</p></li>
+<li><p>We use <code class="docutils literal notranslate"><span class="pre">json.load(...)</span></code> to <strong>load</strong> this representation as a <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## This imports the json library</span>
+<span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## As with normal .txt. files, we use &quot;open&quot; to open the target restaurant</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/restaurant.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="c1">## use json.load to load as dict</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Name&#39;: &#39;Plumeria&#39;, &#39;Location&#39;: &#39;University Heights&#39;, &#39;Cuisine&#39;: &#39;Thai&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-creates-a-dict">
+<h3><code class="docutils literal notranslate"><span class="pre">load</span></code> creates a <code class="docutils literal notranslate"><span class="pre">dict</span></code><a class="headerlink" href="#load-creates-a-dict" title="Permalink to this headline">#</a></h3>
+<p>Now, we can work with the <strong>contents</strong> of this file as we would any <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Plumeria&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;Location&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;University Heights&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;Cuisine&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Thai&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Check-in<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>Try reading in another file that’s stored in <code class="docutils literal notranslate"><span class="pre">data</span></code>: <code class="docutils literal notranslate"><span class="pre">data/school.json</span></code>.</p>
+<p>What is the value of the <strong>Name</strong> key?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## As before, we use &quot;open&quot; to open the target file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/school.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="c1">## use json.load to load as dict</span>
+    <span class="n">school_info</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Get name of school</span>
+<span class="n">school_info</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;UCSD&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="writing-a-json-file">
+<h2>Writing a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file<a class="headerlink" href="#writing-a-json-file" title="Permalink to this headline">#</a></h2>
+<p>Often, you’ll want to <strong>write</strong> a structured <code class="docutils literal notranslate"><span class="pre">dict</span></code> to a file.</p>
+<ul class="simple">
+<li><p>Useful for <em>storing</em> information, so you can access it later.</p></li>
+<li><p>Useful for <em>transmitting</em> information between programs.</p></li>
+</ul>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">json.dump(...)</span></code> to <strong>write</strong> (or “dump”) a <code class="docutils literal notranslate"><span class="pre">dict</span></code> into a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file.</p>
+<section id="simple-example-course">
+<h3>Simple example: course<a class="headerlink" href="#simple-example-course" title="Permalink to this headline">#</a></h3>
+<p>To start out, let’s use the <code class="docutils literal notranslate"><span class="pre">my_class</span></code> dict we defined earlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_class</span><span class="p">[</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>To <strong>write</strong> this to a file, we:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">open</span></code> (create) a file with the name we want to call it.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">json.dump(dict_name,</span> <span class="pre">filename)</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;course.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">my_class</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="checking-that-this-worked">
+<h4>Checking that this worked<a class="headerlink" href="#checking-that-this-worked" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;course.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">course_info</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">course_info</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Code&#39;: &#39;1&#39;, &#39;Department&#39;: &#39;CSS&#39;, &#39;Instructor&#39;: &#39;Trott&#39;, &#39;Prerequisite&#39;: True, &#39;Enrollment&#39;: 120}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id2">
+<h3>Check-in<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>Create a new <code class="docutils literal notranslate"><span class="pre">dict</span></code> called <code class="docutils literal notranslate"><span class="pre">my_info</span></code>. Add the following keys/values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Major</span></code>.</p></li>
+</ul>
+<p>Then, use <code class="docutils literal notranslate"><span class="pre">json.dump</span></code> to <strong>write</strong> this <code class="docutils literal notranslate"><span class="pre">dict</span></code> to a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file called <code class="docutils literal notranslate"><span class="pre">my_info.json</span></code> to your own computer (in whichever directory you prefer).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id3">
+<h4>Solution<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="s1">&#39;Sean&#39;</span><span class="p">,</span> <span class="s1">&#39;Major&#39;</span><span class="p">:</span> <span class="s1">&#39;Cognitive Science&#39;</span><span class="p">}</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/my_info.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">my_info</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="json-files-vs-json-strings">
+<h2>JSON files vs. JSON strings<a class="headerlink" href="#json-files-vs-json-strings" title="Permalink to this headline">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">load</span></code> and <code class="docutils literal notranslate"><span class="pre">dump</span></code> methods can be used to <strong>read</strong> and <strong>write</strong> a <code class="docutils literal notranslate"><span class="pre">dict</span></code> from/to a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file.</p>
+<p>However, Python can also represent JSON as a <strong><code class="docutils literal notranslate"><span class="pre">str</span></code></strong>.</p>
+<ul class="simple">
+<li><p>To <em>read</em> a <code class="docutils literal notranslate"><span class="pre">dict</span></code> from a JSON <code class="docutils literal notranslate"><span class="pre">str</span></code>, use <code class="docutils literal notranslate"><span class="pre">loads</span></code> (load + <em>s</em>tring).</p></li>
+<li><p>To <em>write</em> a <code class="docutils literal notranslate"><span class="pre">dict</span></code> into a JSON <code class="docutils literal notranslate"><span class="pre">str</span></code>, use <code class="docutils literal notranslate"><span class="pre">dumps</span></code> (dump + <em>s</em>tring).</p></li>
+</ul>
+<section id="json-dumps">
+<h3><code class="docutils literal notranslate"><span class="pre">json.dumps</span></code><a class="headerlink" href="#json-dumps" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Input: a <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+<li><p>Output: a JSON <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_class</span><span class="p">)</span>
+<span class="n">json_str</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{&quot;Code&quot;: &quot;1&quot;, &quot;Department&quot;: &quot;CSS&quot;, &quot;Instructor&quot;: &quot;Trott&quot;, &quot;Prerequisite&quot;: true, &quot;Enrollment&quot;: 120}&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="json-loads">
+<h3><code class="docutils literal notranslate"><span class="pre">json.loads</span></code><a class="headerlink" href="#json-loads" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Input: a JSON <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p></li>
+<li><p>Output: a <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+</ul>
+</section>
+<section id="other-objects-besides-dicts">
+<h3>Other objects besides <code class="docutils literal notranslate"><span class="pre">dict</span></code>s<a class="headerlink" href="#other-objects-besides-dicts" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Technically, you can use <code class="docutils literal notranslate"><span class="pre">dumps</span></code>/<code class="docutils literal notranslate"><span class="pre">loads</span></code> for other objects, such as <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">list</span></code>, and more.</p></li>
+<li><p>Though in my experience, a <code class="docutils literal notranslate"><span class="pre">dict</span></code> is the most common format.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[1, 2, 3]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="s1">&#39;[1, 2, 3]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 2, 3]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>This was a brief introduction to working with <code class="docutils literal notranslate"><span class="pre">.json</span></code> files. Hopefully you have a better handle on:</p>
+<ul class="simple">
+<li><p>What <em>is</em> a <code class="docutils literal notranslate"><span class="pre">.json</span></code> file?</p></li>
+<li><p>How do I read and write <code class="docutils literal notranslate"><span class="pre">.json</span></code> files?</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="18-reading-advanced.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Working with Text Files (pt. 2)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="20-numpy.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Vector operations with <code class="docutils literal notranslate"><span class="pre">numpy</span></code></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

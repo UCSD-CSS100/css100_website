@@ -1,0 +1,2045 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Data Structures with pandas &#8212; CSS 1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Advanced operations with numpy" href="21-numpy-advanced.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo_UCSD.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSS 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 1!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course Logistics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/syllabus.html">
+   CSS 1 Syllabus: Fall 2022
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/schedule.html">
+   CSS 1 Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/expectations.html">
+   Course Expectations (and FAQ)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../course/datahub.html">
+   Using DataHub
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-intro.html">
+   01-Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-tooling.html">
+   02-Tooling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-basics-variables.html">
+   03-Basics (Variables)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-basics-syntax.html">
+   04-Basics (Syntax)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-conditionals.html">
+   05-Conditionals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-loops.html">
+   06-Loops
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-loops-while.html">
+   07-Loops (While)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-strings.html">
+   08-Strings (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-strings-advanced.html">
+   09-Strings (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lists.html">
+   10-Lists (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-lists-advanced.html">
+   11-Lists (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dictionaries.html">
+   12-Dictionaries (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-dictionaries-advanced.html">
+   13-Dictionaries (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-functions.html">
+   14-Functions (Basics)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-functions-advanced.html">
+   15-Functions (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-classes.html">
+   16-Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17-reading-text.html">
+   17-Reading Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18-reading-advanced.html">
+   18-Working with Text Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19-reading-json.html">
+   19-Reading JSON Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20-numpy.html">
+   20-Numpy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="21-numpy-advanced.html">
+   21-Numpy (Advanced)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   21-Pandas
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/lectures/22-pandas.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/22-pandas.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/22-pandas.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-data">
+   What is data?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-across-social-science-disciplines">
+     Data across social science disciplines
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representing-data">
+     Representing data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-tabular-data">
+   What is tabular data?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1-economic-connectedness">
+     Example 1: Economic connectedness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1-as-tabular-data">
+     Example 1 as tabular data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-2-countries">
+     Example 2: Countries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-3-experimental-psychology">
+     Example 3: Experimental psychology
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tabular-data-interim-summary">
+     Tabular data: interim summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tabular-data-in-python-without-pandas">
+   Tabular data in Python
+   <em>
+    without
+   </em>
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pandas
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tabular-data-with-lists">
+     Tabular data with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     s
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#example-economic-connectedness">
+       Example: economic connectedness
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#discussion">
+       Discussion
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#discussion-continued">
+       Discussion (continued)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tabular-data-with-dicts">
+     Tabular data with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     s
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Discussion
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Discussion
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interim-summary">
+     Interim summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introducing-pandas">
+   Introducing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pandas
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pandas-dataframe">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pandas.DataFrame
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-a-dataframe">
+   Working with a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DataFrame
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#retrieving-information-about-a-dataframe">
+     Retrieving information about a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#retrieving-shape">
+       Retrieving
+       <em>
+        shape
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#retrieving-column-names">
+       Retrieving column names
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-head-and-tail">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         head
+        </span>
+       </code>
+       and
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         tail
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-a-column-attribute">
+     Accessing a column/attribute
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution-1">
+       Solution (1)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution-2">
+       Solution (2)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-a-row-observation">
+     Accessing a row/observation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data Structures with pandas</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals-of-this-lecture">
+   Goals of this lecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-data">
+   What is data?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-across-social-science-disciplines">
+     Data across social science disciplines
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representing-data">
+     Representing data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-tabular-data">
+   What is tabular data?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1-economic-connectedness">
+     Example 1: Economic connectedness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1-as-tabular-data">
+     Example 1 as tabular data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-2-countries">
+     Example 2: Countries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-3-experimental-psychology">
+     Example 3: Experimental psychology
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tabular-data-interim-summary">
+     Tabular data: interim summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tabular-data-in-python-without-pandas">
+   Tabular data in Python
+   <em>
+    without
+   </em>
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pandas
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tabular-data-with-lists">
+     Tabular data with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       list
+      </span>
+     </code>
+     s
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#example-economic-connectedness">
+       Example: economic connectedness
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#discussion">
+       Discussion
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#discussion-continued">
+       Discussion (continued)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tabular-data-with-dicts">
+     Tabular data with
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       dict
+      </span>
+     </code>
+     s
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Discussion
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Discussion
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interim-summary">
+     Interim summary
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introducing-pandas">
+   Introducing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pandas
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pandas-dataframe">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pandas.DataFrame
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-in">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-a-dataframe">
+   Working with a
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DataFrame
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#retrieving-information-about-a-dataframe">
+     Retrieving information about a
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#retrieving-shape">
+       Retrieving
+       <em>
+        shape
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#retrieving-column-names">
+       Retrieving column names
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-head-and-tail">
+       Using
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         head
+        </span>
+       </code>
+       and
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         tail
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-a-column-attribute">
+     Accessing a column/attribute
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution-1">
+       Solution (1)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#solution-2">
+       Solution (2)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Check-in
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Solution
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accessing-a-row-observation">
+     Accessing a row/observation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="data-structures-with-pandas">
+<h1>Data Structures with <code class="docutils literal notranslate"><span class="pre">pandas</span></code><a class="headerlink" href="#data-structures-with-pandas" title="Permalink to this headline">#</a></h1>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this headline">#</a></h2>
+<p>In this lecture, we’ll introduce the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> package, a really useful way to represent <strong>tabular data</strong> in Python.</p>
+<p>Topics will include:</p>
+<ul class="simple">
+<li><p>What is <strong>data</strong>?</p></li>
+<li><p>What is <strong>tabular data</strong>?</p></li>
+<li><p>Why not use a <code class="docutils literal notranslate"><span class="pre">list</span></code>, a <code class="docutils literal notranslate"><span class="pre">dict</span></code>, or <code class="docutils literal notranslate"><span class="pre">numpy</span></code>?</p></li>
+<li><p>Introducing <strong><code class="docutils literal notranslate"><span class="pre">pandas</span></code></strong>: an efficient way to store data tables.</p></li>
+<li><p>Basics of <strong><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></strong>: creating and indexing <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s.</p></li>
+</ul>
+</section>
+<section id="what-is-data">
+<h2>What is data?<a class="headerlink" href="#what-is-data" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><strong>Data</strong> is a collection of <em>values</em> conveying information. This includes quantitative values (e.g., <code class="docutils literal notranslate"><span class="pre">height</span></code>, <code class="docutils literal notranslate"><span class="pre">income</span></code>, etc.) and qualitative values (e.g., <code class="docutils literal notranslate"><span class="pre">major</span></code>, <code class="docutils literal notranslate"><span class="pre">favorite</span> <span class="pre">food</span></code>, etc.).</p>
+</div></blockquote>
+<p>All empirical sciences rely on <em>data</em> of some kind. Can you think of examples of <strong>data</strong> from your own field?</p>
+<section id="data-across-social-science-disciplines">
+<h3>Data across social science disciplines<a class="headerlink" href="#data-across-social-science-disciplines" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><strong>Linguistics</strong>: conversation transcripts, text corpora, audio recordings, etc.</p></li>
+<li><p><strong>Psychology</strong>: reaction time, fMRI recordings, etc.</p></li>
+<li><p><strong>Political Science</strong>: opinion polls, voting records, etc.</p></li>
+<li><p><strong>Economics</strong>: GDP, unemployment rate, labor surveys, etc.</p></li>
+<li><p><strong>Sociology</strong>: immigration statistics, wealth distribution, etc.</p></li>
+</ul>
+<p>And lots more!</p>
+</section>
+<section id="representing-data">
+<h3>Representing data<a class="headerlink" href="#representing-data" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Importantly, data must be <strong>represented</strong> somehow: how to do this?</p></li>
+<li><p>Further, we often have <strong>multiple sources of data</strong>.</p>
+<ul>
+<li><p>Example: <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">GPD</span></code> are two different measures we can calculate for each country.</p></li>
+<li><p>Can’t just represent with a single vector: it’s at least <strong>two-dimensional</strong>.</p></li>
+<li><p>We need a way to represent this <strong>N-dimensional</strong> data.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="what-is-tabular-data">
+<h2>What is tabular data?<a class="headerlink" href="#what-is-tabular-data" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://www.statology.org/tabular-data/">Tabular data</a> is data organized in a <strong>table</strong> with <em>rows</em> and <em>columns</em>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>This kind of data is <strong>two-dimensional</strong>.</p></li>
+<li><p>Typically, each <strong>row</strong> represents an “observation”.</p>
+<ul>
+<li><p>A person.</p></li>
+<li><p>A country.</p></li>
+<li><p>An experimental trial.</p></li>
+</ul>
+</li>
+<li><p>Typicallly, each <strong>column</strong> represents an <em>attribute</em>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">height</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gdp</span></code> or <code class="docutils literal notranslate"><span class="pre">population</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reaction_time</span></code> or <code class="docutils literal notranslate"><span class="pre">experimental_condition</span></code></p></li>
+</ul>
+</li>
+</ul>
+<section id="example-1-economic-connectedness">
+<h3>Example 1: Economic connectedness<a class="headerlink" href="#example-1-economic-connectedness" title="Permalink to this headline">#</a></h3>
+<p>In lecture 1, we looked at this figure showing the relationship between <strong>Economic Connectedness</strong> and <strong>Predicted Income Rank</strong> across counties.</p>
+<p><img alt="title" src="../_images/chetty_2022.png" /></p>
+</section>
+<section id="example-1-as-tabular-data">
+<h3>Example 1 as tabular data<a class="headerlink" href="#example-1-as-tabular-data" title="Permalink to this headline">#</a></h3>
+<p>To run this analysis (and plot the figure), the authors had to <strong>represent</strong> these data.</p>
+<p>For example, <a class="reference external" href="https://opportunityinsights.org/">their data</a> includes <em>at least</em>:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>County</p></th>
+<th class="head"><p>Connectedness</p></th>
+<th class="head"><p>Population</p></th>
+<th class="head"><p>Predicted Income Rank</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>San Francisco, California</p></td>
+<td><p>1.31</p></td>
+<td><p>870044</p></td>
+<td><p>51</p></td>
+</tr>
+<tr class="row-odd"><td><p>New York, New York</p></td>
+<td><p>0.83</p></td>
+<td><p>1632480</p></td>
+<td><p>42</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-2-countries">
+<h3>Example 2: Countries<a class="headerlink" href="#example-2-countries" title="Permalink to this headline">#</a></h3>
+<p><strong>Check-in</strong>: What does each <em>row</em> represent? What about each <em>column</em>?</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Country</p></th>
+<th class="head"><p>Population (million)</p></th>
+<th class="head"><p>GDP (Trillions)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>USA</p></td>
+<td><p>329.5</p></td>
+<td><p>20.94</p></td>
+</tr>
+<tr class="row-odd"><td><p>UK</p></td>
+<td><p>76.22</p></td>
+<td><p>2.7</p></td>
+</tr>
+<tr class="row-even"><td><p>China</p></td>
+<td><p>1402</p></td>
+<td><p>14.72</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-3-experimental-psychology">
+<h3>Example 3: Experimental psychology<a class="headerlink" href="#example-3-experimental-psychology" title="Permalink to this headline">#</a></h3>
+<p><strong>Check-in</strong>: What does each <em>row</em> represent? What about each <em>column</em>?</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Subject ID</p></th>
+<th class="head"><p>Condition</p></th>
+<th class="head"><p>Reaction Time (ms)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Congruent</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Incongruent</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Congruent</p></td>
+<td><p>110</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Incongruent</p></td>
+<td><p>145</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabular-data-interim-summary">
+<h3>Tabular data: interim summary<a class="headerlink" href="#tabular-data-interim-summary" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><strong>2-dimensional data</strong> consisting of <strong>rows</strong> and <strong>columns</strong>.</p></li>
+<li><p>Can be represented using an <strong>Excel spreadsheet</strong> (or <a class="reference external" href="https://www.google.com/sheets/about/">Google Sheet</a>).</p></li>
+<li><p>One of the most common <strong>data structures</strong>, especially in social science.</p></li>
+</ul>
+<p>This brings us to: how do we represent tabular data in Python?</p>
+</section>
+</section>
+<section id="tabular-data-in-python-without-pandas">
+<h2>Tabular data in Python <em>without</em> <code class="docutils literal notranslate"><span class="pre">pandas</span></code><a class="headerlink" href="#tabular-data-in-python-without-pandas" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Ultimately, we’ll learn about representing tabular data with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
+<li><p>But before that, let’s consider the <em>alternatives</em>.</p></li>
+<li><p>So far, we’ve learned about a couple potentially helpful data types:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Let’s consider each of these types in turn.</p></li>
+</ul>
+<section id="tabular-data-with-lists">
+<h3>Tabular data with <code class="docutils literal notranslate"><span class="pre">list</span></code>s<a class="headerlink" href="#tabular-data-with-lists" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Tabular data consists of <strong>rows</strong> and <strong>columns</strong>.</p>
+<ul>
+<li><p>Typically, each <em>column</em> corresponds to an <em>attribute</em> of an individual (e.g., a person).</p></li>
+</ul>
+</li>
+<li><p>One option is to use a separate <code class="docutils literal notranslate"><span class="pre">list</span></code> for each column.</p></li>
+</ul>
+<section id="example-economic-connectedness">
+<h4>Example: economic connectedness<a class="headerlink" href="#example-economic-connectedness" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>One <code class="docutils literal notranslate"><span class="pre">list</span></code> representing county names.</p></li>
+<li><p>Another <code class="docutils literal notranslate"><span class="pre">list</span></code> representing population.</p></li>
+<li><p>Another <code class="docutils literal notranslate"><span class="pre">list</span></code> representing economic connectedness.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SF&#39;</span><span class="p">,</span> <span class="s1">&#39;New York&#39;</span><span class="p">,</span> <span class="s1">&#39;Salt Lake&#39;</span><span class="p">]</span>
+<span class="n">population</span> <span class="o">=</span> <span class="p">[</span><span class="mi">870044</span><span class="p">,</span> <span class="mi">1632480</span><span class="p">,</span> <span class="mi">200133</span><span class="p">]</span>
+<span class="n">economic_connectedness</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.31</span><span class="p">,</span> <span class="mf">0.83</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using this method, we can track each <strong>observation</strong> (i.e., each <strong>row</strong>) using the <strong>index</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">county</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">population</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">economic_connectedness</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SF
+870044
+1.31
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion">
+<h4>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">#</a></h4>
+<p>What is a potential issue using this approach?</p>
+</section>
+<section id="discussion-continued">
+<h4>Discussion (continued)<a class="headerlink" href="#discussion-continued" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>Kind of awkward.</p></li>
+<li><p>Need to remember which <code class="docutils literal notranslate"><span class="pre">list</span></code> corresponds to which <strong>attribute</strong>.</p>
+<ul>
+<li><p>Very important to name our <code class="docutils literal notranslate"><span class="pre">list</span></code> variables carefully.</p></li>
+</ul>
+</li>
+<li><p>Also kind of annoying to have to <strong>index</strong> into each <code class="docutils literal notranslate"><span class="pre">list</span></code> separately.</p></li>
+</ul>
+</section>
+</section>
+<section id="tabular-data-with-dicts">
+<h3>Tabular data with <code class="docutils literal notranslate"><span class="pre">dict</span></code>s<a class="headerlink" href="#tabular-data-with-dicts" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>A “level up” would be to represent this data using a <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+<li><p>Each <strong>key</strong> corresponds to a <strong>column</strong> name (i.e., attribute).</p></li>
+<li><p>Each <strong>value</strong> corresponds to a <code class="docutils literal notranslate"><span class="pre">list</span></code> of those attribute values.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ec_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;county&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;SF&#39;</span><span class="p">,</span> <span class="s1">&#39;New York&#39;</span><span class="p">,</span> <span class="s1">&#39;Salt Lake&#39;</span><span class="p">],</span>
+          <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">870044</span><span class="p">,</span> <span class="mi">1632480</span><span class="p">,</span> <span class="mi">200133</span><span class="p">],</span>
+          <span class="s1">&#39;economic_connectedness&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.31</span><span class="p">,</span> <span class="mf">0.83</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Now each attribute is clearly named</span>
+<span class="n">ec_data</span><span class="p">[</span><span class="s1">&#39;county&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;SF&#39;, &#39;New York&#39;, &#39;Salt Lake&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## But we still have to be careful about our indexing</span>
+<span class="n">ec_data</span><span class="p">[</span><span class="s1">&#39;county&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SF&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4>Discussion<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<p>What is a potential issue using this approach?</p>
+</section>
+<section id="id2">
+<h4>Discussion<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>Better, but still kind of awkward.</p></li>
+<li><p>Still hard to do several things:</p>
+<ul>
+<li><p>What if we wanted <strong>each attribute</strong> for a given observation (<code class="docutils literal notranslate"><span class="pre">county</span></code>, <code class="docutils literal notranslate"><span class="pre">population</span></code>, and <code class="docutils literal notranslate"><span class="pre">economic_connectedness</span></code>)?</p></li>
+<li><p>What if we wanted to <code class="docutils literal notranslate"><span class="pre">filter</span></code> the data according to some value (i.e., <code class="docutils literal notranslate"><span class="pre">population</span> <span class="pre">&gt;</span> <span class="pre">1000000</span></code>)?</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## To get attributes for given observation, must rely on indexing</span>
+<span class="n">sf</span> <span class="o">=</span> <span class="p">(</span><span class="n">ec_data</span><span class="p">[</span><span class="s1">&#39;county&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">ec_data</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+     <span class="n">ec_data</span><span class="p">[</span><span class="s1">&#39;economic_connectedness&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;SF&#39;, 870044, 1.31)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Filtering is even harder...</span>
+<span class="c1">## Would need many more lines of code to show!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="interim-summary">
+<h3>Interim summary<a class="headerlink" href="#interim-summary" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>We know we need to represent <strong>tabular data</strong>.</p>
+<ul>
+<li><p>Need a way to represent <em>rows</em> and <em>columns</em>.</p></li>
+</ul>
+</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> is a good start: helps us track <em>column names</em>.</p></li>
+<li><p>But ideally, we’d have a better way of ensuring <strong>each observation in each column can be accessed in tandem</strong>.</p></li>
+</ul>
+</section>
+</section>
+<section id="introducing-pandas">
+<h2>Introducing <code class="docutils literal notranslate"><span class="pre">pandas</span></code><a class="headerlink" href="#introducing-pandas" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://pandas.pydata.org/"><strong><code class="docutils literal notranslate"><span class="pre">pandas</span></code></strong></a> is a package that enables <strong>fluid</strong> and <strong>efficient</strong> storage, manipulation, and analysis of data.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Import statement</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="pandas-dataframe">
+<h3><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code><a class="headerlink" href="#pandas-dataframe" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The heart of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> class.</p></li>
+<li><p>This is a way of representing <strong>tabular data</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.DataFrame(...)</span></code> can be used to turn a <code class="docutils literal notranslate"><span class="pre">dict</span></code> into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>!</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## This was the dictionary we created</span>
+<span class="n">ec_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;county&#39;: [&#39;SF&#39;, &#39;New York&#39;, &#39;Salt Lake&#39;],
+ &#39;population&#39;: [870044, 1632480, 200133],
+ &#39;economic_connectedness&#39;: [1.31, 0.83, 0.96]}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Turning this into a dataframe</span>
+<span class="n">df_ec</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ec_data</span><span class="p">)</span>
+<span class="n">df_ec</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>population</th>
+      <th>economic_connectedness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SF</td>
+      <td>870044</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>New York</td>
+      <td>1632480</td>
+      <td>0.83</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salt Lake</td>
+      <td>200133</td>
+      <td>0.96</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this headline">#</a></h4>
+<p>Suppose we have several <code class="docutils literal notranslate"><span class="pre">list</span></code>s representing attributes, like <code class="docutils literal notranslate"><span class="pre">height</span></code> and <code class="docutils literal notranslate"><span class="pre">eye_color</span></code>. How would we turn these <code class="docutils literal notranslate"><span class="pre">list</span></code>s into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">height</span> <span class="o">=</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">71</span><span class="p">]</span>
+<span class="n">eye_color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+    <span class="s1">&#39;eye_color&#39;</span><span class="p">:</span> <span class="n">eye_color</span>
+<span class="p">})</span>
+<span class="n">df_info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>eye_color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>65</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>72</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>64</td>
+      <td>green</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>65</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>68</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>71</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="working-with-a-dataframe">
+<h2>Working with a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code><a class="headerlink" href="#working-with-a-dataframe" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Now that we have a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object, we want to be able to <em>use</em> that <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
+<li><p>This includes:</p>
+<ul>
+<li><p>Get basic information about <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> (e.g., its <em>shape</em>).</p></li>
+<li><p>Accessing specific <em>columns</em>.</p></li>
+<li><p>Accessing specific <em>rows</em>.</p></li>
+</ul>
+</li>
+</ul>
+<section id="retrieving-information-about-a-dataframe">
+<h3>Retrieving information about a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code><a class="headerlink" href="#retrieving-information-about-a-dataframe" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Given a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, we might want to know things like:</p>
+<ul>
+<li><p>What is the <strong>shape</strong> of this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>?</p></li>
+<li><p>What are the names of each column?</p></li>
+<li><p>What are the first <code class="docutils literal notranslate"><span class="pre">2</span></code> rows of this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>?</p></li>
+</ul>
+</li>
+</ul>
+<section id="retrieving-shape">
+<h4>Retrieving <em>shape</em><a class="headerlink" href="#retrieving-shape" title="Permalink to this headline">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">shape</span></code> attribute tells us <code class="docutils literal notranslate"><span class="pre">(number_of_rows,</span> <span class="pre">number_of_columns</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_info</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7, 2)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="retrieving-column-names">
+<h4>Retrieving column names<a class="headerlink" href="#retrieving-column-names" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_info</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;height&#39;, &#39;eye_color&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-head-and-tail">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code><a class="headerlink" href="#using-head-and-tail" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">head(x)</span></code> function displays the top <code class="docutils literal notranslate"><span class="pre">x</span></code> rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
+<li><p>Similarly, <code class="docutils literal notranslate"><span class="pre">tail(x)</span></code> displays the last <code class="docutils literal notranslate"><span class="pre">x</span></code> rows.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_info</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>eye_color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70</td>
+      <td>blue</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>65</td>
+      <td>brown</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_info</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>height</th>
+      <th>eye_color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>68</td>
+      <td>brown</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>71</td>
+      <td>green</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="accessing-a-column-attribute">
+<h3>Accessing a column/attribute<a class="headerlink" href="#accessing-a-column-attribute" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>A <strong>column</strong> can be accessed using <code class="docutils literal notranslate"><span class="pre">dataframe_name['column_name']</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## What does this syntax remind you of?</span>
+<span class="n">df_info</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    70
+1    65
+2    72
+3    64
+4    65
+5    68
+6    71
+Name: height, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id3">
+<h4>Check-in<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p>Consider the <code class="docutils literal notranslate"><span class="pre">df_ec</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> below. How would we access the <code class="docutils literal notranslate"><span class="pre">county</span></code> column?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ec</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>population</th>
+      <th>economic_connectedness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SF</td>
+      <td>870044</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>New York</td>
+      <td>1632480</td>
+      <td>0.83</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salt Lake</td>
+      <td>200133</td>
+      <td>0.96</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="solution-1">
+<h4>Solution (1)<a class="headerlink" href="#solution-1" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ec</span><span class="p">[</span><span class="s1">&#39;county&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0           SF
+1     New York
+2    Salt Lake
+Name: county, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution-2">
+<h4>Solution (2)<a class="headerlink" href="#solution-2" title="Permalink to this headline">#</a></h4>
+<p>A column can also be accessed using the <code class="docutils literal notranslate"><span class="pre">.column_name</span></code> syntax.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ec</span><span class="o">.</span><span class="n">county</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0           SF
+1     New York
+2    Salt Lake
+Name: county, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h4>Check-in<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<p>Consider the <code class="docutils literal notranslate"><span class="pre">df_ec</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> below. How could we access <em>multiple columns</em> at once, e.g., <code class="docutils literal notranslate"><span class="pre">county</span></code> and <code class="docutils literal notranslate"><span class="pre">population</span></code>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ec</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>population</th>
+      <th>economic_connectedness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SF</td>
+      <td>870044</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>New York</td>
+      <td>1632480</td>
+      <td>0.83</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salt Lake</td>
+      <td>200133</td>
+      <td>0.96</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id5">
+<h4>Solution<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">[['col_1',</span> <span class="pre">'col_2']]</span></code> syntax.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ec</span><span class="p">[[</span><span class="s1">&#39;county&#39;</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SF</td>
+      <td>870044</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>New York</td>
+      <td>1632480</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salt Lake</td>
+      <td>200133</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="accessing-a-row-observation">
+<h3>Accessing a row/observation<a class="headerlink" href="#accessing-a-row-observation" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>To access an individual row by its <em>index</em>, we can use the <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> method.</p>
+<ul>
+<li><p>(Later, we’ll discuss accessing rows by their <strong>values</strong> using <code class="docutils literal notranslate"><span class="pre">filter</span></code>.)</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Gets first row</span>
+<span class="n">df_ec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>county                        SF
+population                870044
+economic_connectedness      1.31
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Gets second and third row</span>
+<span class="n">df_ec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>population</th>
+      <th>economic_connectedness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>New York</td>
+      <td>1632480</td>
+      <td>0.83</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salt Lake</td>
+      <td>200133</td>
+      <td>0.96</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>This concludes our introduction to <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Key takeaways were:</p>
+<ul class="simple">
+<li><p><strong>Tabular data</strong> consists of <em>rows</em> and <em>columns</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> is a Python package for representing tabular data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> is what enables this representation format.</p></li>
+</ul>
+<p>Next time, we’ll discuss more of what we can do with a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="21-numpy-advanced.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Advanced operations with <code class="docutils literal notranslate"><span class="pre">numpy</span></code></p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Sean Trott<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

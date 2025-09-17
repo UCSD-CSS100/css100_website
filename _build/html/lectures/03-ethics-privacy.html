@@ -1,0 +1,1156 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>03-Ethics (Privacy and Dual Use) &#8212; CSS 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/03-ethics-privacy';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="04-Review (Fundamentals)" href="04-review1.html" />
+    <link rel="prev" title="02-Ethics (Bias)" href="02-ethics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo_UCSD.png" class="logo__image only-light" alt="CSS 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo_UCSD.png" class="logo__image only-dark" alt="CSS 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to CSS 2!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Logistics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../course/syllabus.html">CSS 2 Syllabus: Winter 2024</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/schedule.html">CSS 2 Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/expectations.html">Course Expectations (and FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/datahub.html">Using DataHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course/final.html">Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">01-Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-ethics.html">02-Ethics (Fairness)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">03-Ethics (Privacy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-review1.html">04-Python review (basics)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-review2.html">05-Python review (data)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dataviz-pyplot.html">06-Data Visualization (Introduction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-dataviz-seaborn.html">07-Data Visualization (Seaborn)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-dataviz-principles.html">08-Data Visualization (Principles)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-wrangling.html">09-Data Wrangling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-stats-basics.html">10-Descriptive Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-stats-sampling.html">11-Foundations of Inferential Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-statistical-modeling.html">12-Introduction to Statistical Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-regression-intro.html">13-Linear Regression in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-regression-predictions.html">14-Prediction Error and More</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-multiple-regression.html">15-Multiple Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-nonlinear-regression.html">16-Non-linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-overfitting.html">17-Overfitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-logistic-regression.html">18-Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-evaluation.html">19-Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-unsupervised-clustering.html">20-Unsupervised Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flectures/03-ethics-privacy.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/03-ethics-privacy.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>03-Ethics (Privacy and Dual Use)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-studies">Case Studies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-2-an-addition-app-sharing-sensitive-data">Case Study 2: An addition app sharing sensitive data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#opioid-addiction-apps-sharing-data">Opioid addiction apps sharing data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-information-is-accessed-and-how">What information is accessed, and how?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#is-this-legal">Is this legal?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-3-a-not-for-profit-sharing-mental-health-information">Case Study 3: A not-for-profit sharing mental health information</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-need-for-mental-health-support">The need for mental health support</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-data-with-third-party-companies">Sharing data with third-party companies</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sharing-has-serious-consequences">Data sharing has serious consequences</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#privacy-and-mental-health-more-generally">Privacy and mental health more generally</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refresher-why-ethics-for-css">Refresher: why ethics for CSS?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-1-css-has-impact">Reason 1: CSS has impact</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-2-css-involves-hard-decisions">Reason 2: CSS involves hard decisions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-driven-world">The data-driven world</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-linkage">Data linkage</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#de-anonymization">De-anonymization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-privacy-as-potential-solution">Differential privacy as potential solution?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-archiving">Data archiving</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sharing-and-consent">Data sharing and consent</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ownership">Ownership</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#not-a-new-issue">Not a new issue!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-privacy-legal-considerations">Data Privacy: Legal considerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-regulations-exist-in-the-usa">What regulations exist in the USA?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#privacy-regulations-in-the-state-of-california">Privacy regulations in the state of California</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regulations-in-the-eu">Regulations in the EU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-privacy-advocates-want">What do privacy advocates want?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-privacy-researcher-considerations">Data Privacy: Researcher considerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ten-simple-rules">“Ten simple rules”</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-1-data-are-people-and-can-do-harm">Rule 1: Data are people and can do harm.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-2-privacy-binary-value">Rule 2: Privacy ≠ binary value</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-3-guard-against-reidentification">Rule 3: Guard against reidentification</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-4-ethical-data-sharing">Rule 4: Ethical data sharing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-8-design-for-auditability">Rule 8: Design for auditability</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-statements">Data statements</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-this-involve">What does this involve?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trade-offs-privacy-and-fairness-in-conflict">Trade-offs: privacy and fairness in conflict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-privacy-can-have-disparate-impact">Differential privacy can have disparate impact</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-disparate-impact">Why disparate impact?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithmic-fairness-can-create-privacy-risks">Algorithmic fairness can create privacy risks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#navigating-trade-offs">Navigating trade-offs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ethics-privacy-and-dual-use">
+<h1>03-Ethics (Privacy and Dual Use)<a class="headerlink" href="#ethics-privacy-and-dual-use" title="Permalink to this heading">#</a></h1>
+<p><img alt="title" src="../_images/privacy_img.png" /></p>
+<section id="goals-of-this-lecture">
+<h2>Goals of this lecture<a class="headerlink" href="#goals-of-this-lecture" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Case studies 2-3: data collection and privacy violations.</p></li>
+<li><p>Refresher: Why ethics?</p></li>
+<li><p>Ethical issues: the <strong>fundamentals</strong>.</p></li>
+<li><p>What <strong>legal regulations</strong> exist?</p></li>
+<li><p>What should <strong>individual researchers</strong> do?</p></li>
+<li><p><strong>Trade-offs</strong> between different ethical considerations.</p></li>
+</ul>
+</section>
+<section id="case-studies">
+<h2>Case Studies<a class="headerlink" href="#case-studies" title="Permalink to this heading">#</a></h2>
+<section id="case-study-2-an-addition-app-sharing-sensitive-data">
+<h3>Case Study 2: An addition app sharing sensitive data<a class="headerlink" href="#case-study-2-an-addition-app-sharing-sensitive-data" title="Permalink to this heading">#</a></h3>
+<section id="opioid-addiction-apps-sharing-data">
+<h4>Opioid addiction apps sharing data<a class="headerlink" href="#opioid-addiction-apps-sharing-data" title="Permalink to this heading">#</a></h4>
+<p>Telehealth apps growing in popularity:</p>
+<blockquote>
+<div><p>As a result of the COVID-19 pandemic and efforts to reduce transmission in the U.S, telehealth services and apps offering opioid addiction treatment have surged in popularity.</p>
+</div></blockquote>
+<p>But these apps may be accessing and sharing sensitive data:</p>
+<blockquote>
+<div><p>Despite the vast reach and sensitive nature of these services, the research found that the majority of the apps accessed <strong>unique identifiers about the user’s device and, in some cases, shared that data with third parties</strong>.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://techcrunch.com/2021/07/07/opioid-addiction-treatment-apps-found-sharing-sensitive-data-with-third-parties/">Source: TechCrunch</a></p>
+</section>
+<section id="what-information-is-accessed-and-how">
+<h4>What information is accessed, and how?<a class="headerlink" href="#what-information-is-accessed-and-how" title="Permalink to this heading">#</a></h4>
+<p>Information about the <strong>device</strong>:</p>
+<blockquote>
+<div><p>Five of the apps also access the devices’ phone number…and two access a users’ list of installed apps.</p>
+</div></blockquote>
+<p>Information about a user’s <strong>location</strong>:</p>
+<blockquote>
+<div><p>Seven of the apps request permission to make Bluetooth connections…can be used to track users in real-world locations.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://techcrunch.com/2021/07/07/opioid-addiction-treatment-apps-found-sharing-sensitive-data-with-third-parties/">Source: TechCrunch</a></p>
+</section>
+<section id="is-this-legal">
+<h4>Is this legal?<a class="headerlink" href="#is-this-legal" title="Permalink to this heading">#</a></h4>
+<p>Some say this practice violates <a class="reference external" href="https://www.ecfr.gov/current/title-42/chapter-I/subchapter-A/part-2"><strong>laws about confidentiality of patient information</strong></a>, but:</p>
+<blockquote>
+<div><p>While 42 CFR Part 2 recognizes the very sensitive nature of substance use disorder treatment, it doesn’t mention apps at all. Existing privacy laws are totally not up to speed.</p>
+</div></blockquote>
+<p>In practice, a big problem is a lack of <strong>dedicated privacy staff</strong>:</p>
+<blockquote>
+<div><p>Another likely reason for these practices is a lack of security and data privacy staff, according to Jonathan Stoltman, director at Opioid Policy Institute, which contributed to the research.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://techcrunch.com/2021/07/07/opioid-addiction-treatment-apps-found-sharing-sensitive-data-with-third-parties/">Source: TechCrunch</a></p>
+</section>
+</section>
+<section id="case-study-3-a-not-for-profit-sharing-mental-health-information">
+<h3>Case Study 3: A not-for-profit sharing mental health information<a class="headerlink" href="#case-study-3-a-not-for-profit-sharing-mental-health-information" title="Permalink to this heading">#</a></h3>
+<section id="the-need-for-mental-health-support">
+<h4>The need for mental health support<a class="headerlink" href="#the-need-for-mental-health-support" title="Permalink to this heading">#</a></h4>
+<p><a class="reference external" href="https://www.crisistextline.org/"><strong>Crisis Text Line (CTL)</strong></a> is non-profit suicide prevention hotline.</p>
+<ul class="simple">
+<li><p>Connects individuals (e.g., those suffering from depression) with volunteers.</p></li>
+<li><p>In the process, <strong>records</strong> and <strong>collects data</strong> about these conversations.</p>
+<ul>
+<li><p>Has called this “the largest mental health data set in the world”.</p></li>
+</ul>
+</li>
+<li><p>This data can be used to help <strong>identify especially urgent</strong> cases.</p></li>
+</ul>
+<p><a class="reference external" href="https://www.scientificamerican.com/article/mental-health-apps-are-not-keeping-your-data-safe/">Source: Scientific American</a></p>
+</section>
+<section id="sharing-data-with-third-party-companies">
+<h4>Sharing data with third-party companies<a class="headerlink" href="#sharing-data-with-third-party-companies" title="Permalink to this heading">#</a></h4>
+<p><a class="reference external" href="https://www.politico.com/news/2022/01/28/suicide-hotline-silicon-valley-privacy-debates-00002617">Recent reporting</a> found that Crisis Text Line was sharing <strong>anonymized data</strong> with a third-party company, <a class="reference external" href="https://loris.ai/">Loris.ai</a>.</p>
+<ul class="simple">
+<li><p>Loris uses data to improve <strong>customer management</strong> software.</p></li>
+<li><p>In return, Loris shares <strong>revenue</strong> with CTL.</p></li>
+</ul>
+<p><em>Technically</em>, CTL users “consent” to this disclosure.</p>
+<ul class="simple">
+<li><p>But unclear whether their consent is <strong>meaningful</strong>: disclosure form is 50+ pages, and users are deeply suffering when they read it.</p></li>
+</ul>
+<p><a class="reference external" href="https://www.scientificamerican.com/article/mental-health-apps-are-not-keeping-your-data-safe/">Source: Scientific American</a></p>
+</section>
+<section id="data-sharing-has-serious-consequences">
+<h4>Data sharing has serious consequences<a class="headerlink" href="#data-sharing-has-serious-consequences" title="Permalink to this heading">#</a></h4>
+<p>In many cases, sharing this data can <strong>cause harm</strong>.</p>
+<blockquote>
+<div><p>In 2018, U.S. border authorities refused entry to several Canadians who had survived suicide attempts, based on information in a police database.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.scientificamerican.com/article/mental-health-apps-are-not-keeping-your-data-safe/">Source: Scientific American</a></p>
+</section>
+<section id="privacy-and-mental-health-more-generally">
+<h4>Privacy and mental health more generally<a class="headerlink" href="#privacy-and-mental-health-more-generally" title="Permalink to this heading">#</a></h4>
+<p>Of 132 studies surveyed:</p>
+<blockquote>
+<div><p>The researchers in 85 percent of the studies didn’t address, either in study design, or in reporting results, how the technologies could be used in negative ways.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.scientificamerican.com/article/mental-health-apps-are-not-keeping-your-data-safe/">Source: Scientific American</a></p>
+</section>
+</section>
+</section>
+<section id="refresher-why-ethics-for-css">
+<h2>Refresher: why ethics for CSS?<a class="headerlink" href="#refresher-why-ethics-for-css" title="Permalink to this heading">#</a></h2>
+<section id="reason-1-css-has-impact">
+<h3>Reason 1: CSS has impact<a class="headerlink" href="#reason-1-css-has-impact" title="Permalink to this heading">#</a></h3>
+<p>In CSS, our work can have <strong>real-world impact</strong>.</p>
+<ul class="simple">
+<li><p>Is this impact <em>positive</em>?</p></li>
+<li><p>Does this work have the potential to <em>cause harm</em>?</p></li>
+<li><p>How does the potential harm compare to <em>current harms</em>?</p></li>
+</ul>
+</section>
+<section id="reason-2-css-involves-hard-decisions">
+<h3>Reason 2: CSS involves hard decisions<a class="headerlink" href="#reason-2-css-involves-hard-decisions" title="Permalink to this heading">#</a></h3>
+<p>We also face many <strong>difficult questions</strong>.</p>
+<p>Hard question(s) of the day:</p>
+<ol class="arabic simple">
+<li><p>Does this work violate <strong>privacy</strong> or have harmful potential for <strong>dual use</strong>?</p></li>
+<li><p>What kind of <strong>regulations</strong> and <strong>enforcement mechanisms</strong> are (or should be) in place to protect against this?</p></li>
+<li><p>What can/should I do as an <strong>individual researcher</strong>?</p></li>
+</ol>
+</section>
+</section>
+<section id="the-data-driven-world">
+<h2>The data-driven world<a class="headerlink" href="#the-data-driven-world" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Increasingly, our activities leave behind a <strong>digital trace</strong>:</p></li>
+</ul>
+<blockquote>
+<div><p>Digital trace data are “records of activity (trace data) undertaken through an online information system (thus, digital).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The availability of data is part of the promise of <a class="reference external" href="https://en.wikipedia.org/wiki/Big_data">“Big Data”</a>.</p></li>
+<li><p>But it also raises a number of <strong>conceptual and ethical issues</strong>.</p></li>
+</ul>
+<p><a class="reference external" href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781003024583-13/ethics-privacy-computational-social-science-william-hollingshead-anabel-quan-haase-wenhong-chen">Source: Hollingshead et al. (2021)</a></p>
+<section id="data-linkage">
+<h3>Data linkage<a class="headerlink" href="#data-linkage" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Data linkage</strong> refers  to  the  unification  of  corresponding  datasets  to  enable  a  richer  informational account of the unit of analysis.</p>
+</div></blockquote>
+<p>For example, the <a class="reference external" href="https://www.cdc.gov/nchs/data-linkage/datalinkagestory.htm">CDC provides <em>links</em> between different data sources</a>:</p>
+<p><img alt="title" src="../_images/linkage.png" /></p>
+<p><a class="reference external" href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781003024583-13/ethics-privacy-computational-social-science-william-hollingshead-anabel-quan-haase-wenhong-chen">Source: Hollingshead et al. (2021)</a></p>
+<section id="de-anonymization">
+<h4>De-anonymization<a class="headerlink" href="#de-anonymization" title="Permalink to this heading">#</a></h4>
+<p>Data linkage is a really powerful <strong>tool</strong> in our toolkit, but it also raises issues, such as <strong>de-anonymization</strong>.</p>
+<blockquote>
+<div><p><strong>De-anonymization</strong> is a data mining strategy in which anonymous data is cross-referenced with other data sources to re-identify the anonymous data source.</p>
+</div></blockquote>
+<p>Sometimes, purpotedly <em>anonymized</em> datasets can be <em>de-anonymized</em> using data linkage. This happened famously in 2008 with the <a class="reference external" href="https://en.wikipedia.org/wiki/Netflix_Prize#Privacy_concerns">Netflix Prize Dataset</a>.</p>
+<p><img alt="deanonymization.png" src="../_images/deanonymization.png" /></p>
+</section>
+<section id="differential-privacy-as-potential-solution">
+<h4>Differential privacy as potential solution?<a class="headerlink" href="#differential-privacy-as-potential-solution" title="Permalink to this heading">#</a></h4>
+<p><a class="reference external" href="https://privacytools.seas.harvard.edu/differential-privacy"><strong>Differential privacy</strong></a> is an approach to ensuring data security and de-identification.</p>
+<blockquote>
+<div><p>A dataset/algorithm is “differentially private” if by looking at the output, one cannot tell whether any given individual’s data was included or not.</p>
+</div></blockquote>
+<p>Differential privacy tries to <em>mathematically formalize</em> the notion of privacy to overcome the data linkage problem.</p>
+<blockquote>
+<div><p>These “linkage attacks” motivate the need for a robust definition of privacy – one that is immune to attacks using auxiliary knowledge, including knowledge that a data curator cannot predict the availability of.</p>
+</div></blockquote>
+<p><strong>Counterpoint</strong>: differential privacy tends to <strong>decrease accuracy</strong>, as it involves injecting noise into a dataset.</p>
+<ul class="simple">
+<li><p>We will revisit this later in the lecture.</p></li>
+</ul>
+<p><a class="reference external" href="https://latanyasweeney.org/work/identifiability.html">Relevant research: Latanya Sweeney’s work on de-anonymization and data linkage</a>.</p>
+</section>
+<section id="check-in">
+<h4>Check-in<a class="headerlink" href="#check-in" title="Permalink to this heading">#</a></h4>
+<p><em>Reflection</em>: how many digital accounts do you have (social media, Amazon, Netflix, etc.)? Do you think someone could deduce your identity by linking these accounts together?</p>
+</section>
+</section>
+<section id="data-archiving">
+<h3>Data archiving<a class="headerlink" href="#data-archiving" title="Permalink to this heading">#</a></h3>
+<p>The recent <a class="reference external" href="https://en.wikipedia.org/wiki/Replication_crisis">replicability crisis</a> in science has prompted a movement towards <a class="reference external" href="https://en.wikipedia.org/wiki/Open_science">“open science”</a>.</p>
+<ul class="simple">
+<li><p>This includes making data <strong>publicly available</strong>.</p></li>
+<li><p>In fact, many scientific journals now <em>require</em> that an anonymized dataset be made available to other researchers.</p></li>
+</ul>
+<p>While good for <strong>transparency</strong>, this also raises ethical concerns around <strong>consent</strong>.</p>
+<p>More generally, the widespread practice of <strong>data sharing</strong> by companies means that our data may be made accessible to third parties.</p>
+<section id="data-sharing-and-consent">
+<h4>Data sharing and consent<a class="headerlink" href="#data-sharing-and-consent" title="Permalink to this heading">#</a></h4>
+<p>Although participants/users may <strong>consent</strong> to <em>some uses</em> of their data, public availability means that other actors can use that data too:</p>
+<blockquote>
+<div><p>Informational flows open the possibility that <strong>a person’s information will be used for different purposes than for those originally intended</strong>.</p>
+</div></blockquote>
+<p>When it comes to companies sharing data, a big problem is “legalese” in their Terms of Service:</p>
+<blockquote>
+<div><p>It is entirely plausible that for some users, a thorough reading of the ToS would result in the revocation of consent. Nevertheless, the expression of “consent” at one point in time effectively means that a digital user becomes datafied for diverse purposes.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781003024583-13/ethics-privacy-computational-social-science-william-hollingshead-anabel-quan-haase-wenhong-chen">Source: Hollingshead et al. (2021)</a></p>
+</section>
+<section id="id1">
+<h4>Check-in<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>Can you think of examples of how your digital data might be used for multiple purposes you didn’t consent to?</p>
+</section>
+</section>
+<section id="ownership">
+<h3>Ownership<a class="headerlink" href="#ownership" title="Permalink to this heading">#</a></h3>
+<p>Who owns the data in your “digital trace”?</p>
+<p>Consider the following kinds of data:</p>
+<ul class="simple">
+<li><p>Location data.</p></li>
+<li><p>Purchasing history.</p></li>
+<li><p>Social media contacts and activity.</p></li>
+<li><p>Chat messages.</p></li>
+<li><p>Netflix activity.</p></li>
+</ul>
+<p><em>Reflection</em>: Who “owns” these data? Who should own it?</p>
+<section id="not-a-new-issue">
+<h4>Not a new issue!<a class="headerlink" href="#not-a-new-issue" title="Permalink to this heading">#</a></h4>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Henrietta_Lacks">Henrietta Lacks</a> was an African-American woman whose cancer cells were used for the <a class="reference external" href="https://en.wikipedia.org/wiki/HeLa">HeLa line</a>, an “immortal cell line” used for scientific research.</p>
+<ul class="simple">
+<li><p>The “HeLa line” has facilitated many discoveries, including the <strong>polio vaccine</strong>.</p></li>
+<li><p>But Henrietta Lacks was not told about this use, nor did she consent.</p></li>
+</ul>
+<p>This controversy inspired the <a class="reference external" href="https://en.wikipedia.org/wiki/Common_Rule">Common Rule</a> in medicine, which requires that doctors <strong>inform patients</strong> whether their medical data (tissues, etc.) will be used for research.</p>
+<p><img alt="lacks.jpeg" src="../_images/lacks.jpeg" /></p>
+</section>
+</section>
+</section>
+<section id="data-privacy-legal-considerations">
+<h2>Data Privacy: Legal considerations<a class="headerlink" href="#data-privacy-legal-considerations" title="Permalink to this heading">#</a></h2>
+<p>Before we consider what we can/should do as <em>individuals</em>, it’s important to understand the landscape of <strong>legal regulations</strong> surrounding data ethics and privacy.</p>
+<section id="what-regulations-exist-in-the-usa">
+<h3>What regulations exist in the USA?<a class="headerlink" href="#what-regulations-exist-in-the-usa" title="Permalink to this heading">#</a></h3>
+<p>Within the USA, no <em>single</em> law to regulate all kinds of data.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Health_Insurance_Portability_and_Accountability_Act">HIPAA</a>: laws about how <strong>health information</strong> can be shared.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Family_Educational_Rights_and_Privacy_Act">FERPA</a>: laws about how <strong>educational information</strong> (e.g., student records) can be shared.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Electronic_Communications_Privacy_Act">ECRA</a>: laws about how <strong>electronic communications information</strong> can be accessed and shared.</p></li>
+</ul>
+<p>Though specific <strong>states</strong> have more comprehensive laws.</p>
+<p><a class="reference external" href="https://www.nytimes.com/wirecutter/blog/state-of-privacy-laws-in-us/">Source: New York Times, 2021</a></p>
+<section id="privacy-regulations-in-the-state-of-california">
+<h4>Privacy regulations in the state of California<a class="headerlink" href="#privacy-regulations-in-the-state-of-california" title="Permalink to this heading">#</a></h4>
+<p>The <a class="reference external" href="https://www.perkinscoie.com/en/practices/security-privacy-law/california-privacy-rights-act-cpra.html"><strong>California Privacy Rights Act (CPRA)</strong></a> includes stipulations about <strong>data privacy</strong>.</p>
+<ol class="arabic simple">
+<li><p><strong>Private right of action</strong>: individuals can sue companies for privacy violations.</p></li>
+<li><p><strong>Global opt-out</strong>.</p></li>
+</ol>
+<blockquote>
+<div><p>remove one’s self from data sharing by device or browser, instead of being forced to opt out on each site individually</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>Right to correct</strong> inaccurate personal information.</p></li>
+<li><p>Right to <strong>enhanced transparency</strong>.</p></li>
+</ol>
+</section>
+</section>
+<section id="regulations-in-the-eu">
+<h3>Regulations in the EU<a class="headerlink" href="#regulations-in-the-eu" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://gdpr.eu/what-is-gdpr/"><strong>General Data Protection Regulation (GDPR)</strong></a>: very extensive regulations about data privacy in the <a class="reference external" href="https://en.wikipedia.org/wiki/European_Union">European Union</a>.</p>
+<p>Regulations include (but not limited to):</p>
+<ul class="simple">
+<li><p><strong>Data protection principles</strong>: limit the <em>purpose</em> and <em>extent</em> of data (i.e., <em>data minimization</em>).</p></li>
+<li><p><strong>Accountability</strong>: teams must have dedicated technical staff for data protection.</p>
+<ul>
+<li><p>Many teams must have a <a class="reference external" href="https://gdpr.eu/data-protection-officer/"><strong>Data Protection Officer (DPO)</strong></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>Consent</strong>: must be freely given, can be withdrawn by <em>data subjects</em> at anytime.</p></li>
+<li><p><strong>Privacy rights</strong>: data subjects given a set of <a class="reference external" href="https://gdpr.eu/tag/chapter-3/"><em>rights</em></a>.</p>
+<ul>
+<li><p>Includes <em>right to be informed</em>, <em>right to erasure</em>, <em>right to data portability</em>, and more.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="title" src="../_images/eu_flag.png" /></p>
+</section>
+<section id="what-do-privacy-advocates-want">
+<h3>What do privacy advocates want?<a class="headerlink" href="#what-do-privacy-advocates-want" title="Permalink to this heading">#</a></h3>
+<p>Advocate for various <strong>rights</strong>:</p>
+<ul class="simple">
+<li><p>Rights over <strong>data collection</strong>: access to data that companies have collected about you (and request deletion, etc.).</p></li>
+<li><p><strong>Opt-in consent</strong>: opt in, not out, of data collection.</p></li>
+<li><p><strong>Data minimization</strong>: only collect data absolutely necessary for product.</p></li>
+<li><p><strong>Non-discrimination</strong>: service should not be altered for people who opt-out.</p></li>
+</ul>
+<p>This also requires some <strong>enforcement mechanism</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://termly.io/resources/articles/ccpa-private-right-of-action/#:~:text=A%20private%20right%20of%20action%20is%20defined%20as%20a%20right,belonging%20to%20a%20private%20person.">Right to <strong>sue</strong> companies who violate regulation?</a></p></li>
+<li><p><a class="reference external" href="https://www.wired.com/story/why-dont-we-just-ban-targeted-advertising/"><strong>Banning</strong> of targeted advertising?</a></p></li>
+</ul>
+<p><a class="reference external" href="https://www.nytimes.com/wirecutter/blog/state-of-privacy-laws-in-us/">Source: New York Times, 2021</a></p>
+</section>
+</section>
+<section id="data-privacy-researcher-considerations">
+<h2>Data Privacy: Researcher considerations<a class="headerlink" href="#data-privacy-researcher-considerations" title="Permalink to this heading">#</a></h2>
+<p>What can (and should) we do as individual <em>researchers</em>?</p>
+<p><img alt="title" src="../_images/excel.png" /></p>
+<section id="ten-simple-rules">
+<h3>“Ten simple rules”<a class="headerlink" href="#ten-simple-rules" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005399">Zook et al. (2017)</a> describe “ten simple rules” to follow for responsible Big Data research.</p>
+<ul class="simple">
+<li><p>Here, we will cover the rules most relevant to <strong>bias</strong> and <strong>privacy</strong>.</p></li>
+</ul>
+<p>As we read each rule, <em>reflect</em>:</p>
+<ul class="simple">
+<li><p>How can I use this rule in my own research?</p></li>
+<li><p>Is this rule precise enough to be useful?</p></li>
+</ul>
+<section id="rule-1-data-are-people-and-can-do-harm">
+<h4>Rule 1: Data are people and can do harm.<a class="headerlink" href="#rule-1-data-are-people-and-can-do-harm" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>One of the most fundamental rules of responsible big data research is the steadfast recognition that most data represent or impact people.</p>
+</div></blockquote>
+<p>This also connects to our lecture on <strong>bias</strong>:</p>
+<blockquote>
+<div><p>Harm can also result when seemingly innocuous datasets about population-wide effects are used to shape the lives of individuals or stigmatize groups, often without procedural recourse.</p>
+</div></blockquote>
+<p><strong>Recommendation</strong>:</p>
+<blockquote>
+<div><p>Start with the assumption that data are people (until proven otherwise), and use it to guide your analysis.</p>
+</div></blockquote>
+</section>
+<section id="rule-2-privacy-binary-value">
+<h4>Rule 2: Privacy ≠ binary value<a class="headerlink" href="#rule-2-privacy-binary-value" title="Permalink to this heading">#</a></h4>
+<p>Privacy is not just a <strong>binary value</strong>:</p>
+<blockquote>
+<div><p>Looking at a single Instagram photo by an individual has different ethical implications than looking at someone’s full history of all social media posts.</p>
+</div></blockquote>
+<p>Sharing is okay in <em>some contexts</em> and not in others:</p>
+<blockquote>
+<div><p>Likewise, distributing health records is a necessary part of receiving health care, but this same sharing brings new ethical concerns when it goes beyond providers to marketers.</p>
+</div></blockquote>
+<p><strong>Recommendation</strong>:</p>
+<blockquote>
+<div><p>Situate and contextualize your data to anticipate privacy breaches and minimize harm.</p>
+</div></blockquote>
+</section>
+<section id="rule-3-guard-against-reidentification">
+<h4>Rule 3: Guard against reidentification<a class="headerlink" href="#rule-3-guard-against-reidentification" title="Permalink to this heading">#</a></h4>
+<p>Many examples of “anonymized” data being <strong>de-anonymized</strong>:</p>
+<blockquote>
+<div><p>When datasets thought to be anonymized are combined with other variables, it may result in unexpected reidentification, much like a chemical reaction resulting from the addition of a final ingredient.</p>
+</div></blockquote>
+<p>“Big data” allows for combining many different features to identify a person:</p>
+<blockquote>
+<div><p>Surprising to many, unlabeled network graphs—such as location and movement, DNA profiles, call records from mobile phone data, and even high-resolution satellite images of the earth—can be used to reidentify people.</p>
+</div></blockquote>
+<p><strong>Recommendation</strong>:</p>
+<blockquote>
+<div><p>Identify possible vectors of reidentification in your data. Work to minimize them in your published results to the greatest extent possible.</p>
+</div></blockquote>
+</section>
+<section id="rule-4-ethical-data-sharing">
+<h4>Rule 4: Ethical data sharing<a class="headerlink" href="#rule-4-ethical-data-sharing" title="Permalink to this heading">#</a></h4>
+<p><strong>Data sharing</strong> is an important part of research:</p>
+<blockquote>
+<div><p>For example, in rare genetic disease research, biological samples are shared in the hope of finding cures, making dissemination a condition of participation.</p>
+</div></blockquote>
+<p>But we must be careful about not violating the terms of our consent:</p>
+<blockquote>
+<div><p>However, we caution that even when broad consent was obtained upfront, researchers should consider the best interests of the human participant, proactively considering the likelihood of privacy breaches and reidentification issues.</p>
+</div></blockquote>
+<p><strong>Recommendation</strong>:</p>
+<blockquote>
+<div><p>Share data as specified in research protocols, but proactively address concerns of potential harm from informally collected big data.</p>
+</div></blockquote>
+</section>
+<section id="rule-8-design-for-auditability">
+<h4>Rule 8: Design for auditability<a class="headerlink" href="#rule-8-design-for-auditability" title="Permalink to this heading">#</a></h4>
+<p>An important part of responsible data practices is building systems that can be easily <strong>audited</strong>:</p>
+<blockquote>
+<div><p>Responsible internal auditing processes flow easily into audit systems and also keep track of factors that might contribute to problematic outcomes.</p>
+</div></blockquote>
+<p>One benefit of this is forcing researchers to debate the tough questions:</p>
+<blockquote>
+<div><p>Designing for auditability also brings direct benefits to researchers by providing a mechanism for double-checking work and forcing oneself to be explicit about decisions, increasing understandability and replicability.</p>
+</div></blockquote>
+<p><strong>Recommendation</strong>:</p>
+<blockquote>
+<div><p>Plan for and welcome audits of your big data practices.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="data-statements">
+<h3>Data statements<a class="headerlink" href="#data-statements" title="Permalink to this heading">#</a></h3>
+<p>If you <strong>compile</strong> and <strong>release</strong> a dataset, you can attach a <strong>data statement</strong>.</p>
+<blockquote>
+<div><p>A data statement is a characterization of a dataset that provides context to allow developers and users to better understand how experimental results might generalize, how software might be appropriately deployed, and what biases might be reflected in systems built on the software.</p>
+</div></blockquote>
+<p>This is one way to make your data more <strong>transparent</strong>.</p>
+<p><a class="reference external" href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00041/43452/Data-Statements-for-Natural-Language-Processing">Bender &amp; Friedman, 2018</a></p>
+<section id="what-does-this-involve">
+<h4>What does this involve?<a class="headerlink" href="#what-does-this-involve" title="Permalink to this heading">#</a></h4>
+<p>Motivation for <strong>creation</strong> of dataset:</p>
+<ul class="simple">
+<li><p>Why was it created?</p></li>
+<li><p>What other tasks could the dataaset be used for?</p></li>
+</ul>
+<p>Dataset <strong>composition</strong>:</p>
+<ul class="simple">
+<li><p>What is each “instance”––i.e., “row”––in the dataset?</p></li>
+<li><p>How many instances are there?</p></li>
+</ul>
+<p>Dataset <strong>maintenance</strong>:</p>
+<ul class="simple">
+<li><p>Who is responsible for maintaining the dataset?</p></li>
+<li><p>Who should be contacted with questions?</p></li>
+</ul>
+<p><strong>Legal</strong> considerations:</p>
+<ul class="simple">
+<li><p>Were individuals informed about data collection? Did they consent?</p></li>
+<li><p>Could this dataset expose people to harm or legal action?</p></li>
+<li><p>Does this dataset comply with the GDPR legal standards?</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="trade-offs-privacy-and-fairness-in-conflict">
+<h2>Trade-offs: privacy and fairness in conflict<a class="headerlink" href="#trade-offs-privacy-and-fairness-in-conflict" title="Permalink to this heading">#</a></h2>
+<p>In these lectures, we’ve discussed two <strong>pillars</strong> of ethical CSS:</p>
+<ol class="arabic simple">
+<li><p><strong>Fairness</strong>.</p></li>
+<li><p><strong>Privacy</strong>.</p></li>
+</ol>
+<p>Both of these are challenging on their own. Yet the problem is made <strong>more complex when we consider <em>both</em> criteria at once.</strong></p>
+<section id="differential-privacy-can-have-disparate-impact">
+<h3>Differential privacy can have disparate impact<a class="headerlink" href="#differential-privacy-can-have-disparate-impact" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>As discussed before, <a class="reference external" href="https://privacytools.seas.harvard.edu/differential-privacy"><strong>differential privacy (DP)</strong></a> is an approach to minimizing the risk of <strong>de-anonymization</strong>.</p></li>
+<li><p>Yet <a class="reference external" href="https://proceedings.neurips.cc/paper/2019/file/fc0de4e0396fff257ea362983c2dda5a-Paper.pdf">recent research (Bagdasaryan et al. (2019)</a> has found that in some many, implementing DP leads to <strong>disparate impact</strong>.</p>
+<ul>
+<li><p>Models trained with DP have <em>systematically lower accuracy</em> for under-represented groups.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Accuracy of DP models drops much more for the underrepresented classes and subgroups</p>
+</div></blockquote>
+<section id="why-disparate-impact">
+<h4>Why disparate impact?<a class="headerlink" href="#why-disparate-impact" title="Permalink to this heading">#</a></h4>
+<p>Differential privacy works by effectively <strong>adding noise</strong> to observations in a dataset.</p>
+<ul class="simple">
+<li><p>This typically decreases accuracy <em>across the board</em>.</p></li>
+<li><p>However, because some groups are <strong>systematically under-represented</strong>, accuracy is most impacted for these groups.</p></li>
+</ul>
+<p>Fundamentally, this connects back to issues of <strong>biased data</strong>.</p>
+<ul class="simple">
+<li><p>Datasets often under-represent certain groups, which can lead to harmful impacts down the road.</p></li>
+<li><p>One solution is creating <strong>balanced data</strong>, e.g., <a class="reference external" href="http://proceedings.mlr.press/v81/buolamwini18a.html?mod=article_inline">gender shades (Buolamwini &amp; Gebru, 2018)</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="algorithmic-fairness-can-create-privacy-risks">
+<h3>Algorithmic fairness can create privacy risks<a class="headerlink" href="#algorithmic-fairness-can-create-privacy-risks" title="Permalink to this heading">#</a></h3>
+<p>One approach to <strong>algorithmic fairness</strong> is forcing a model to produce <em>identical behavior</em> across groups.</p>
+<ul class="simple">
+<li><p>E.g., <strong>demographic parity</strong>.</p></li>
+</ul>
+<p>But to accomplish this, the model must <em>weight</em> some data points more than others. This can lead to <strong>data leakage</strong>:</p>
+<blockquote>
+<div><p>We show that fairness comes at the cost of privacy, and this cost is not distributed equally: the information leakage of fair models increases signifcantly on the unprivileged subgroups, which are the ones for whom we need fair
+learning.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.ftc.gov/system/files/documents/public_events/1582978/on_the_privacy_risks_of_algorithmic_fairness.pdf">Source: Chang &amp; Shokri, 2021</a></p>
+</section>
+<section id="navigating-trade-offs">
+<h3>Navigating trade-offs<a class="headerlink" href="#navigating-trade-offs" title="Permalink to this heading">#</a></h3>
+<p>Ethical research in CSS must keep both criteria in mind:</p>
+<ol class="arabic simple">
+<li><p>Fairness.</p></li>
+<li><p>Privacy.</p></li>
+</ol>
+<p>But when these criteria <strong>trade-off</strong>, researchers must set their <em>priorities</em>.</p>
+<p><em>Reflection</em>: Which criterion seems more important to you, and why?</p>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Work in <strong>Computational Social Science</strong> has the potential for real-world impact.</p></li>
+<li><p>As researchers, we must be conscious of the potential for <em>harmful impact</em>––and try to mitigate or avoid this harm.</p></li>
+<li><p>Two <strong>pillars</strong> of ethical research are <strong>fairness</strong> and <strong>privacy</strong>.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02-ethics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">02-Ethics (Bias)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04-review1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">04-Review (Fundamentals)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-this-lecture">Goals of this lecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-studies">Case Studies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-2-an-addition-app-sharing-sensitive-data">Case Study 2: An addition app sharing sensitive data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#opioid-addiction-apps-sharing-data">Opioid addiction apps sharing data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-information-is-accessed-and-how">What information is accessed, and how?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#is-this-legal">Is this legal?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-3-a-not-for-profit-sharing-mental-health-information">Case Study 3: A not-for-profit sharing mental health information</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-need-for-mental-health-support">The need for mental health support</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-data-with-third-party-companies">Sharing data with third-party companies</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sharing-has-serious-consequences">Data sharing has serious consequences</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#privacy-and-mental-health-more-generally">Privacy and mental health more generally</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refresher-why-ethics-for-css">Refresher: why ethics for CSS?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-1-css-has-impact">Reason 1: CSS has impact</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reason-2-css-involves-hard-decisions">Reason 2: CSS involves hard decisions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-driven-world">The data-driven world</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-linkage">Data linkage</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#de-anonymization">De-anonymization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-privacy-as-potential-solution">Differential privacy as potential solution?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#check-in">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-archiving">Data archiving</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sharing-and-consent">Data sharing and consent</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Check-in</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ownership">Ownership</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#not-a-new-issue">Not a new issue!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-privacy-legal-considerations">Data Privacy: Legal considerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-regulations-exist-in-the-usa">What regulations exist in the USA?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#privacy-regulations-in-the-state-of-california">Privacy regulations in the state of California</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regulations-in-the-eu">Regulations in the EU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-privacy-advocates-want">What do privacy advocates want?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-privacy-researcher-considerations">Data Privacy: Researcher considerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ten-simple-rules">“Ten simple rules”</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-1-data-are-people-and-can-do-harm">Rule 1: Data are people and can do harm.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-2-privacy-binary-value">Rule 2: Privacy ≠ binary value</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-3-guard-against-reidentification">Rule 3: Guard against reidentification</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-4-ethical-data-sharing">Rule 4: Ethical data sharing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-8-design-for-auditability">Rule 8: Design for auditability</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-statements">Data statements</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-this-involve">What does this involve?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trade-offs-privacy-and-fairness-in-conflict">Trade-offs: privacy and fairness in conflict</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-privacy-can-have-disparate-impact">Differential privacy can have disparate impact</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-disparate-impact">Why disparate impact?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithmic-fairness-can-create-privacy-risks">Algorithmic fairness can create privacy risks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#navigating-trade-offs">Navigating trade-offs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sean Trott
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
